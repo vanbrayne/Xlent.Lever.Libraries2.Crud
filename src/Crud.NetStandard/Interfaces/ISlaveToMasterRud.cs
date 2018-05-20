@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Crud.Model;
+using Xlent.Lever.Libraries2.Crud.Model;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Interfaces
+namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
     /// <inheritdoc cref="ISlaveToMasterRead{TModel,TId}" />
     public interface ISlaveToMasterRud<TModel, TId> :

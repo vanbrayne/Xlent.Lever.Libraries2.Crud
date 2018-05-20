@@ -2,24 +2,24 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Security;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Core.Security;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Encrypt
+namespace Xlent.Lever.Libraries2.Crud.Encrypt
 {
     /// <inheritdoc />
     public class ReadEncrypt <TModel, TId>: IRead<TModel, TId>
     {
         private readonly SymmetricCrypto _symmetricCrypto;
-        private readonly IRead<Storage.Logic.StorableAsByteArray<TModel, TId>, TId> _storage;
+        private readonly IRead<Core.Storage.Logic.StorableAsByteArray<TModel, TId>, TId> _storage;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="storage"></param>
         /// <param name="symmetricEncryptionKey"></param>
-        public ReadEncrypt(IRead<Storage.Logic.StorableAsByteArray<TModel, TId>, TId> storage, byte[] symmetricEncryptionKey)
+        public ReadEncrypt(IRead<Core.Storage.Logic.StorableAsByteArray<TModel, TId>, TId> storage, byte[] symmetricEncryptionKey)
         {
             _storage = storage;
             _symmetricCrypto = new SymmetricCrypto(symmetricEncryptionKey);
@@ -51,9 +51,9 @@ namespace Xlent.Lever.Libraries2.Crud.Crud.Encrypt
         /// <summary>
         /// Encrypt an <paramref name="item"/> into a StorableAsByteArray.
         /// </summary>
-        protected Storage.Logic.StorableAsByteArray<TModel, TId> Encrypt(TModel item)
+        protected Core.Storage.Logic.StorableAsByteArray<TModel, TId> Encrypt(TModel item)
         {
-            var storedItem = new Storage.Logic.StorableAsByteArray<TModel, TId>
+            var storedItem = new Core.Storage.Logic.StorableAsByteArray<TModel, TId>
             {
                 Data = item
             };

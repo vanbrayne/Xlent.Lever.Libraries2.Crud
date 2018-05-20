@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Crud.Test.NuGet.Model;
 
 namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.Crd

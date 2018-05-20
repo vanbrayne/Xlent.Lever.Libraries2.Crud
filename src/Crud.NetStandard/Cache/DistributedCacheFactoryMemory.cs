@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Distributed;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Error.Logic;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Core.Error.Logic;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Cache
+namespace Xlent.Lever.Libraries2.Crud.Cache
 {
     /// <summary>
     /// A factory for creating new caches.

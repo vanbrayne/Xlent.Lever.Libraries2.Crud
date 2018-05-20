@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Assert;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Crud.PassThrough;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
+using Xlent.Lever.Libraries2.Core.Assert;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Crud.PassThrough;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Mappers
+namespace Xlent.Lever.Libraries2.Crud.Mappers
 {
     /// <inheritdoc cref="ManyToOneCrudMapper{TClientModelCreate, TClientModel, TClientId, TServerModel, TServerId}" />
     public class ManyToOneCrudMapper<TClientModel, TClientId, TServerModel, TServerId> :

@@ -41,6 +41,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
+    <Reference Include="Xlent.Lever.Libraries2.Core.NetFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xlent.Lever.Libraries2.Core.NetFramework.1.32.1\lib\net46\Xlent.Lever.Libraries2.Core.NetFramework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Crud\Cache\AutoCacheBase.cs" />
@@ -130,6 +133,7 @@
     <Compile Include="Crud\MemoryStorage\ManyToManyMemory.cs" />
     <Compile Include="Crud\MemoryStorage\ManyToOneMemory.cs" />
     <Compile Include="Crud\MemoryStorage\SlaveToMasterMemory.cs" />
+    <Compile Include="Crud\Model\SlaveToMasterId.cs" />
     <Compile Include="Crud\PassThrough\CrdPassThrough.cs" />
     <Compile Include="Crud\PassThrough\ManyToOneCompletePassThrough.cs" />
     <Compile Include="Crud\PassThrough\CrudPassThrough.cs" />

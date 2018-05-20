@@ -63,6 +63,9 @@
       <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Xlent.Lever.Libraries2.Core.NetFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xlent.Lever.Libraries2.Core.NetFramework.1.32.1\lib\net46\Xlent.Lever.Libraries2.Core.NetFramework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Crud\ServerTranslators\ServerTranslatorBase.cs" />

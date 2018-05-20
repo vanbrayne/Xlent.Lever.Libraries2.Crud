@@ -1,4 +1,4 @@
-﻿namespace Xlent.Lever.Libraries2.Crud.Crud.Interfaces
+﻿namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
     /// <summary>
     /// Interface for CRUD operations."/>.

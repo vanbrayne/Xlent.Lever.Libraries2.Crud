@@ -1,6 +1,6 @@
-﻿using Xlent.Lever.Libraries2.Crud.Storage.Model;
+﻿using Xlent.Lever.Libraries2.Core.Storage.Model;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Interfaces
+namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
     /// <summary>
     /// Interface for CR-D operation on any class that implements <see cref="IUniquelyIdentifiable{TId}"/>.

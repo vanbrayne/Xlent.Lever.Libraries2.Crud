@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Assert;
-using Xlent.Lever.Libraries2.Crud.Crud.Helpers;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Crud.Model;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
+using Xlent.Lever.Libraries2.Core.Assert;
+using Xlent.Lever.Libraries2.Crud.Helpers;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Crud.Model;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.MemoryStorage
+namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
 {
     /// <summary>
     /// Functionality for persisting objects in groups.

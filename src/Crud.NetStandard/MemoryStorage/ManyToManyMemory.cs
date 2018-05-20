@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Assert;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Error.Logic;
-using Xlent.Lever.Libraries2.Crud.Storage.Logic;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
-using StorageHelper = Xlent.Lever.Libraries2.Crud.Crud.Helpers.StorageHelper;
+using Xlent.Lever.Libraries2.Core.Assert;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Core.Error.Logic;
+using Xlent.Lever.Libraries2.Core.Storage.Logic;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
+using StorageHelper = Xlent.Lever.Libraries2.Crud.Helpers.StorageHelper;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.MemoryStorage
+namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
 {
     /// <summary>
     /// General class for storing a many to one item in memory.

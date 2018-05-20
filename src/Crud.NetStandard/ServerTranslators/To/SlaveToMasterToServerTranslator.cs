@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Crud.Model;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
-using Xlent.Lever.Libraries2.Crud.Translation;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Crud.Model;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
+using Xlent.Lever.Libraries2.Core.Translation;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.ServerTranslators.To
+namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
 {
     /// <summary>
     /// Translate concept values to the server

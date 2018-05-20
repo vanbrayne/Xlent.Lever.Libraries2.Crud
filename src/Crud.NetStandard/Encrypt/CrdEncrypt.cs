@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Security;
-using Xlent.Lever.Libraries2.Crud.Storage.Logic;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Core.Security;
+using Xlent.Lever.Libraries2.Core.Storage.Logic;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Encrypt
+namespace Xlent.Lever.Libraries2.Crud.Encrypt
 {
     /// <inheritdoc cref="ReadEncrypt{TModel,TId}" />
     public class CrdEncrypt <TModel, TId>: ReadEncrypt<TModel, TId>, ICrd<TModel, TId>

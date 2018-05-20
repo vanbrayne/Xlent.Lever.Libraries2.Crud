@@ -1,7 +1,7 @@
-﻿using Xlent.Lever.Libraries2.Crud.Translation;
+﻿using Xlent.Lever.Libraries2.Core.Translation;
 #pragma warning disable 659
 
-namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Crud.ServerTranslators.Support
+namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.ServerTranslators.Support
 {
     /// <summary>
     /// A model for testing decoration and translation

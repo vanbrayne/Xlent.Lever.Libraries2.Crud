@@ -2,12 +2,12 @@
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Crud.ServerTranslators.From;
-using Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Crud.ServerTranslators.Support;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Crud.ServerTranslators.From;
+using Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.ServerTranslators.Support;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
 
-namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Crud.ServerTranslators.From
+namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.ServerTranslators.From
 {
     [TestClass]
     public class CrdFromServerTranslatorTest : ServerTranslatorBase

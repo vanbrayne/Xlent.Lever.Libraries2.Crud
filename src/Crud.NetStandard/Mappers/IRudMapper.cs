@@ -1,4 +1,4 @@
-﻿namespace Xlent.Lever.Libraries2.Crud.Crud.Mappers
+﻿namespace Xlent.Lever.Libraries2.Crud.Mappers
 {
     /// <summary>
     /// Methods for mapping data between the client and server models.

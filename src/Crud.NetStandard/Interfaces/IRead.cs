@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Error.Logic;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
+using Xlent.Lever.Libraries2.Core.Error.Logic;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Interfaces
+namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
     /// <summary>
     /// Read items"/>.

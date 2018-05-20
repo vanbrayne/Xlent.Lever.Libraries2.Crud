@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Cache
+namespace Xlent.Lever.Libraries2.Crud.Cache
 {
 
     /// <summary>

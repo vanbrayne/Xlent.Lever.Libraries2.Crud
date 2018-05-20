@@ -1,9 +1,9 @@
 ﻿using System;
-using Xlent.Lever.Libraries2.Crud.Assert;
-using Xlent.Lever.Libraries2.Crud.Crud.Model;
-using Xlent.Lever.Libraries2.Crud.Error.Logic;
+using Xlent.Lever.Libraries2.Core.Assert;
+using Xlent.Lever.Libraries2.Crud.Model;
+using Xlent.Lever.Libraries2.Core.Error.Logic;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Mappers
+namespace Xlent.Lever.Libraries2.Crud.Mappers
 {
     /// <summary>
     /// Help methods for mapping

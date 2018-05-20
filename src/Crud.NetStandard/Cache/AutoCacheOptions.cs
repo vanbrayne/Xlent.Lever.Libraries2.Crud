@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Cache
+namespace Xlent.Lever.Libraries2.Crud.Cache
 {
     /// <summary>
     ///  Options that are rules for the <see cref="CrudAutoCache{TModelCreate,TModel,TId}"/>.

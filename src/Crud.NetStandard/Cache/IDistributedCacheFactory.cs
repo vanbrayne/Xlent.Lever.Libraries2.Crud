@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Distributed;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Cache
+namespace Xlent.Lever.Libraries2.Crud.Cache
 {
     /// <summary>
     /// An interface for producing caches with interface <see cref="IDistributedCache"/>

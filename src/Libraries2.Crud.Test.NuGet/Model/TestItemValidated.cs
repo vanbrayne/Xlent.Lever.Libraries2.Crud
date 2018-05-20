@@ -1,4 +1,4 @@
-﻿using Xlent.Lever.Libraries2.Crud.Assert;
+﻿using Xlent.Lever.Libraries2.Core.Assert;
 
 namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.Model
 {

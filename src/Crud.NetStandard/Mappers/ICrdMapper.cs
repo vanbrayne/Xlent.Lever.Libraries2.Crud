@@ -1,4 +1,4 @@
-﻿namespace Xlent.Lever.Libraries2.Crud.Crud.Mappers
+﻿namespace Xlent.Lever.Libraries2.Crud.Mappers
 {
 
     /// <inheritdoc />

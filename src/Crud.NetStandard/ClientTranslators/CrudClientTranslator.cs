@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Translation;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Core.Translation;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.ClientTranslators
+namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
 {
     /// <inheritdoc cref="ICrud{TModel,TId}" />
     public class CrudClientTranslator<TModel> : CrudClientTranslator<TModel, TModel>, ICrud<TModel, string>

@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
-using Xlent.Lever.Libraries2.Crud.Translation;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
+using Xlent.Lever.Libraries2.Core.Translation;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.ClientTranslators
+namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
 {
     /// <inheritdoc cref="IRead{TModel,TId}" />
     public class ReadClientTranslator<TModel> : ClientTranslatorBase, IRead<TModel, string>

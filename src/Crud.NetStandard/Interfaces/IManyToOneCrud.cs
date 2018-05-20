@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Interfaces
+namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
     /// <inheritdoc cref="IManyToOneCrud{TManyModelCreate, TManyModel,TId}" />
     public interface IManyToOneCrud<TManyModel, TId> : 

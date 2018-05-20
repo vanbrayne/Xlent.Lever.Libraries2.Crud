@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Xlent.Lever.Libraries2.Crud.Assert;
+using Xlent.Lever.Libraries2.Core.Assert;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Model
+namespace Xlent.Lever.Libraries2.Crud.Model
 {
     /// <summary>
     /// An Id for slaves that belongs to a master

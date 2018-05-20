@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Assert;
+using Xlent.Lever.Libraries2.Core.Assert;
 using Microsoft.Extensions.Caching.Distributed;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Cache
+namespace Xlent.Lever.Libraries2.Crud.Cache
 {
     /// <summary>
     /// Use this to put an "intelligent" cache between you and your ICrud storage.

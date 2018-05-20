@@ -1,6 +1,6 @@
-﻿using Xlent.Lever.Libraries2.Crud.Crud.Model;
+﻿using Xlent.Lever.Libraries2.Crud.Model;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Interfaces
+namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
 
     /// <inheritdoc cref="ISlaveToMasterCrud{TModelCreate,TModel,TId}" />

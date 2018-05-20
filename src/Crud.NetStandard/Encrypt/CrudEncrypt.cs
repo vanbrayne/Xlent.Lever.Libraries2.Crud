@@ -1,20 +1,20 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Encrypt
+namespace Xlent.Lever.Libraries2.Crud.Encrypt
 {
     /// <inheritdoc cref="CrdEncrypt{TModel,TId}" />
     public class CrudEncrypt <TModel, TId>: CrdEncrypt<TModel, TId>, ICrud<TModel, TId>
     {
-        private readonly ICrud<Storage.Logic.StorableAsByteArray<TModel, TId>, TId> _storage;
+        private readonly ICrud<Core.Storage.Logic.StorableAsByteArray<TModel, TId>, TId> _storage;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="storage"></param>
         /// <param name="symmetricEncryptionKey"></param>
-        public CrudEncrypt(ICrud<Storage.Logic.StorableAsByteArray<TModel, TId>, TId> storage, byte[] symmetricEncryptionKey)
+        public CrudEncrypt(ICrud<Core.Storage.Logic.StorableAsByteArray<TModel, TId>, TId> storage, byte[] symmetricEncryptionKey)
         :base(storage, symmetricEncryptionKey)
         {
             _storage = storage;

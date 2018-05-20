@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Assert;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Core.Assert;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Mappers
+namespace Xlent.Lever.Libraries2.Crud.Mappers
 {
     /// <inheritdoc cref="ReadMapper{TClientModel,TClientId,TServerModel,TServerId}" />
     public class RudMapper<TClientModel, TClientId, TServerModel, TServerId> : ReadMapper<TClientModel, TClientId, TServerModel, TServerId>, IRud<TClientModel, TClientId>

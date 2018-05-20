@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Cache
+namespace Xlent.Lever.Libraries2.Crud.Cache
 {
     /// <summary>
     /// Information that a <see cref="AutoCacheBase{TModel,TId}.UseCacheStrategyMethodAsync"/> can base its decision on.

@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.PassThrough
+namespace Xlent.Lever.Libraries2.Crud.PassThrough
 {
     /// <inheritdoc cref="CrudPassThrough{TModelCreate,TModel,TId}" />
     public class CrudPassThrough<TModel, TId> : CrudPassThrough<TModel, TModel, TId>, ICrud<TModel, TId>

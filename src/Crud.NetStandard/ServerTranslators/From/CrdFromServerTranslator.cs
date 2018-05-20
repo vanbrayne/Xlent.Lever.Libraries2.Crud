@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.ServerTranslators.From
+namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.From
 {
     /// <inheritdoc cref="ReadFromServerTranslator{TModel}" />
     public class CrdFromServerTranslator<TModel> : CrdFromServerTranslator<TModel, TModel>, ICrd<TModel, string>
