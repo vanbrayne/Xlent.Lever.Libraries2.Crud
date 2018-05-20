@@ -1,0 +1,143 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Xlent.Lever.Libraries2.Crud.NetFramework</id>
+    <version>1.32.2-rc</version>
+    <authors>XLENT Fulcrum</authors>
+    <projectUrl>https://github.com/xlent-fulcrum/Xlent.Lever.Libraries2.Crud</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <language>en-US</language>
+    <description>Fulcrum core library based on .NET Framework.</description>
+    <summary>Fulcrum core library based on .NET Framework.</summary>
+    <copyright>Copyright ©2017 Xlent Business Integration AB</copyright>
+    <releaseNotes>
+      1.32.2-r Added interface to ISlaveToMaster.
+      1.32.1 Changed ITranslatorService.
+      1.31.1 Added SlaveToMasterAutoCache.
+      1.31.0 Renamed CRUD classes.
+      1.30.0 ServiceInformationWithTenant
+      1.29.1 Added missing CRUD classes.
+      1.29.0 Crud Read now returns null instead of throwing FulcrumNotFoundException.
+      1.28.2 Added Crud Mapper classes.
+      1.27.1 FireAndForget now supports async methods explicitly. Added ThreadHelper.CallAsyncFromSync() to standardize how we move from sync to async.
+      1.26.10 Made Tenant implement ITenant temporarily to let us use old versions of the SDK:s.
+      1.26.6 Refactored Crud.
+      1.25.4 Added Crud PassThrough classes.
+      1.25.3 Added some basic encryption support. Now has separate CRUD-interfaces for ICreateWithSpecifiedId.
+      1.24.21 Added TModelCreate to ICreate.
+      1.23.0 ISlaveToMaster now has two types, not three
+      1.22.2 Chained crud implementations
+      1.21.3 Renamed CRUD-implementations.
+      1.21.2 Added biased versions of the many-to-many interfaces.
+      1.21.0 Added CancellationToken to all ICrud-related interfaces.
+      1.20.11 Updated ManyToMany interface.
+      1.20.10 Simplified some ManyToOne interfaces
+      1.20.9 Removed the ReadParentAsync() method from ManyToOne interfaces.
+      1.20.8 Adjusted storage interfaces.
+      1.20.7 Added overloaded constructor for PageEnvelope.
+      1.20.6 Removed interfaces with names containing "Recursive".
+      1.20.5 Adjusted storage interfaces.
+      1.20.0 Added AutoCache.
+      1.19.10 Fix for many-to-one reference being declared as nullable.
+      1.19.6 Introduced recursive interfaces and memory implementations.
+      1.19.5 More interfaces for storage.
+      1.19.4 Bug: Misspelled interface name.
+      1.19.3 Renamed new interface methods.
+      1.19.1 Added MemoryPersistance implementations of the new interfaces.
+      1.19.0 Added IManyToOne and IManyToMany.
+      1.18.5 Fix: Added missing dependency for Newtonsoft.Json.
+      1.18.4 Bug: Attribute ThreadStatic was used in async methods. Replaced it with AsyncLocal.
+      1.18.3 Bug: The memory queue could run actions in parallel that interfered with each other.
+      1.18.2 Bug: False recursive logging message
+      1.18.1 Fixes in ServiceMetas and Health
+      1.17.1 Fix in Health (initialize Resources list)
+      1.17.0 Added model for ReleaseNotes
+      1.16.1 Added new classes for ServiceHealth
+      1.16.0 Refactored IGrouped.
+      1.15.12 Added support for ITimeStamped in MemoryStorage.
+      1.15.11 Refactored Storage.
+      1.14.0 Changed the generic parameters for PageEnvelope.
+      1.13.1 Added convenience constructor for PageEnvelope.
+      1.13.0 Added logic for dealing with PageEnvelope as an IEnumerator.
+      1.12.3 All asserts now accepts null for errorLocation.
+      1.12.2 FulcrumValidate now accepts null for errorLocation.
+      1.12.0 Now logs when FulcrumAssert and InternalContract throws exceptions.
+      1.10.1 Updates to Storage models and logic.
+      1.9.5 Added BusinessEventMetaData.MessageId
+      1.9.4 Added BusinessEventMetaData class
+      1.9.2 Changed from .NET Framework 4.6.2 to 4.6 (to enable use in Azure Function Apps)
+      1.8.3 BUG: Deadlock in logging.
+      1.8.1 MemoryQueue now supports postponed items.
+      1.8.0 MemoryQueue now has support for background reading of items. Used by the Log queue.
+      1.7.1 Naming issues.
+      1.7.0 Added classes required by AsyncCaller2.
+      1.6.1 Removed IValidatable for some interfaces.
+      1.6.0 Logging is now done via a queue and one background worker thread.
+      1.5.2 Fix: Try async for logging background thread
+      1.5.1 Added FulcrumResourceContractException
+      1.4.38 Added option for Exception extension ToLogString() to do logging of stack trace or not.
+      1.4.34 Experimentation with _loggingInProgress and _threadCallDepth
+      1.4.31 Better error message in Log
+      1.4.30 Expose ContextPreservation as public
+      1.4.29 Prevent stack overflow by commenting out logging from Generic*
+      1.4.27 Cleaned up the logging.
+      1.4.24 Now only prints stack traces under certain conditions.
+      1.4.22 Stops recursive logs again. Was removed in 1.4.18.
+      1.4.21 Cosmetic change. Added newline before new stacktraces.
+      1.4.20 BUG: Null pointer exception.
+      1.4.19 Introduced ILoggable.
+      1.4.18 Added a limit for MaxDepthForBackgroundThreads. Now accepts recursive logs.
+      1.4.1 Added StackTrace for logging problems, even when we have no exception.
+      1.4.16 Added newline after TraceSourceMessages.
+      1.4.15 Better messages for exceptions.
+      1.4.14 Tries to stop logging in logging in logging in ...
+      1.4.12 Don't require data to be not-null on context value providers
+      1.4.11 IFulcrumFullLogger is async
+      1.4.10 Introduced failsafe Threading.
+      1.4.9 Fills in Tenant, CorrelationId, etc when
+      1.4.8 Now supports IFulcrumFullLogger.
+      1.4.4 Cosmetic changes for logging.
+      1.4.3 Better logging messages.
+      1.4.1 Updated the SourceTrace name to "FulcrumTraceSource".
+      1.4.0 Splitted ProductionOrProductionLike into Production and ProductionSimulation. Now makes sure to also trace to TraceSource when in Development.
+      1.3.0 Better AppSettings.
+      1.2.0 Refactored Logging.
+      1.1.0 Introduced app settings support.
+      1.0.1 Better initialization for unit tests.
+      1.0.0 Introduced FulcrumApplication for application setup.
+      0.12.3 Added NameSetup.UnitTestSetup
+      0.12.2 Collected application setups into NameSetup.
+      0.12.0 Added background thread helper.
+      0.11.0 Refactored logging.
+      0.10.10 Added CallbackRespsonse in Platform.BusinessEvents
+      0.10.9 Bugfix: Null check in FulcrumException.StackTrace
+      0.10.8 Added Tenant to LogMessage
+      0.10.5 Convenience for choosing the right IValueProvider
+      0.10.1 Re-added auth role OrganizationAdmin
+      0.10.0 Deprecated static instances of value providers
+      0.9.0 FulcrumExceptions now skips frames in stack trace. ErrorLocation is now optional. A stack trace will be provided if ErrorLocation is null for Assert and Contract exceptions.
+      0.8.2 Deprecation: The AsyncLocalValueProvider does not work fully, so a HttpContextValueProviderValueProvider is preferred, by using Xlent.Lever.Libraries2.WebApi.ContextValueProvider.SaveValueProvider
+      0.8.1 Bump
+      0.8.0 IFulcrumLogger can log exceptions
+      0.7.2 LogMessage : IValidatable
+      0.7.0 Added LogMessage class
+      0.6.0 Added "CallingClientName" to ITenantConfigurationValueProvider
+      0.5.2 Bump
+      0.5.1 BUG: *.RequireGreaterThanOrEqal compared &lt;= instead of &gt;=
+      0.5.0 Removed Tenant from IFulcrumLogger
+      0.4.0 Added more storage and queue models and functionality.
+      0.3.1 MemoryStorage now handled Guid, string and int for Id.
+      0.2.3 Added AuthenticationCredentials and AuthenticationToken.
+      0.1.1 First release
+    </releaseNotes>
+    <tags>fulcrum lever</tags>
+    <dependencies>
+      <group targetFramework="net46">
+        <dependency id="Newtonsoft.Json" version="10.0.3" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="lib\" target="lib" />
+  </files>
+</package>

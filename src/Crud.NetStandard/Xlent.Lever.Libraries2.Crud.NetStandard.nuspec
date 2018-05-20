@@ -1,0 +1,26 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Xlent.Lever.Libraries2.Crud.NetStandard</id>
+    <version>1.0.0</version>
+    <authors>XLENT Fulcrum</authors>
+    <projectUrl>https://github.com/xlent-fulcrum/Xlent.Lever.Libraries2.Crud</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <language>en-US</language>
+    <description>Fulcrum library based on .NET NetStandard.</description>
+    <summary>Fulcrum library based on .NET NetStandard.</summary>
+    <copyright>Copyright ©2017 Xlent Business Integration AB</copyright>
+    <releaseNotes>
+      1.0.0 Ready for production
+    </releaseNotes>
+    <tags>fulcrum lever</tags>
+    <dependencies>
+      <group targetFramework="netstandard1.4">
+        <dependency id="NETStandard.Library" version="1.6.1" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="lib\" target="lib" />
+  </files>
+</package>
