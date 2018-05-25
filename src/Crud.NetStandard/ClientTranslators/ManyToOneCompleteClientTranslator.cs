@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Core.Translation;
+using Xlent.Lever.Libraries2.Crud.Helpers;
 
 namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
 {
@@ -26,6 +27,7 @@ namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
     {
         private readonly IManyToOneCrud<TModelCreate, TModel, string> _storage;
         private readonly string _parentIdConceptName;
+        private readonly CrudHelper<TModelCreate, TModel, string> _crudHelper = new CrudHelper<TModelCreate, TModel, string>();
 
         /// <inheritdoc />
         public ManyToOneCrudClientTranslator(IManyToOneCrud<TModelCreate, TModel, string> storage, string parentIdConceptName, string idConceptName, System.Func<string> getClientNameMethod, ITranslatorService translatorService)
@@ -57,12 +59,13 @@ namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
             return translator.Translate(array);
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc cref="IManyToOneCrd{TManyModelCreate,TManyModel,TId}.DeleteChildrenAsync" />
         public async Task DeleteChildrenAsync(string masterId, CancellationToken token = new CancellationToken())
         {
             var translator = CreateTranslator();
             masterId = translator.Decorate(_parentIdConceptName, masterId);
-            await _storage.DeleteChildrenAsync(masterId, token);
+            var implementation = _crudHelper.VerifyImplemented<IManyToOneCrd<TModelCreate, TModel, string>>(_storage);
+            await implementation.DeleteChildrenAsync(masterId, token);
         }
     }
 }

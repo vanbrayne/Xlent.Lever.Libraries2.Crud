@@ -11,7 +11,6 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
     public class ReadPassThrough<TModel, TId> : IRead<TModel, TId>
     {
         private readonly IRead<TModel, TId> _nextLevel;
-        private readonly CrudHelper<TModel, TId> _crudHelper;
 
         /// <summary>
         /// Constructor

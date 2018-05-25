@@ -21,7 +21,7 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Cache
             FulcrumApplicationHelper.UnitTestSetup(typeof(TestMemoryDistributedCache).FullName);
             var storage = new CrudMemory<MemoryDistributedCache, MemoryDistributedCache, string>();
             var factory = new MemoryDistributedCacheFactory(storage);
-            _cache = await factory.CreateOrGetDistributedCacheAsync(typeof(TestMemoryDistributedCache).FullName);
+            _cache = await factory.GetOrCreateDistributedCacheAsync(typeof(TestMemoryDistributedCache).FullName);
         }
 
         [TestMethod]

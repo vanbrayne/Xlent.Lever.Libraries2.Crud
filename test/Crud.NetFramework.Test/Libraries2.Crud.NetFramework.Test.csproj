@@ -72,7 +72,6 @@
     <Compile Include="Crud\Cache\TestAutoCacheBase.cs" />
     <Compile Include="Crud\Cache\TestAutoCacheCrd.cs" />
     <Compile Include="Crud\Cache\TestAutoCacheCrud.cs" />
-    <Compile Include="Crud\Cache\TestAutoCacheManyToOneRecursive.cs" />
     <Compile Include="Crud\Cache\TestAutoCacheRead.cs" />
     <Compile Include="Crud\Cache\TestMemoryDistributedCache.cs" />
     <Compile Include="Crud\ServerTranslators\ServerTranslatorBase.cs" />

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xlent.Lever.Libraries2.Core.Assert;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
+using Xlent.Lever.Libraries2.Crud.Helpers;
 
 namespace Xlent.Lever.Libraries2.Crud.Mappers
 {
@@ -28,7 +29,7 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
     {
         private readonly IManyToOneCrud<TServerModel, TServerId> _storage;
         private readonly ICrudMapper<TClientModelCreate, TClientModel, TServerModel> _mapper;
-
+        private readonly CrudHelper<TServerModel, TServerId> _crudHelper = new CrudHelper<TServerModel, TServerId>();
         /// <summary>
         /// Constructor
         /// </summary>
@@ -63,7 +64,8 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         public virtual Task DeleteChildrenAsync(TClientId parentId, CancellationToken token = default(CancellationToken))
         {
             var serverId = MapperHelper.MapToType<TServerId, TClientId>(parentId);
-            return _storage.DeleteChildrenAsync(serverId, token);
+            var implementation = _crudHelper.VerifyImplemented<IManyToOneRud<TServerModel, TServerId>>(_storage);
+            return implementation.DeleteChildrenAsync(serverId, token);
         }
     }
 }

@@ -10,7 +10,6 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
     /// <summary>
     /// Use this to put an "intelligent" cache between you and your ICrud storage.
     /// </summary>
-    /// <typeparam name="TModelCreate">The type for creating objects in persistant storage.</typeparam>
     /// <typeparam name="TModel">The type of objects that are returned from persistant storage.</typeparam>
     /// <typeparam name="TId"></typeparam>
     public class RudAutoCache<TModel, TId> : 

@@ -22,7 +22,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         }
 
         /// <inheritdoc />
-        public async Task<IDistributedCache> CreateOrGetDistributedCacheAsync(string key)
+        public async Task<IDistributedCache> GetOrCreateDistributedCacheAsync(string key)
         {
             var cache = await _storage.ReadAsync(key);
 
