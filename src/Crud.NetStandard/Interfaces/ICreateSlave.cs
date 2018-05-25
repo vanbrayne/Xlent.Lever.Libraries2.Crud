@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Model;
+using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 
 namespace Xlent.Lever.Libraries2.Crud.Interfaces
@@ -9,7 +9,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     /// Functionality for persisting objects that has no life of their own, but are only relevant with their master.
     /// Examples: A list of rows on an invoice, a list of attributes of an object, the contact details of a person.
     /// </summary>
-    public interface ICreateSlave<TModel, TId> : ICreateSlave<TModel, TModel, TId>
+    public interface ICreateSlave<TModel, TId> : ICreateSlave<TModel, TModel, TId>, ICrudable<TModel, TId>
     {
     }
 
@@ -17,7 +17,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     /// Functionality for persisting objects that has no life of their own, but are only relevant with their master.
     /// Examples: A list of rows on an invoice, a list of attributes of an object, the contact details of a person.
     /// </summary>
-    public interface ICreateSlave<in TModelCreate, TModel, TId>
+    public interface ICreateSlave<in TModelCreate, TModel, TId> : ICrudable<TModelCreate, TModel, TId>
         where TModel : TModelCreate
     {
         /// <summary>

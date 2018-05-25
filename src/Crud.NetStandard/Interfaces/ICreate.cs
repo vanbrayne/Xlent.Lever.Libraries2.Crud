@@ -9,7 +9,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     /// </summary>
     /// <typeparam name="TModel">The type for creating objects in persistant storage.</typeparam>
     /// <typeparam name="TId">The type for the id of the stored objects.</typeparam>
-    public interface ICreate<TModel, TId> : ICreate<TModel, TModel, TId>
+    public interface ICreate<TModel, TId> : ICreate<TModel, TModel, TId>, ICrudable<TModel, TId>
     {
     }
 
@@ -19,7 +19,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     /// <typeparam name="TModelCreate">The type for creating objects in persistant storage.</typeparam>
     /// <typeparam name="TModelReturned">The type of objects that are returned from persistant storage.</typeparam>
     /// <typeparam name="TId">The type for the <see cref="IUniquelyIdentifiable{TId}.Id"/> property.</typeparam>
-    public interface ICreate<in TModelCreate, TModelReturned, TId>
+    public interface ICreate<in TModelCreate, TModelReturned, TId> : ICrudable<TModelCreate, TModelReturned, TId>
     where TModelReturned : TModelCreate
     {
         /// <summary>

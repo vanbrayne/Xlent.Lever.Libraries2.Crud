@@ -11,7 +11,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     /// </summary>
     /// <typeparam name="TModel">The type of objects to read from persistant storage.</typeparam>
     /// <typeparam name="TId">The type for the id of the object.</typeparam>
-    public interface IRead<TModel, in TId>
+    public interface IRead<TModel, in TId> : ICrudable<TModel, TId>
     {
         /// <summary>
         /// Returns the item uniquely identified by <paramref name="id"/> from storage.

@@ -1,8 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Model;
-
-namespace Xlent.Lever.Libraries2.Crud.Interfaces
+﻿namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
     /// <summary>
     /// Functionality for persisting objects that has no life of their own, but are only relevant with their master.

@@ -42,7 +42,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
     <Reference Include="Xlent.Lever.Libraries2.Core.NetFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xlent.Lever.Libraries2.Core.NetFramework.1.32.1\lib\net46\Xlent.Lever.Libraries2.Core.NetFramework.dll</HintPath>
+      <HintPath>..\..\packages\Xlent.Lever.Libraries2.Core.NetFramework.1.33.0-rc\lib\net46\Xlent.Lever.Libraries2.Core.NetFramework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -51,11 +51,12 @@
     <Compile Include="Crud\Cache\CachedItemInformation.cs" />
     <Compile Include="Crud\Cache\CacheEnvelope.cs" />
     <Compile Include="Crud\Cache\CrdAutoCache.cs" />
+    <Compile Include="Crud\Cache\MemoryDistributedCache.cs" />
+    <Compile Include="Crud\Cache\MemoryDistributedCacheFactory.cs" />
     <Compile Include="Crud\Cache\RudAutoCache.cs" />
     <Compile Include="Crud\Cache\CrudAutoCache.cs" />
     <Compile Include="Crud\Cache\DistributedCacheFactoryMemory.cs" />
     <Compile Include="Crud\Cache\DistributedCacheMemory.cs" />
-    <Compile Include="Crud\Cache\IDistributedCacheFactory.cs" />
     <Compile Include="Crud\Cache\IFlushableCache.cs" />
     <Compile Include="Crud\Cache\SlaveToMasterAutoCache.cs" />
     <Compile Include="Crud\Cache\ManyToOneAutoCache.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Crud\Encrypt\ReadEncrypt.cs" />
     <Compile Include="Crud\Helpers\CrdBase.cs" />
     <Compile Include="Crud\Helpers\CrudBase.cs" />
+    <Compile Include="Crud\Helpers\CrudHelper.cs" />
     <Compile Include="Crud\Helpers\ManyToOneCrudBase.cs" />
     <Compile Include="Crud\Helpers\ManyToOneCrdBase.cs" />
     <Compile Include="Crud\Helpers\ManyToOneRudBase.cs" />
@@ -87,6 +89,7 @@
     <Compile Include="Crud\Helpers\SlaveToMasterBase.cs" />
     <Compile Include="Crud\Helpers\SlaveToMasterCrudBase.cs" />
     <Compile Include="Crud\Helpers\StorageHelper.cs" />
+    <Compile Include="Crud\Interfaces\ICrudable.cs" />
     <Compile Include="Crud\Interfaces\ICrd.cs" />
     <Compile Include="Crud\Interfaces\ICreate.cs" />
     <Compile Include="Crud\Interfaces\ICreateSlave.cs" />
@@ -133,7 +136,6 @@
     <Compile Include="Crud\MemoryStorage\ManyToManyMemory.cs" />
     <Compile Include="Crud\MemoryStorage\ManyToOneMemory.cs" />
     <Compile Include="Crud\MemoryStorage\SlaveToMasterMemory.cs" />
-    <Compile Include="Crud\Model\SlaveToMasterId.cs" />
     <Compile Include="Crud\PassThrough\CrdPassThrough.cs" />
     <Compile Include="Crud\PassThrough\ManyToOneCompletePassThrough.cs" />
     <Compile Include="Crud\PassThrough\CrudPassThrough.cs" />

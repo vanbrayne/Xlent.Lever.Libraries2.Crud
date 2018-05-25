@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Distributed;
+using Xlent.Lever.Libraries2.Core.Cache;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Core.Error.Logic;
 
 namespace Xlent.Lever.Libraries2.Crud.Cache
 {

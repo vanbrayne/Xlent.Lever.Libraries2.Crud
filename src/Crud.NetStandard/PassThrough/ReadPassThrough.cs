@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
+using Xlent.Lever.Libraries2.Crud.Helpers;
 
 namespace Xlent.Lever.Libraries2.Crud.PassThrough
 {
@@ -10,6 +11,7 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
     public class ReadPassThrough<TModel, TId> : IRead<TModel, TId>
     {
         private readonly IRead<TModel, TId> _nextLevel;
+        private readonly CrudHelper<TModel, TId> _crudHelper;
 
         /// <summary>
         /// Constructor

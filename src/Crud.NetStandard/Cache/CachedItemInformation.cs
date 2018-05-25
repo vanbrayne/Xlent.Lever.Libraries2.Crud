@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Xlent.Lever.Libraries2.Crud.Cache
+namespace Xlent.Lever.Libraries2.Core.Cache
 {
     /// <summary>
-    /// Information that a <see cref="AutoCacheBase{TModel,TId}.UseCacheStrategyMethodAsync"/> can base its decision on.
+    /// Information about a cached item.
     /// </summary>
     /// <typeparam name="TId">THe type for the unique identifier for the item.</typeparam>
     public class CachedItemInformation<TId>
