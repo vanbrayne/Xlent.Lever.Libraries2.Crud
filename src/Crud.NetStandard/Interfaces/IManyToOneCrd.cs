@@ -13,12 +13,9 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     /// <inheritdoc cref="IManyToOneRead{TManyModel,TId}" />
     public interface IManyToOneCrd<in TManyModelCreate, TManyModel, TId> :
         IManyToOneRead<TManyModel, TId>,
-        ICrd<TManyModelCreate, TManyModel, TId>
+        ICrd<TManyModelCreate, TManyModel, TId>,
+        IDeleteChildren<TId>
         where TManyModel : TManyModelCreate
     {
-        /// <summary>
-        /// Delete all the children of the parent with id <paramref name="parentId"/>.
-        /// </summary>
-        Task DeleteChildrenAsync(TId parentId, CancellationToken token = default(CancellationToken));
     }
 }

@@ -13,7 +13,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     /// <inheritdoc cref="ISlaveToMasterCrd{TModelCreate,TModel,TId}" />
     public interface ISlaveToMasterCrud<in TModelCreate, TModel, TId> :
         ISlaveToMasterCrd<TModelCreate, TModel, TId>,
-        IRud<TModel, SlaveToMasterId<TId>>
+        ISlaveToMasterRud<TModel, TId>
         where TModel : TModelCreate
     {
     }

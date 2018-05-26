@@ -9,12 +9,12 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.From
     /// <summary>
     /// Decorate values from the server into concept values.
     /// </summary>
-    public class ManyToOneFromServerTranslator<TModel> : ServerTranslatorBase, IManyToOne<TModel, string>
+    public class ManyToOneFromServerTranslator<TModel> : ServerTranslatorBase, IReadChildren<TModel, string>
     {
-        private readonly IManyToOne<TModel, string> _storage;
+        private readonly IReadChildren<TModel, string> _storage;
 
         /// <inheritdoc />
-        public ManyToOneFromServerTranslator(IManyToOne<TModel, string> storage, string idConceptName, System.Func<string> getServerNameMethod)
+        public ManyToOneFromServerTranslator(IReadChildren<TModel, string> storage, string idConceptName, System.Func<string> getServerNameMethod)
         :base(idConceptName, getServerNameMethod)
         {
             _storage = storage;

@@ -14,9 +14,9 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
     /// </summary>
     /// <typeparam name="TManyModel">The model for the children that each points out a parent.</typeparam>
     /// <typeparam name="TId">The type for the id field of the models.</typeparam>
-    public class ManyToOneAutoCache<TManyModel, TId> : AutoCacheBase<TManyModel, TId>, IManyToOne<TManyModel, TId>
+    public class ManyToOneAutoCache<TManyModel, TId> : AutoCacheBase<TManyModel, TId>, IReadChildren<TManyModel, TId>
     {
-        private readonly IManyToOne<TManyModel, TId> _storage;
+        private readonly IReadChildren<TManyModel, TId> _storage;
         /// <summary>
         /// Constructor for TOneModel that implements <see cref="IUniquelyIdentifiable{TId}"/>.
         /// </summary>
@@ -24,7 +24,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <param name="cache"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public ManyToOneAutoCache(IManyToOne<TManyModel, TId> storage, IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
+        public ManyToOneAutoCache(IReadChildren<TManyModel, TId> storage, IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
         : this(storage, item => ((IUniquelyIdentifiable<TId>)item).Id, cache, flushCacheDelegateAsync, options)
         {
         }
@@ -38,7 +38,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <param name="getIdDelegate"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public ManyToOneAutoCache(IManyToOne<TManyModel, TId> storage, GetIdDelegate<TManyModel, TId> getIdDelegate, IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
+        public ManyToOneAutoCache(IReadChildren<TManyModel, TId> storage, GetIdDelegate<TManyModel, TId> getIdDelegate, IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
             : base(getIdDelegate, cache, flushCacheDelegateAsync, options)
         {
             _storage = storage;

@@ -21,7 +21,7 @@ namespace Xlent.Lever.Libraries2.Crud.Helpers
         /// <typeparam name="T">The type that <paramref name="service"/> must implement.</typeparam>
         /// <returns></returns>
         /// <exception cref="FulcrumNotImplementedException">Thrown if <paramref name="service"/> doesn't implement <typeparamref name="T"/>.</exception>
-        public T VerifyImplemented<T>(ICrudable<TId> service) where T : ICrudable<TId>
+        public T VerifyImplemented<T>(ICrudable service) where T : ICrudable
         {
             if (service is T implemented) return implemented;
             throw new FulcrumNotImplementedException($"The service {service.GetType()} does not implement {typeof(T).Name}");
@@ -38,7 +38,7 @@ namespace Xlent.Lever.Libraries2.Crud.Helpers
         /// <typeparam name="T">The type that <paramref name="service"/> must implement.</typeparam>
         /// <returns></returns>
         /// <exception cref="FulcrumNotImplementedException">Thrown if <paramref name="service"/> doesn't implement <typeparamref name="T"/>.</exception>
-        public T VerifyImplemented<T>(ICrudable<TModel, TId> service) where T : ICrudable<TModel, TId>
+        public T VerifyImplemented<T>(ICrudable service) where T : ICrudable
         {
             if (service is T implemented) return implemented;
             throw new FulcrumNotImplementedException($"The service {service.GetType()} does not implement {typeof(T).Name}");
@@ -46,7 +46,7 @@ namespace Xlent.Lever.Libraries2.Crud.Helpers
     }
 
     /// <inheritdoc />
-    public class CrudHelper<TModelCreate, TModelReturned, TId> : CrudHelper<TModelReturned, TId>
+    public class CrudHelper<TModelCreate, TModel, TId> : CrudHelper<TModel, TId>
     {
         /// <summary>
         /// If <paramref name="service"/> doesn't implement <typeparamref name="T"/>, an exception is thrown.
@@ -55,7 +55,7 @@ namespace Xlent.Lever.Libraries2.Crud.Helpers
         /// <typeparam name="T">The type that <paramref name="service"/> must implement.</typeparam>
         /// <returns></returns>
         /// <exception cref="FulcrumNotImplementedException">Thrown if <paramref name="service"/> doesn't implement <typeparamref name="T"/>.</exception>
-        public T VerifyImplemented<T>(ICrudable<TModelCreate, TModelReturned, TId> service) where T : ICrudable<TModelCreate, TModelReturned, TId>
+        public T VerifyImplemented<T>(ICrudable service) where T : ICrudable
         {
             if (service is T implemented) return implemented;
             throw new FulcrumNotImplementedException($"The service {service.GetType()} does not implement {typeof(T).Name}");

@@ -2,10 +2,10 @@
 
 namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
-    /// <inheritdoc cref="ISlaveToMaster{TModel,TId}" />
-    public interface ISlaveToMasterRead<TModel, TId> :
-        ISlaveToMaster<TModel, TId>, 
-        IRead<TModel, SlaveToMasterId<TId>>
+    /// <inheritdoc cref="IReadChildren{TModel,TId}" />
+    public interface ISlaveToMasterRead<TModel, in TId> :
+        IReadChildren<TModel, TId>, 
+        IReadSlave<TModel, TId>
     {
     }
 }

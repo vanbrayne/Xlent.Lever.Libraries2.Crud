@@ -1,8 +1,8 @@
 ﻿namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
-    /// <inheritdoc cref="IManyToOne{TManyModel,TId}" />
+    /// <inheritdoc cref="IReadChildren{TManyModel,TId}" />
     public interface IManyToOneRead<TManyModel, in TId> :
-        IManyToOne<TManyModel, TId>,
+        IReadChildren<TManyModel, TId>,
         IRead<TManyModel, TId>
     {
     }

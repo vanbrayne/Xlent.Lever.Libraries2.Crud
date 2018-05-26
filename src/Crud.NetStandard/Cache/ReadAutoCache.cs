@@ -46,42 +46,5 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
             InternalContract.RequireNotNull(storage, nameof(storage));
             _storage = storage;
         }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<TModel>> ReadAllAsync(int limit = int.MaxValue, CancellationToken token = default(CancellationToken))
-        {
-            InternalContract.RequireGreaterThan(0, limit, nameof(limit));
-            if (limit == 0) limit = int.MaxValue;
-            var itemsArray = await CacheGetAsync(limit, ReadAllCacheKey, token);
-            if (itemsArray != null) return itemsArray;
-            var itemsCollection = await _storage.ReadAllAsync(limit, token);
-            itemsArray = itemsCollection as TModel[] ?? itemsCollection.ToArray();
-            CacheItemsInBackground(itemsArray, limit, ReadAllCacheKey);
-            return itemsArray;
-        }
-
-        /// <inheritdoc />
-        public async Task<PageEnvelope<TModel>> ReadAllWithPagingAsync(int offset, int? limit = null, CancellationToken token = default(CancellationToken))
-        {
-            if (limit == null) limit = PageInfo.DefaultLimit;
-            var result = await CacheGetAsync(offset, limit.Value, ReadAllCacheKey, token);
-            if (result != null) return result;
-            result = await _storage.ReadAllWithPagingAsync(offset, limit.Value, token);
-            if (result?.Data == null) return null;
-            CacheItemsInBackground(result, limit.Value, ReadAllCacheKey);
-            return result;
-        }
-
-        /// <inheritdoc />
-        public async Task<TModel> ReadAsync(TId id, CancellationToken token = default(CancellationToken))
-        {
-            InternalContract.RequireNotDefaultValue(id, nameof(id));
-            var item = await CacheGetByIdAsync(id, token);
-            if (item != null) return item;
-            item = await _storage.ReadAsync(id, token);
-            if (Equals(item, default(TModel))) return default(TModel);
-            await CacheSetByIdAsync(id, item, token);
-            return item;
-        }
     }
 }

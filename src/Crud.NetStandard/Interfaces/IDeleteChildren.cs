@@ -1,0 +1,18 @@
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Xlent.Lever.Libraries2.Core.Crud.Model;
+
+namespace Xlent.Lever.Libraries2.Crud.Interfaces
+{
+    /// <summary>
+    /// Delete the children of a parent.
+    /// </summary>
+    /// <typeparam name="TId"></typeparam>
+    public interface IDeleteChildren<in TId> : ICrudable<TId>
+    {
+        /// <summary>
+        /// Delete all child items for a specific parent, <paramref name="parentId"/>.
+        /// </summary>
+        Task DeleteChildrenAsync(TId parentId, CancellationToken token = default(CancellationToken));
+    }
+}

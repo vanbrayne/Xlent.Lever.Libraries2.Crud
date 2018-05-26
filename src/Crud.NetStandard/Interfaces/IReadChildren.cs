@@ -8,7 +8,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     /// <summary>
     /// Functionality for persisting objects that references a parent object in another table.
     /// </summary>
-    public interface IManyToOne<TManyModel, in TId>
+    public interface IReadChildren<TManyModel, in TId> : ICrudable<TManyModel, TId>
     {
         /// <summary>
         /// Read all child items for a specific parent, <paramref name="parentId"/>.

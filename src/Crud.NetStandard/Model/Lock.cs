@@ -1,7 +1,7 @@
 ﻿using System;
 using Xlent.Lever.Libraries2.Core.Assert;
 
-namespace Xlent.Lever.Libraries2.Crud.Interfaces
+namespace Xlent.Lever.Libraries2.Crud.Model
 {
     /// <summary>
     /// Information about a claimed lock

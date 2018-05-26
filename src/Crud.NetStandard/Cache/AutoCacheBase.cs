@@ -9,6 +9,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Xlent.Lever.Libraries2.Core.Logging;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Core.Threads;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
 
 namespace Xlent.Lever.Libraries2.Crud.Cache
 {
@@ -23,7 +24,8 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         private readonly FlushCacheDelegateAsync _flushCacheDelegateAsync;
         private readonly ConcurrentDictionary<string, PageEnvelope<TModel>> _activeCachingOfPages = new ConcurrentDictionary<string, PageEnvelope<TModel>>();
         private readonly ConcurrentDictionary<string, bool> _collectionOperations = new ConcurrentDictionary<string, bool>();
-        private const string ReadAllCacheKey = "ReadAllCacheKey";
+        protected const string ReadAllCacheKey = "ReadAllCacheKey";
+        protected readonly ICrudable _storage;
 
 
 

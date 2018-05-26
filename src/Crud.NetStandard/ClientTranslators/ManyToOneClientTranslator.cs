@@ -8,13 +8,13 @@ using Xlent.Lever.Libraries2.Core.Translation;
 
 namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
 {
-    /// <inheritdoc cref="IManyToOne{TManyModel,TId}" />
-    public class ManyToOneClientTranslator<TModel> : ClientTranslatorBase, IManyToOne<TModel, string>
+    /// <inheritdoc cref="IReadChildren{TManyModel,TId}" />
+    public class ManyToOneClientTranslator<TModel> : ClientTranslatorBase, IReadChildren<TModel, string>
     {
-        private readonly IManyToOne<TModel, string> _storage;
+        private readonly IReadChildren<TModel, string> _storage;
 
         /// <inheritdoc />
-        public ManyToOneClientTranslator(IManyToOne<TModel, string> storage, string idConceptName, System.Func<string> getClientNameMethod, ITranslatorService translatorService)
+        public ManyToOneClientTranslator(IReadChildren<TModel, string> storage, string idConceptName, System.Func<string> getClientNameMethod, ITranslatorService translatorService)
         :base(idConceptName, getClientNameMethod, translatorService)
         {
             _storage = storage;

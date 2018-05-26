@@ -9,7 +9,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     /// </summary>
     /// <typeparam name="TModel">The type for creating objects in persistant storage.</typeparam>
     /// <typeparam name="TId">The type for the id of the stored objects.</typeparam>
-    public interface ICreate<TModel, TId> : ICreate<TModel, TModel, TId>, ICrudable<TModel, TId>
+    public interface ICreate<TModel, TId> : ICreate<TModel, TModel, TId>
     {
     }
 
@@ -17,10 +17,10 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     /// Can create items."/>.
     /// </summary>
     /// <typeparam name="TModelCreate">The type for creating objects in persistant storage.</typeparam>
-    /// <typeparam name="TModelReturned">The type of objects that are returned from persistant storage.</typeparam>
+    /// <typeparam name="TModel">The type of objects that are returned from persistant storage.</typeparam>
     /// <typeparam name="TId">The type for the <see cref="IUniquelyIdentifiable{TId}.Id"/> property.</typeparam>
-    public interface ICreate<in TModelCreate, TModelReturned, TId> : ICrudable<TModelCreate, TModelReturned, TId>
-    where TModelReturned : TModelCreate
+    public interface ICreate<in TModelCreate, TModel, TId> : ICrudable<TModelCreate, TModel, TId>
+    where TModel : TModelCreate
     {
         /// <summary>
         /// Creates a new item in storage and returns the new Id.
@@ -42,6 +42,6 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
         /// </remarks>
         /// <seealso cref="IOptimisticConcurrencyControlByETag"/>
         /// <seealso cref="IUniquelyIdentifiable{TId}"/>
-        Task<TModelReturned> CreateAndReturnAsync(TModelCreate item, CancellationToken token = default(CancellationToken));
+        Task<TModel> CreateAndReturnAsync(TModelCreate item, CancellationToken token = default(CancellationToken));
     }
 }

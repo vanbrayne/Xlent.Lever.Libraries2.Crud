@@ -17,7 +17,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     /// <typeparam name="TModelCreate">The type for creating objects in persistant storage.</typeparam>
     /// <typeparam name="TModel">The type of objects that are returned from persistant storage.</typeparam>
     /// <typeparam name="TId">The type for the <see cref="IUniquelyIdentifiable{TId}.Id"/> property.</typeparam>
-    public interface ICrd<in TModelCreate, TModel, TId> : ICreate<TModelCreate, TModel, TId>, ICreateWithSpecifiedId<TModelCreate, TModel, TId>, IRead<TModel, TId>, IDelete<TId>, ILockable<TId>
+    public interface ICrd<in TModelCreate, TModel, TId> : ICreate<TModelCreate, TModel, TId>, ICreateWithSpecifiedId<TModelCreate, TModel, TId>, IRead<TModel, TId>, IReadAll<TModel, TId>, IDelete<TId>, IDeleteAll, ILockable<TId>
         where TModel : TModelCreate
     {
     }

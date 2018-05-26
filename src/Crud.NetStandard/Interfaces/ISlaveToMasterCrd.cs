@@ -17,12 +17,9 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
         ISlaveToMasterRead<TModel, TId>,
         ICreateSlave<TModelCreate, TModel, TId>,
         ICreateSlaveWithSpecifiedId<TModelCreate, TModel, TId>,
-        IDelete<SlaveToMasterId<TId>>
+        IDeleteSlave<TId>,
+        IDeleteChildren<TId>
         where TModel : TModelCreate
     {
-        /// <summary>
-        /// Delete all child items for a specific parent, <paramref name="parentId"/>.
-        /// </summary>
-        Task DeleteChildrenAsync(TId parentId, CancellationToken token = default(CancellationToken));
     }
 }
