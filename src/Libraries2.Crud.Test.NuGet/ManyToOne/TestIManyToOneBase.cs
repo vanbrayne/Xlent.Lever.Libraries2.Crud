@@ -10,15 +10,15 @@ namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.ManyToOne
         /// <summary>
         /// The storage that should be tested
         /// </summary>
-        protected abstract IManyToOneCrud<TestItemManyToOneCreate<TReferenceId>, TestItemManyToOne<TId, TReferenceId>, TId>
-            ManyStorageRecursive { get; }
+        protected abstract ICrudManyToOne<TestItemManyToOneCreate<TReferenceId>, TestItemManyToOne<TId, TReferenceId>, TId>
+            CrudManyStorageRecursive { get; }
 
         /// <summary>
         /// The storage that should be tested
         /// </summary>
         protected abstract
-            IManyToOneCrud<TestItemManyToOneCreate<TReferenceId>, TestItemManyToOne<TId, TReferenceId>, TId>
-            ManyStorageNonRecursive { get; }
+            ICrudManyToOne<TestItemManyToOneCreate<TReferenceId>, TestItemManyToOne<TId, TReferenceId>, TId>
+            CrudManyStorageNonRecursive { get; }
 
         /// <summary>
         /// The storage that should be tested
@@ -29,7 +29,7 @@ namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.ManyToOne
             ICrd<TestItemManyToOneCreate<TReferenceId>, TestItemManyToOne<TId, TReferenceId>, TId> storage, TypeOfTestDataEnum type, TId parentId)
         {
             return await CreateItemAsync(storage, type,
-                StorageHelper.ConvertToParameterType<TReferenceId>(parentId));
+                CrudHelper.ConvertToParameterType<TReferenceId>(parentId));
         }
 
         protected async Task<TestItemManyToOne<TId, TReferenceId>> CreateItemAsync(

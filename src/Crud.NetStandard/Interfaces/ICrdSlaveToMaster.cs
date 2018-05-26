@@ -1,19 +1,15 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Core.Crud.Model;
-
-namespace Xlent.Lever.Libraries2.Crud.Interfaces
+﻿namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
-    /// <inheritdoc cref="ISlaveToMasterCrd{TModel,TId}" />
-    public interface ISlaveToMasterCrd<TModel, TId> :
-        ISlaveToMasterCrd<TModel, TModel, TId>,
+    /// <inheritdoc cref="ICrdSlaveToMaster{TModel,TId}" />
+    public interface ICrdSlaveToMaster<TModel, TId> :
+        ICrdSlaveToMaster<TModel, TModel, TId>,
         ICreateSlave<TModel, TId>,
         ICreateSlaveWithSpecifiedId<TModel, TId>
     {
     }
 
     /// <inheritdoc cref="ISlaveToMasterRead{TModel,TId}" />
-    public interface ISlaveToMasterCrd<in TModelCreate, TModel, TId> :
+    public interface ICrdSlaveToMaster<in TModelCreate, TModel, TId> :
         ISlaveToMasterRead<TModel, TId>,
         ICreateSlave<TModelCreate, TModel, TId>,
         ICreateSlaveWithSpecifiedId<TModelCreate, TModel, TId>,

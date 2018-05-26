@@ -46,7 +46,7 @@ namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.Crd
         [TestMethod]
         public async Task Read_NotFound_Async()
         {
-            var item = await CrdStorage.ReadAsync(StorageHelper.CreateNewId<TId>());
+            var item = await CrdStorage.ReadAsync(CrudHelper.CreateNewId<TId>());
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNull(item);
         }
 
@@ -71,7 +71,7 @@ namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.Crd
         [TestMethod]
         public async Task Delete_NotFound()
         {
-            await CrdStorage.DeleteAsync(StorageHelper.CreateNewId<TId>());
+            await CrdStorage.DeleteAsync(CrudHelper.CreateNewId<TId>());
         }
     }
 }

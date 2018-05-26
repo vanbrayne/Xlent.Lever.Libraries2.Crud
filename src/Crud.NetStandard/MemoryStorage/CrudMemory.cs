@@ -13,7 +13,9 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
     /// </summary>
     /// <typeparam name="TModel">The type of objects that are returned from persistant storage.</typeparam>
     /// <typeparam name="TId"></typeparam>
-    public class CrudMemory<TModel, TId> : CrudMemory<TModel, TModel, TId>, ICrud<TModel, TId>
+    public class CrudMemory<TModel, TId> : 
+        CrudMemory<TModel, TModel, TId>, 
+        ICrud<TModel, TId>
     {
     }
 
@@ -23,7 +25,8 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
     /// <typeparam name="TModelCreate">The type for creating objects in persistant storage.</typeparam>
     /// <typeparam name="TModel">The type of objects that are returned from persistant storage.</typeparam>
     /// <typeparam name="TId"></typeparam>
-    public class CrudMemory<TModelCreate, TModel, TId> : RudMemory<TModel, TId>, ICrud<TModelCreate, TModel, TId>
+    public class CrudMemory<TModelCreate, TModel, TId> :
+        RudMemory<TModel, TId>, ICrud<TModelCreate, TModel, TId>
         where TModel : TModelCreate
     {
         /// <inheritdoc />

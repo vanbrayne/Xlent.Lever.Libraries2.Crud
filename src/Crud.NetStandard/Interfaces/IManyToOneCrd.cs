@@ -1,21 +1,18 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-namespace Xlent.Lever.Libraries2.Crud.Interfaces
+﻿namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
-    /// <inheritdoc cref="IManyToOneCrd{TManyModelCreate, TManyModel,TId}" />
-    public interface IManyToOneCrd<TManyModel, TId> : 
-        IManyToOneCrd<TManyModel, TManyModel, TId>,
-        ICrd<TManyModel, TId>
+    /// <inheritdoc cref="IManyToOneCrd{TModelCreate, TModel,TId}" />
+    public interface IManyToOneCrd<TModel, TId> : 
+        IManyToOneCrd<TModel, TModel, TId>,
+        ICrd<TModel, TId>
     {
     }
 
-    /// <inheritdoc cref="IManyToOneRead{TManyModel,TId}" />
-    public interface IManyToOneCrd<in TManyModelCreate, TManyModel, TId> :
-        IManyToOneRead<TManyModel, TId>,
-        ICrd<TManyModelCreate, TManyModel, TId>,
+    /// <inheritdoc cref="IManyToOneRead{TModel,TId}" />
+    public interface IManyToOneCrd<in TModelCreate, TModel, TId> :
+        IManyToOneRead<TModel, TId>,
+        ICrd<TModelCreate, TModel, TId>,
         IDeleteChildren<TId>
-        where TManyModel : TManyModelCreate
+        where TModel : TModelCreate
     {
     }
 }

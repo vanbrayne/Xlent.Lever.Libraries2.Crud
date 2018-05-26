@@ -25,7 +25,7 @@ namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.Crud
         {
             var updateItem = new TestItemBare();
             updateItem.InitializeWithDataForTesting(TypeOfTestDataEnum.Default);
-            await CrudStorage.UpdateAsync(StorageHelper.CreateNewId<TId>(), updateItem);
+            await CrudStorage.UpdateAsync(CrudHelper.CreateNewId<TId>(), updateItem);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.Fail("Expected an exception");
         }
 

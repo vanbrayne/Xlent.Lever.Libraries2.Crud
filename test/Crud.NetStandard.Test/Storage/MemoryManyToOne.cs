@@ -11,22 +11,22 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Storage
     public class MemoryManyToOneTest : TestIManyToOne<Guid, Guid?>
     {
         private ICrud<TestItemId<Guid>, Guid> _oneStorage;
-        private IManyToOneCrud<TestItemManyToOneCreate<Guid?>, TestItemManyToOne<Guid, Guid?>, Guid> _manyStorage;
+        private ICrudManyToOne<TestItemManyToOneCreate<Guid?>, TestItemManyToOne<Guid, Guid?>, Guid> _crudManyStorage;
 
         [TestInitialize]
         public void Inititalize()
         {
             _oneStorage = new CrudMemory<TestItemId<Guid>, Guid>();
-            _manyStorage = new ManyToOneMemory<TestItemManyToOneCreate<Guid?>, TestItemManyToOne<Guid, Guid?>, Guid>(item => item.ParentId);
+            _crudManyStorage = new ManyToOneMemory<TestItemManyToOneCreate<Guid?>, TestItemManyToOne<Guid, Guid?>, Guid>(item => item.ParentId);
         }
 
         /// <inheritdoc />
-        protected override IManyToOneCrud<TestItemManyToOneCreate<Guid?>, TestItemManyToOne<Guid, Guid?>, Guid>
-            ManyStorageRecursive => null;
+        protected override ICrudManyToOne<TestItemManyToOneCreate<Guid?>, TestItemManyToOne<Guid, Guid?>, Guid>
+            CrudManyStorageRecursive => null;
 
         /// <inheritdoc />
-        protected override IManyToOneCrud<TestItemManyToOneCreate<Guid?>, TestItemManyToOne<Guid, Guid?>, Guid>
-            ManyStorageNonRecursive => _manyStorage;
+        protected override ICrudManyToOne<TestItemManyToOneCreate<Guid?>, TestItemManyToOne<Guid, Guid?>, Guid>
+            CrudManyStorageNonRecursive => _crudManyStorage;
 
         /// <inheritdoc />
         protected override ICrd<TestItemId<Guid>, Guid> OneStorage => _oneStorage;

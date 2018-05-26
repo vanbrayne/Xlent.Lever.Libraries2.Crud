@@ -18,7 +18,7 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.ServerTranslators.F
         public void Initialize()
         {
             StorageMock = new Mock<ICrd<TestModelCreate, TestModel, string>>();
-            var serverTranslator = new CrdFromServerTranslator<TestModelCreate, TestModel>(StorageMock.Object, TestModel.IdConceptName,
+            var serverTranslator = new CrudFromServerTranslator<TestModelCreate, TestModel>(StorageMock.Object, TestModel.IdConceptName,
                 () => ServerName);
             _serviceToTest = serverTranslator;
         }

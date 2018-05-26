@@ -1,6 +1,4 @@
-﻿using Xlent.Lever.Libraries2.Core.Storage.Model;
-
-namespace Xlent.Lever.Libraries2.Crud.Interfaces
+﻿namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
     /// <summary>
     /// Indicates that the implementor has one or more crud methods./>.

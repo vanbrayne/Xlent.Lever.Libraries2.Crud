@@ -8,64 +8,32 @@ using Xlent.Lever.Libraries2.Core.Translation;
 
 namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
 {
-    /// <summary>
-    /// Translate concept values to the server
-    /// </summary>
+    /// <inheritdoc cref="SlaveToMasterToServerTranslator{TModelCreate, TModel}" />
     public class SlaveToMasterToServerTranslator<TModel> :
         SlaveToMasterToServerTranslator<TModel, TModel>,
-        ISlaveToMasterCrud<TModel, string>
+        ICrudSlaveToMaster<TModel, string>
     {
         /// <inheritdoc />
-        public SlaveToMasterToServerTranslator(ISlaveToMasterCrud<TModel, string> storage,
+        public SlaveToMasterToServerTranslator(ICrudSlaveToMaster<TModel, string> storage,
             System.Func<string> getServerNameMethod, ITranslatorService translatorService)
             : base(null, getServerNameMethod, translatorService)
         {
         }
     }
 
-    /// <summary>
-    /// Translate concept values to the server
-    /// </summary>
+    /// <inheritdoc cref="ServerTranslatorBase" />
     public class SlaveToMasterToServerTranslator<TModelCreate, TModel> : 
         ServerTranslatorBase, 
-        ISlaveToMasterCrud<TModelCreate, TModel, string>
+        ICrudSlaveToMaster<TModelCreate, TModel, string>
         where TModel : TModelCreate
     {
-        private readonly ISlaveToMasterCrud<TModelCreate, TModel, string> _storage;
+        private readonly ICrudSlaveToMaster<TModelCreate, TModel, string> _storage;
 
         /// <inheritdoc />
-        public SlaveToMasterToServerTranslator(ISlaveToMasterCrud<TModelCreate, TModel, string> storage, System.Func<string> getServerNameMethod, ITranslatorService translatorService)
+        public SlaveToMasterToServerTranslator(ICrudSlaveToMaster<TModelCreate, TModel, string> storage, System.Func<string> getServerNameMethod, ITranslatorService translatorService)
             : base(null, getServerNameMethod, translatorService)
         {
             _storage = storage;
-        }
-
-        /// <inheritdoc />
-        public async Task<PageEnvelope<TModel>> ReadChildrenWithPagingAsync(string parentId, int offset, int? limit = null,
-        CancellationToken token = new CancellationToken())
-        {
-            var translator = CreateTranslator();
-            await translator.Add(parentId).ExecuteAsync();
-            parentId = translator.Translate(parentId);
-            return await _storage.ReadChildrenWithPagingAsync(parentId, offset, limit, token);
-        }
-
-        /// <inheritdoc />
-        public async Task<IEnumerable<TModel>> ReadChildrenAsync(string parentId, int limit = int.MaxValue, CancellationToken token = new CancellationToken())
-        {
-            var translator = CreateTranslator();
-            await translator.Add(parentId).ExecuteAsync();
-            parentId = translator.Translate(parentId);
-            return await _storage.ReadChildrenAsync(parentId, limit, token);
-        }
-
-        /// <inheritdoc />
-        public async Task DeleteChildrenAsync(string masterId, CancellationToken token = default(CancellationToken))
-        {
-            var translator = CreateTranslator();
-            await translator.Add(masterId).ExecuteAsync();
-            masterId = translator.Translate(masterId);
-            await _storage.DeleteChildrenAsync(masterId, token);
         }
 
         /// <inheritdoc />
@@ -89,38 +57,96 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         }
 
         /// <inheritdoc />
-        public async Task CreateWithSpecifiedIdAsync(SlaveToMasterId<string> id, TModelCreate item, CancellationToken token = default(CancellationToken))
+        public async Task CreateWithSpecifiedIdAsync(string masterId, string slaveId, TModelCreate item, CancellationToken token = default(CancellationToken))
         {
             var translator = CreateTranslator();
-            await translator.Add(id).Add(item).ExecuteAsync();
-            id = translator.Translate(id);
+            await translator.Add(masterId).Add(slaveId).Add(item).ExecuteAsync();
+            masterId = translator.Translate(masterId);
+            slaveId = translator.Translate(slaveId);
             item = translator.Translate(item);
-            await _storage.CreateWithSpecifiedIdAsync(id, item, token);
+            await _storage.CreateWithSpecifiedIdAsync(masterId, slaveId, item, token);
         }
 
         /// <inheritdoc />
-        public async Task<TModel> CreateWithSpecifiedIdAndReturnAsync(SlaveToMasterId<string> id, TModelCreate item, CancellationToken token = default(CancellationToken))
+        public async Task<TModel> CreateWithSpecifiedIdAndReturnAsync(string masterId, string slaveId, TModelCreate item, CancellationToken token = default(CancellationToken))
         {
             var translator = CreateTranslator();
-            await translator.Add(id).Add(item).ExecuteAsync();
-            id = translator.Translate(id);
+            await translator.Add(masterId).Add(slaveId).Add(item).ExecuteAsync();
+            masterId = translator.Translate(masterId);
+            slaveId = translator.Translate(slaveId);
             item = translator.Translate(item);
-            return await _storage.CreateWithSpecifiedIdAndReturnAsync(id, item, token);
+            return await _storage.CreateWithSpecifiedIdAndReturnAsync(masterId, slaveId, item, token);
         }
 
         /// <inheritdoc />
-        public async Task DeleteAsync(SlaveToMasterId<string> id, CancellationToken token = default(CancellationToken))
+        public async Task<TModel> ReadAsync(string masterId, string slaveId, CancellationToken token = default(CancellationToken))
         {
             var translator = CreateTranslator();
-            await translator.Add(id).ExecuteAsync();
-            id = translator.Translate(id);
-            await _storage.DeleteAsync(id, token);
+            await translator.Add(masterId).Add(slaveId).ExecuteAsync();
+            masterId = translator.Translate(masterId);
+            slaveId = translator.Translate(slaveId);
+            return await _storage.ReadAsync(masterId, slaveId, token);
         }
 
         /// <inheritdoc />
-        public Task DeleteAllAsync(CancellationToken token = default(CancellationToken))
+        public async Task<PageEnvelope<TModel>> ReadChildrenWithPagingAsync(string parentId, int offset, int? limit = null,
+        CancellationToken token = new CancellationToken())
         {
-            return _storage.DeleteAllAsync(token);
+            var translator = CreateTranslator();
+            await translator.Add(parentId).ExecuteAsync();
+            parentId = translator.Translate(parentId);
+            return await _storage.ReadChildrenWithPagingAsync(parentId, offset, limit, token);
+        }
+
+        /// <inheritdoc />
+        public async Task<IEnumerable<TModel>> ReadChildrenAsync(string parentId, int limit = int.MaxValue, CancellationToken token = new CancellationToken())
+        {
+            var translator = CreateTranslator();
+            await translator.Add(parentId).ExecuteAsync();
+            parentId = translator.Translate(parentId);
+            return await _storage.ReadChildrenAsync(parentId, limit, token);
+        }
+
+        /// <inheritdoc />
+        public async Task UpdateAsync(string masterId, string slaveId, TModel item, CancellationToken token = default(CancellationToken))
+        {
+            var translator = CreateTranslator();
+            await translator.Add(masterId).Add(slaveId).Add(item).ExecuteAsync();
+            masterId = translator.Translate(masterId);
+            slaveId = translator.Translate(slaveId);
+            item = translator.Translate(item);
+            await _storage.UpdateAsync(masterId, slaveId, item, token);
+        }
+
+        /// <inheritdoc />
+        public async Task<TModel> UpdateAndReturnAsync(string masterId, string slaveId, TModel item,
+            CancellationToken token = default(CancellationToken))
+        {
+            var translator = CreateTranslator();
+            await translator.Add(masterId).Add(slaveId).Add(item).ExecuteAsync();
+            masterId = translator.Translate(masterId);
+            slaveId = translator.Translate(slaveId);
+            item = translator.Translate(item);
+            return await _storage.UpdateAndReturnAsync(masterId, slaveId, item, token);
+        }
+
+        /// <inheritdoc />
+        public async Task DeleteChildrenAsync(string masterId, CancellationToken token = default(CancellationToken))
+        {
+            var translator = CreateTranslator();
+            await translator.Add(masterId).ExecuteAsync();
+            masterId = translator.Translate(masterId);
+            await _storage.DeleteChildrenAsync(masterId, token);
+        }
+
+        /// <inheritdoc />
+        public async Task DeleteAsync(string masterId, string slaveId, CancellationToken token = default(CancellationToken))
+        {
+            var translator = CreateTranslator();
+            await translator.Add(masterId).Add(slaveId).ExecuteAsync();
+            masterId = translator.Translate(masterId);
+            slaveId = translator.Translate(slaveId);
+            await _storage.DeleteAsync(masterId, slaveId, token);
         }
     }
 }

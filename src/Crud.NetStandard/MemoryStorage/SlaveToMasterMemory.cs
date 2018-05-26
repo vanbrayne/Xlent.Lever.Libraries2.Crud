@@ -13,14 +13,17 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
     /// <summary>
     /// Functionality for persisting objects in groups.
     /// </summary>
-    public class SlaveToMasterMemory<TModel, TId> : SlaveToMasterMemory<TModel, TModel, TId>, ISlaveToMasterCrud<TModel, TId>
+    public class SlaveToMasterMemory<TModel, TId> : 
+        SlaveToMasterMemory<TModel, TModel, TId>, 
+        ICrudSlaveToMaster<TModel, TId>
     {
     }
 
     /// <summary>
     /// Functionality for persisting objects in groups.
     /// </summary>
-    public class SlaveToMasterMemory<TModelCreate, TModel, TId> : CrudMemory<TModelCreate, TModel, SlaveToMasterId<TId>>, ISlaveToMasterCrud<TModelCreate, TModel, TId>
+    public class SlaveToMasterMemory<TModelCreate, TModel, TId> : 
+        ICrudSlaveToMaster<TModelCreate, TModel, TId>
         where TModel : TModelCreate
     {
         /// <summary>

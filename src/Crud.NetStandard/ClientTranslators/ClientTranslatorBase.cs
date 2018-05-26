@@ -7,6 +7,7 @@ namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
     /// </summary>
     public abstract class ClientTranslatorBase
     {
+
         /// <summary>
         /// The concept name for the id. Is used for translations of id parameters and id results.
         /// </summary>
@@ -26,6 +27,7 @@ namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
         /// <summary>
         /// Set up a new client translator.
         /// </summary>
+        /// <param name="service">The service to call.</param>
         /// <param name="idConceptName">The <see cref="IdConceptName"/>.</param>
         /// <param name="getClientNameMethod">The <see cref="GetClientNameMethod"/>.</param>
         /// <param name="translatorService">The <see cref="TranslatorService"/>.</param>

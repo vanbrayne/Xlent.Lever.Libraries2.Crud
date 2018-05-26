@@ -10,13 +10,10 @@ using Xlent.Lever.Libraries2.Crud.Interfaces;
 
 namespace Xlent.Lever.Libraries2.Crud.Cache
 {
-    /// <summary>
-    /// Use this to put an "intelligent" cache between you and your ICrud storage.
-    /// </summary>
-    /// <typeparam name="TManyModel">The model for the children that each points out a parent.</typeparam>
-    /// <typeparam name="TId">The type for the id field of the models.</typeparam>
-    public class ManyToOneCrudAutoCache<TManyModel, TId> : ManyToOneCrudAutoCache<TManyModel, TManyModel, TId>,
-        ICrud<TManyModel, TId>, IManyToOneCrud<TManyModel, TId>
+
+    /// <inheritdoc cref="ManyToOneAutoCacheAutoCache{TManyModelCreate,TManyModel,TId}" />
+    public class ManyToOneAutoCache<TManyModel, TId> : ManyToOneAutoCache<TManyModel, TManyModel, TId>,
+        ICrud<TManyModel, TId>, ICrudManyToOne<TManyModel, TId>
     {
         /// <summary>
         /// Constructor for TOneModel that implements <see cref="IUniquelyIdentifiable{TId}"/>.
@@ -25,7 +22,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <param name="cache"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public ManyToOneCrudAutoCache(IManyToOneCrud<TManyModel, TId> storage, IDistributedCache cache,
+        public ManyToOneAutoCache(ICrudManyToOne<TManyModel, TId> storage, IDistributedCache cache,
             FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
             : this(storage, item => ((IUniquelyIdentifiable<TId>)item).Id, cache, flushCacheDelegateAsync, options)
         {
@@ -40,7 +37,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <param name="getIdDelegate"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public ManyToOneCrudAutoCache(IManyToOneCrud<TManyModel, TId> storage,
+        public ManyToOneAutoCache(ICrudManyToOne<TManyModel, TId> storage,
             GetIdDelegate<TManyModel, TId> getIdDelegate, IDistributedCache cache,
             FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
             : base(storage, getIdDelegate, cache, flushCacheDelegateAsync, options)
@@ -48,17 +45,12 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         }
     }
 
-    /// <summary>
-    /// Use this to put an "intelligent" cache between you and your ICrud storage.
-    /// </summary>
-    /// <typeparam name="TManyModelCreate"></typeparam>
-    /// <typeparam name="TManyModel">The model for the children that each points out a parent.</typeparam>
-    /// <typeparam name="TId">The type for the id field of the models.</typeparam>
-    public class ManyToOneCrudAutoCache<TManyModelCreate, TManyModel, TId> :
+    /// <inheritdoc cref="CrudAutoCache{TModel,TId}" />
+    public class ManyToOneAutoCache<TManyModelCreate, TManyModel, TId> :
         CrudAutoCache<TManyModelCreate, TManyModel, TId>,
-        IManyToOneCrud<TManyModelCreate, TManyModel, TId> where TManyModel : TManyModelCreate
+        ICrudManyToOne<TManyModelCreate, TManyModel, TId> where TManyModel : TManyModelCreate
     {
-        private readonly IManyToOneCrud<TManyModelCreate, TManyModel, TId> _storage;
+        private readonly ICrudManyToOne<TManyModelCreate, TManyModel, TId> _storage;
 
         /// <summary>
         /// Constructor for TOneModel that implements <see cref="IUniquelyIdentifiable{TId}"/>.
@@ -67,7 +59,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <param name="cache"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public ManyToOneCrudAutoCache(IManyToOneCrud<TManyModelCreate, TManyModel, TId> storage,
+        public ManyToOneAutoCache(ICrudManyToOne<TManyModelCreate, TManyModel, TId> storage,
             IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null,
             AutoCacheOptions options = null)
             : this(storage, item => ((IUniquelyIdentifiable<TId>)item).Id, cache, flushCacheDelegateAsync, options)
@@ -83,7 +75,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <param name="getIdDelegate"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public ManyToOneCrudAutoCache(IManyToOneCrud<TManyModelCreate, TManyModel, TId> storage,
+        public ManyToOneAutoCache(ICrudManyToOne<TManyModelCreate, TManyModel, TId> storage,
             GetIdDelegate<TManyModel, TId> getIdDelegate, IDistributedCache cache,
             FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
             : base(storage, getIdDelegate, cache, flushCacheDelegateAsync, options)

@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Core.Crud.Model;
 
 namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
