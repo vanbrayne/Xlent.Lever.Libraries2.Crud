@@ -21,13 +21,13 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Cache
         protected override ICrud<ItemWithParentId, ItemWithParentId, Guid> CrudStorage => _storage;
         
         /// <inheritdoc />
-        public override ManyToOneAutoCache<ItemWithParentId, Guid> CrudAutoCache => _autoCache;
+        public override CrudAutoCache<ItemWithParentId, ItemWithParentId, Guid> CrudAutoCache => _autoCache;
 
 
         [TestInitialize]
         public void Initialize()
         {
-            FulcrumApplicationHelper.UnitTestSetup(typeof(TestAutoCacheRead).FullName);
+            FulcrumApplicationHelper.UnitTestSetup(typeof(TestAutoCacheManyToOneRecursive).FullName);
             _storage = new ManyToOneMemory<ItemWithParentId, Guid>(item => item.ParentId);
             Cache = new MemoryDistributedCache();
             DistributedCacheOptions = new DistributedCacheEntryOptions

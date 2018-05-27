@@ -9,7 +9,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     public interface IDeleteSlave<in TId> : ICrudable<TId>
     {
         /// <summary>
-        /// Deletes the item uniquely identified by <paramref name="id"/> from storage.
+        /// Deletes the item uniquely identified by <paramref name="masterId"/> and <paramref name="slaveId"/> from storage.
         /// </summary>
         /// <param name="masterId">The id for the master object.</param>
         /// <param name="slaveId">The id for the slave object.</param>

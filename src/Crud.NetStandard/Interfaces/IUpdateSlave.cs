@@ -19,7 +19,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
         /// <param name="slaveId">The id for the slave object.</param>
         /// <param name="item">The new version of the item.</param>
         /// <param name="token">Propagates notification that operations should be canceled</param>
-        /// <exception cref="FulcrumNotFoundException">Thrown if the <paramref name="id"/> could not be found.</exception>
+        /// <exception cref="FulcrumNotFoundException">Thrown if the <paramref name="masterId"/> or the <paramref name="slaveId"/> could not be found.</exception>
         /// <exception cref="FulcrumConflictException">Thrown if the <see cref="IOptimisticConcurrencyControlByETag.Etag"/> for <paramref name="item"/> was outdated.</exception>
         Task UpdateAsync(TId masterId, TId slaveId, TModel item, CancellationToken token = default(CancellationToken));
 
@@ -31,7 +31,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
         /// <param name="item">The new version of the item. </param>
         /// <param name="token">Propagates notification that operations should be canceled</param>
         /// <returns>The updated item as it was saved.</returns>
-        /// <exception cref="FulcrumNotFoundException">Thrown if the <paramref name="id"/> could not be found.</exception>
+        /// <exception cref="FulcrumNotFoundException">Thrown if the <paramref name="masterId"/> or the <paramref name="slaveId"/> could not be found.</exception>
         /// <exception cref="FulcrumConflictException">Thrown if the <see cref="IOptimisticConcurrencyControlByETag.Etag"/> for <paramref name="item"/> was outdated.</exception>
         Task<TModel> UpdateAndReturnAsync(TId masterId, TId slaveId, TModel item, CancellationToken token = default(CancellationToken));
     }

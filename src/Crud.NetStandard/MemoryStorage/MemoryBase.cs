@@ -29,11 +29,12 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
 
         /// <summary>
         /// If <paramref name="item"/> implements <see cref="IOptimisticConcurrencyControlByETag"/>
-        /// then the old value is read using <see cref="ReadBase{TModel,TId}.ReadAsync"/> and the values are verified to be equal.
+        /// then the old value is read using <paramref name="service"/> and the values are verified to be equal.
         /// The Etag of the item is then set to a new value.
         /// </summary>
         /// <param name="id"></param>
         /// <param name="item"></param>
+        /// <param name="service"></param>
         /// <param name="token">Propagates notification that operations should be canceled</param>
         /// <returns></returns>
         protected virtual async Task<TModel> MaybeVerifyEtagForUpdateAsync(TId id, TModel item, IRead<TModel, TId> service, CancellationToken token = default(CancellationToken))

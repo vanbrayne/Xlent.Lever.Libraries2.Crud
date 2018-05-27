@@ -16,7 +16,7 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Cache
         protected readonly string BaseGuidString;
         protected AutoCacheOptions AutoCacheOptions;
 
-        public virtual CrudAutoCache<TModel, Guid> CrudAutoCache { get; }
+        public virtual CrudAutoCache<TModelCreate, TModel, Guid> CrudAutoCache { get; }
 
         protected TestAutoCacheBase()
         {

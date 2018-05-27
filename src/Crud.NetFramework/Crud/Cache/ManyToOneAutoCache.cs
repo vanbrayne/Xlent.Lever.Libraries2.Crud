@@ -12,7 +12,8 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
 {
 
     /// <inheritdoc cref="ManyToOneAutoCache{TManyModelCreate,TManyModel,TId}" />
-    public class ManyToOneAutoCache<TManyModel, TId> : ManyToOneAutoCache<TManyModel, TManyModel, TId>,
+    public class ManyToOneAutoCache<TManyModel, TId> : 
+        ManyToOneAutoCache<TManyModel, TManyModel, TId>,
         ICrud<TManyModel, TId>, ICrudManyToOne<TManyModel, TId>
     {
         /// <summary>

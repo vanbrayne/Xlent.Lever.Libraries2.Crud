@@ -30,7 +30,7 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="getParentIdDelegate">See <see cref="CrudCrudManyToOneMemory{TModelCreate,TModel,TId}.GetParentIdDelegate"/>.</param>
+        /// <param name="getParentIdDelegate">See <see cref="GetParentIdDelegate{TModel}"/>.</param>
         public ManyToOneMemory(GetParentIdDelegate<TModel> getParentIdDelegate)
         :base(getParentIdDelegate)
         {
@@ -53,7 +53,7 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="getParentIdDelegate">See <see cref="GetParentIdDelegate"/>.</param>
+        /// <param name="getParentIdDelegate">See <see cref="GetParentIdDelegate{TModel}"/>.</param>
         public ManyToOneMemory(GetParentIdDelegate<TModel> getParentIdDelegate)
         {
             InternalContract.RequireNotNull(getParentIdDelegate, nameof(getParentIdDelegate));

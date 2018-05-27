@@ -140,7 +140,15 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <inheritdoc />
         public async Task<TManyModel> ReadAsync(TId masterId, TId slaveId, CancellationToken token = default(CancellationToken))
         {
-            throw new System.NotImplementedException();
+            InternalContract.RequireNotDefaultValue(masterId, nameof(masterId));
+            InternalContract.RequireNotDefaultValue(slaveId, nameof(slaveId));
+            var id = new SlaveToMasterId<TId>(masterId, slaveId);
+            var item = await CacheGetByIdAsync(id, token);
+            if (item != null) return item;
+            item = await _service.ReadAsync(masterId, slaveId, token);
+            if (Equals(item, default(TManyModel))) return default(TManyModel);
+            await CacheSetByIdAsync(id, item, token);
+            return item;
         }
 
         /// <inheritdoc />
