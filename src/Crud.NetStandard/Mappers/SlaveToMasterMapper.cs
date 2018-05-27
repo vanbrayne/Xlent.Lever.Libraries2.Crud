@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xlent.Lever.Libraries2.Core.Assert;
+using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Crud.PassThrough;
@@ -89,6 +90,12 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
             var serverSlaveId = MapperHelper.MapToType<TServerId, TClientId>(slaveId);
             var record = await _service.ReadAsync(serverMasterId, serverSlaveId, token);
             return _mapper.MapFromServer(record);
+        }
+
+        /// <inheritdoc />
+        public Task<TClientModel> ReadAsync(SlaveToMasterId<TClientId> id, CancellationToken token = default(CancellationToken))
+        {
+            return ReadAsync(id.MasterId, id.SlaveId, token);
         }
 
         /// <inheritdoc />

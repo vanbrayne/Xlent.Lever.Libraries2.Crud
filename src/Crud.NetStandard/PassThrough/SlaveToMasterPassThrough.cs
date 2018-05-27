@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Crud.Helpers;
@@ -76,6 +77,12 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         {
             var implementation = CrudHelper.GetImplementationOrThrow<IReadSlave<TModel, TId>>(Service);
             return implementation.ReadAsync(masterId, slaveId, token);
+        }
+
+        /// <inheritdoc />
+        public Task<TModel> ReadAsync(SlaveToMasterId<TId> id, CancellationToken token = default(CancellationToken))
+        {
+            return ReadAsync(id.MasterId, id.SlaveId, token);
         }
 
         /// <inheritdoc />

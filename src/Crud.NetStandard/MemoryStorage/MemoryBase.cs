@@ -70,6 +70,13 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
             return itemCopy;
         }
 
+        /// <summary>
+        /// Get an item from the memory.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="okIfNotExists">If false, we will throw an exception if the id is not found.</param>
+        /// <returns></returns>
+        /// <exception cref="FulcrumNotFoundException"></exception>
         protected TModel GetMemoryItem(TId id, bool okIfNotExists)
         {
             InternalContract.RequireNotDefaultValue(id, nameof(id));

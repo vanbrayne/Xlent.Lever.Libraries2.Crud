@@ -22,6 +22,9 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         private readonly FlushCacheDelegateAsync _flushCacheDelegateAsync;
         private readonly ConcurrentDictionary<string, PageEnvelope<TModel>> _activeCachingOfPages = new ConcurrentDictionary<string, PageEnvelope<TModel>>();
         private readonly ConcurrentDictionary<string, bool> _collectionOperations = new ConcurrentDictionary<string, bool>();
+        /// <summary>
+        /// The cache key to use for the list of all items.
+        /// </summary>
         protected const string ReadAllCacheKey = "ReadAllCacheKey";
 
 

@@ -8,9 +8,9 @@
     {
     }
 
-    /// <inheritdoc cref="ISlaveToMasterRead{TModel,TId}" />
+    /// <inheritdoc cref="IReadSlaveToMaster{TModel,TId}" />
     public interface ICrdSlaveToMaster<in TModelCreate, TModel, TId> :
-        ISlaveToMasterRead<TModel, TId>,
+        IReadSlaveToMaster<TModel, TId>,
         ICreateSlave<TModelCreate, TModel, TId>,
         ICreateSlaveWithSpecifiedId<TModelCreate, TModel, TId>,
         IDeleteSlave<TId>,

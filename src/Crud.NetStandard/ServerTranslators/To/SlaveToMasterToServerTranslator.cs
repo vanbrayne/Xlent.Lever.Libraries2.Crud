@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Core.Translation;
@@ -86,6 +87,12 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
             masterId = translator.Translate(masterId);
             slaveId = translator.Translate(slaveId);
             return await _service.ReadAsync(masterId, slaveId, token);
+        }
+
+        /// <inheritdoc />
+        public Task<TModel> ReadAsync(SlaveToMasterId<string> id, CancellationToken token = default(CancellationToken))
+        {
+            return ReadAsync(id.MasterId, id.SlaveId, token);
         }
 
         /// <inheritdoc />

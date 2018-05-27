@@ -57,7 +57,8 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
     public class SlaveToMasterAutoCache<TManyModelCreate, TManyModel, TId> : 
         AutoCacheBase<TManyModel, SlaveToMasterId<TId>>, 
         ICrudSlaveToMaster<TManyModelCreate, TManyModel, TId>, 
-        IRead<TManyModel, SlaveToMasterId<TId>> where TManyModel : TManyModelCreate
+        IRead<TManyModel, SlaveToMasterId<TId>> 
+        where TManyModel : TManyModelCreate
     {
         private readonly ICrudSlaveToMaster<TManyModelCreate, TManyModel, TId> _service;
         /// <summary>
@@ -107,7 +108,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         {
             var slaveId = await _service.CreateAsync(masterId, item, token);
             var id = new SlaveToMasterId<TId>(masterId, slaveId);
-            await CacheMaybeSetAsync(id, this, token);
+            await CacheMaybeSetAsync(id, _service, token);
             return slaveId;
         }
 
@@ -125,7 +126,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         {
             await _service.CreateWithSpecifiedIdAsync(masterId, slaveId, item, token);
             var id = new SlaveToMasterId<TId>(masterId, slaveId);
-            await CacheMaybeSetAsync(id, this, token);
+            await CacheMaybeSetAsync(id, _service, token);
         }
 
         /// <inheritdoc />
@@ -186,7 +187,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         {
             await _service.UpdateAsync(masterId, slaveId, item, token);
             var id = new SlaveToMasterId<TId>(masterId, slaveId);
-            await CacheMaybeSetAsync(id, this, token);
+            await CacheMaybeSetAsync(id, _service, token);
         }
 
         /// <inheritdoc />

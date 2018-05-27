@@ -95,7 +95,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         {
             InternalContract.RequireNotDefaultValue(item, nameof(item));
             var id = await _service.CreateAsync(item, token);
-            await CacheMaybeSetAsync(id, this, token);
+            await CacheMaybeSetAsync(id, _service, token);
             return id;
         }
 
@@ -115,7 +115,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
             InternalContract.RequireNotDefaultValue(id, nameof(id));
             InternalContract.RequireNotDefaultValue(item, nameof(item));
             await _service.CreateWithSpecifiedIdAsync(id, item, token);
-            await CacheMaybeSetAsync(id, this, token);
+            await CacheMaybeSetAsync(id, _service, token);
         }
 
         /// <inheritdoc />
@@ -159,7 +159,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         public async Task UpdateAsync(TId id, TModel item, CancellationToken token = default(CancellationToken))
         {
             await _service.UpdateAsync(id, item, token);
-            await CacheMaybeSetAsync(id, this, token);
+            await CacheMaybeSetAsync(id, _service, token);
         }
 
         /// <inheritdoc />

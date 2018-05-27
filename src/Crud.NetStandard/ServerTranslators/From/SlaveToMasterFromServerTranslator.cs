@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Xlent.Lever.Libraries2.Core.Assert;
+using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Crud.PassThrough;
@@ -79,6 +80,12 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.From
             var translator = CreateTranslator();
             FulcrumAssert.IsNotNull(result);
             return translator.DecorateItem(result);
+        }
+
+        /// <inheritdoc />
+        public Task<TModel> ReadAsync(SlaveToMasterId<string> id, CancellationToken token = default(CancellationToken))
+        {
+            return ReadAsync(id.MasterId, id.SlaveId, token);
         }
 
         /// <inheritdoc />
