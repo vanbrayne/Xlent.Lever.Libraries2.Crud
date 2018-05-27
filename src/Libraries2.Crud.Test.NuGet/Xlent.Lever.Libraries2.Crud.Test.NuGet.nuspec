@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Xlent.Lever.Libraries2.Crud.Test</id>
-    <version>0.1.1-rc</version>
+    <version>1.0.0</version>
     <authors>XLENT Fulcrum</authors>
     <projectUrl>https://github.com/xlent-fulcrum/Xlent.Lever.Libraries2.Crud</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -11,13 +11,13 @@
     <summary>Library for testing implementation of Core interfaces.</summary>
     <copyright>Copyright ©2017 Xlent Business Integration AB</copyright>
     <releaseNotes>
-      0.1.1-rc First release
+      1.0.0 First release
     </releaseNotes>
     <tags>fulcrum lever</tags>
     <dependencies>
       <group targetFramework="net46">
         <dependency id="MSTest.TestFramework" version="1.2.0" />
-        <dependency id="Xlent.Lever.Libraries2.Crud.NetFramework" version="1.0.2-rc" />
+        <dependency id="Xlent.Lever.Libraries2.Crud.NetFramework" version="1.0.3" />
       </group>
     </dependencies>
   </metadata>
