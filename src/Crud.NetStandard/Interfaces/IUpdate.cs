@@ -1,16 +1,16 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Error.Logic;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
+using Xlent.Lever.Libraries2.Core.Error.Logic;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Interfaces
+namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
     /// <summary>
     /// Update an item of type <see cref="IUniquelyIdentifiable{TId}"/>.
     /// </summary>
     /// <typeparam name="TModel">The type of objects to update in persistant storage.</typeparam>
     /// <typeparam name="TId">The type for the id parameter.</typeparam>
-    public interface IUpdate<TModel, in TId>
+    public interface IUpdate<TModel, in TId> : ICrudable<TModel, TId>
     {
         /// <summary>
         /// Updates the item uniquely identified by <paramref name="item.Id"/> in storage.

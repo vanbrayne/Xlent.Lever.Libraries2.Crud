@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Xlent.Lever.Libraries2.Crud.Queue.Model;
+using Xlent.Lever.Libraries2.Core.Queue.Model;
 using Xlent.Lever.Libraries2.Crud.Test.NuGet.Model;
 
 namespace Xlent.Lever.Libraries2.Crud.Test.NuGet

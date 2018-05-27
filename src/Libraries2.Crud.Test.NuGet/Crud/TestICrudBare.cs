@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Xlent.Lever.Libraries2.Crud.Crud.Helpers;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Error.Logic;
+using Xlent.Lever.Libraries2.Crud.Helpers;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Core.Error.Logic;
 using Xlent.Lever.Libraries2.Crud.Test.NuGet.Crd;
 using Xlent.Lever.Libraries2.Crud.Test.NuGet.Model;
 
@@ -25,7 +25,7 @@ namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.Crud
         {
             var updateItem = new TestItemBare();
             updateItem.InitializeWithDataForTesting(TypeOfTestDataEnum.Default);
-            await CrudStorage.UpdateAsync(StorageHelper.CreateNewId<TId>(), updateItem);
+            await CrudStorage.UpdateAsync(CrudHelper.CreateNewId<TId>(), updateItem);
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.Fail("Expected an exception");
         }
 

@@ -1,16 +1,10 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-
-namespace Xlent.Lever.Libraries2.Crud.Crud.Interfaces
+﻿namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
-    /// <inheritdoc cref="IManyToOneRead{TManyModel,TId}" />
-    public interface IManyToOneRud<TManyModel, in TId> :
-        IManyToOneRead<TManyModel, TId>,
-        IRud<TManyModel, TId>
+    /// <inheritdoc cref="IManyToOneRead{TModel,TId}" />
+    public interface IManyToOneRud<TModel, in TId> :
+        IManyToOneRead<TModel, TId>,
+        IRud<TModel, TId>,
+        IDeleteChildren<TId>
     {
-        /// <summary>
-        /// Delete all the children of the parent with id <paramref name="parentId"/>.
-        /// </summary>
-        Task DeleteChildrenAsync(TId parentId, CancellationToken token = default(CancellationToken));
     }
 }

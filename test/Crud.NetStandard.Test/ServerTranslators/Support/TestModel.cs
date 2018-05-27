@@ -1,8 +1,8 @@
-﻿using Xlent.Lever.Libraries2.Crud.Storage.Model;
-using Xlent.Lever.Libraries2.Crud.Translation;
+﻿using Xlent.Lever.Libraries2.Core.Storage.Model;
+using Xlent.Lever.Libraries2.Core.Translation;
 #pragma warning disable 659
 
-namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Crud.ServerTranslators.Support
+namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.ServerTranslators.Support
 {
     /// <inheritdoc cref="TestModelCreate" />
     public class TestModel : TestModelCreate, IUniquelyIdentifiable<string>, IOptimisticConcurrencyControlByETag

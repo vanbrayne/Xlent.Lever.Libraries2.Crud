@@ -1,98 +1,131 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Crud.Model;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
+using Xlent.Lever.Libraries2.Core.Crud.Model;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
+using Xlent.Lever.Libraries2.Crud.Helpers;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.PassThrough
+namespace Xlent.Lever.Libraries2.Crud.PassThrough
 {
-    /// <inheritdoc cref="ManyToOneCrudPassThrough{TManyModelCreate,TManyModel,TId}" />
+    /// <inheritdoc cref="SlaveToMasterPassThrough{TModel,TId}" />
     public class SlaveToMasterPassThrough<TModel, TId> :
         SlaveToMasterPassThrough<TModel, TModel, TId>,
-        ISlaveToMaster<TModel, TId>
+        ICrudSlaveToMaster<TModel, TId>
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="nextLevel">The crud class to pass things down to.</param>
-        public SlaveToMasterPassThrough(ISlaveToMasterCrud<TModel, TId> nextLevel)
-            : base(nextLevel)
+        /// <param name="service">The crud class to pass things down to.</param>
+        public SlaveToMasterPassThrough(ICrudable service)
+            : base(service)
         {
         }
     }
 
-    /// <inheritdoc cref="IManyToOneCrud{TManyModelCreate,TManyModel,TId}" />
-    public class SlaveToMasterPassThrough<TModelCreate, TModel, TId> : 
-        ISlaveToMasterCrud<TModelCreate, TModel, TId> 
-        where TModel : TModelCreate
+    /// <inheritdoc cref="ICrudManyToOne{TModelCreate,TModel,TId}" />
+    public class SlaveToMasterPassThrough<TModelCreate, TModel, TId> :
+        ICrudSlaveToMaster<TModelCreate, TModel, TId>
+         where TModel : TModelCreate
     {
-        private readonly ISlaveToMasterCrud<TModelCreate, TModel, TId> _nextLevel;
+        /// <summary>
+        /// The service to pass the calls to.
+        /// </summary>
+        protected readonly ICrudable Service;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="nextLevel">The crud class to pass things down to.</param>
-        public SlaveToMasterPassThrough(ISlaveToMasterCrud<TModelCreate, TModel, TId> nextLevel)
+        /// <param name="service">The crud class to pass things down to.</param>
+        public SlaveToMasterPassThrough(ICrudable service)
         {
-            _nextLevel = nextLevel;
+            Service = service;
+        }
+
+        /// <inheritdoc />
+        public virtual Task<TId> CreateAsync(TId masterId, TModelCreate item, CancellationToken token = default(CancellationToken))
+        {
+            var implementation = CrudHelper.GetImplementationOrThrow<ICreateSlave<TModelCreate, TModel, TId>>(Service);
+            return implementation.CreateAsync(masterId, item, token);
+        }
+
+        /// <inheritdoc />
+        public virtual Task<TModel> CreateAndReturnAsync(TId masterId, TModelCreate item, CancellationToken token = default(CancellationToken))
+        {
+            var implementation = CrudHelper.GetImplementationOrThrow<ICreateSlave<TModelCreate, TModel, TId>>(Service);
+            return implementation.CreateAndReturnAsync(masterId, item, token);
+        }
+
+        /// <inheritdoc />
+        public virtual Task CreateWithSpecifiedIdAsync(TId masterId, TId slaveId, TModelCreate item,
+            CancellationToken token = default(CancellationToken))
+        {
+            var implementation = CrudHelper.GetImplementationOrThrow<ICreateSlaveWithSpecifiedId<TModelCreate, TModel, TId>>(Service);
+            return implementation.CreateWithSpecifiedIdAsync(masterId, slaveId, item, token);
+        }
+
+        /// <inheritdoc />
+        public virtual Task<TModel> CreateWithSpecifiedIdAndReturnAsync(TId masterId, TId slaveId, TModelCreate item,
+            CancellationToken token = default(CancellationToken))
+        {
+            var implementation = CrudHelper.GetImplementationOrThrow<ICreateSlaveWithSpecifiedId<TModelCreate, TModel, TId>>(Service);
+            return implementation.CreateWithSpecifiedIdAndReturnAsync(masterId, slaveId, item, token);
+        }
+
+        /// <inheritdoc />
+        public virtual Task<TModel> ReadAsync(TId masterId, TId slaveId, CancellationToken token = default(CancellationToken))
+        {
+            var implementation = CrudHelper.GetImplementationOrThrow<IReadSlave<TModel, TId>>(Service);
+            return implementation.ReadAsync(masterId, slaveId, token);
+        }
+
+        /// <inheritdoc />
+        public Task<TModel> ReadAsync(SlaveToMasterId<TId> id, CancellationToken token = default(CancellationToken))
+        {
+            return ReadAsync(id.MasterId, id.SlaveId, token);
         }
 
         /// <inheritdoc />
         public virtual Task<PageEnvelope<TModel>> ReadChildrenWithPagingAsync(TId parentId, int offset, int? limit = null,
             CancellationToken token = default(CancellationToken))
         {
-            return _nextLevel.ReadChildrenWithPagingAsync(parentId, offset, limit, token);
+            var implementation = CrudHelper.GetImplementationOrThrow<IReadChildren<TModel, TId>>(Service);
+            return implementation.ReadChildrenWithPagingAsync(parentId, offset, limit, token);
         }
 
         /// <inheritdoc />
         public virtual Task<IEnumerable<TModel>> ReadChildrenAsync(TId parentId, int limit = int.MaxValue, CancellationToken token = default(CancellationToken))
         {
-            return _nextLevel.ReadChildrenAsync(parentId, limit, token);
+            var implementation = CrudHelper.GetImplementationOrThrow<IReadChildren<TModel, TId>>(Service);
+            return implementation.ReadChildrenAsync(parentId, limit, token);
         }
 
         /// <inheritdoc />
-        public virtual Task<SlaveToMasterId<TId>> CreateAsync(TId masterId, TModelCreate item, CancellationToken token = default(CancellationToken))
+        public virtual Task UpdateAsync(TId masterId, TId slaveId, TModel item, CancellationToken token = default(CancellationToken))
         {
-            return _nextLevel.CreateAsync(masterId, item, token);
+            var implementation = CrudHelper.GetImplementationOrThrow<IUpdateSlave<TModel, TId>>(Service);
+            return implementation.UpdateAsync(masterId, slaveId, item, token);
         }
 
         /// <inheritdoc />
-        public virtual Task<TModel> CreateAndReturnAsync(TId masterId, TModelCreate item, CancellationToken token = default(CancellationToken))
+        public virtual Task<TModel> UpdateAndReturnAsync(TId masterId, TId slaveId, TModel item, CancellationToken token = default(CancellationToken))
         {
-            return _nextLevel.CreateAndReturnAsync(masterId, item, token);
+            var implementation = CrudHelper.GetImplementationOrThrow<IUpdateSlave<TModel, TId>>(Service);
+            return implementation.UpdateAndReturnAsync(masterId, slaveId, item, token);
         }
 
         /// <inheritdoc />
-        public virtual Task CreateWithSpecifiedIdAsync(SlaveToMasterId<TId> id, TModelCreate item,
-            CancellationToken token = default(CancellationToken))
+        public virtual Task DeleteAsync(TId masterId, TId slaveId, CancellationToken token = default(CancellationToken))
         {
-            return _nextLevel.CreateWithSpecifiedIdAsync(id, item, token);
-        }
-
-        /// <inheritdoc />
-        public virtual Task<TModel> CreateWithSpecifiedIdAndReturnAsync(SlaveToMasterId<TId> id, TModelCreate item,
-            CancellationToken token = default(CancellationToken))
-        {
-            return _nextLevel.CreateWithSpecifiedIdAndReturnAsync(id, item, token);
+            var implementation = CrudHelper.GetImplementationOrThrow<IDeleteSlave<TId>>(Service);
+            return implementation.DeleteAsync(masterId, slaveId, token);
         }
 
         /// <inheritdoc />
         public virtual Task DeleteChildrenAsync(TId parentId, CancellationToken token = default(CancellationToken))
         {
-            return _nextLevel.DeleteChildrenAsync(parentId, token);
-        }
-
-        /// <inheritdoc />
-        public Task DeleteAsync(SlaveToMasterId<TId> id, CancellationToken token = default(CancellationToken))
-        {
-            return _nextLevel.DeleteAsync(id, token);
-        }
-
-        /// <inheritdoc />
-        public Task DeleteAllAsync(CancellationToken token = default(CancellationToken))
-        {
-            return _nextLevel.DeleteAllAsync(token);
+            var implementation = CrudHelper.GetImplementationOrThrow<IDeleteChildren<TId>>(Service);
+            return implementation.DeleteChildrenAsync(parentId, token);
         }
     }
 }

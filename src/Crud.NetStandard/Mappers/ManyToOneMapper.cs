@@ -3,39 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Assert;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Crud.PassThrough;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
+using Xlent.Lever.Libraries2.Core.Assert;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
+using Xlent.Lever.Libraries2.Crud.PassThrough;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Mappers
+namespace Xlent.Lever.Libraries2.Crud.Mappers
 {
-    /// <inheritdoc cref="ManyToOneMapper{TClientModelCreate, TClientModel, TClientId, TServerModel, TServerId}" />
+    /// <inheritdoc cref="ManyToOneMapper{TClientModelCreate,TClientModel,TClientId,TServerModel,TServerId}" />
     public class ManyToOneMapper<TClientModel, TClientId, TServerModel, TServerId> :
         ManyToOneMapper<TClientModel, TClientModel, TClientId, TServerModel, TServerId>,
-        IManyToOne<TClientModel, TClientId>
+        ICrudManyToOne<TClientModel, TClientId>
     {
         /// <summary>
         /// Constructor
         /// </summary>
-        public ManyToOneMapper(IManyToOne<TServerModel, TServerId> storage, ICrudMapper<TClientModel, TServerModel> mapper)
-            : base(storage, mapper)
+        public ManyToOneMapper(ICrudable service, ICrudMapper<TClientModel, TServerModel> mapper)
+            : base(service, mapper)
         {
         }
     }
 
-    /// <inheritdoc cref="IManyToOne{TManyModel,TClientId}" />
-    public class ManyToOneMapper<TClientModelCreate, TClientModel, TClientId, TServerModel, TServerId> : IManyToOne<TClientModel, TClientId> where TClientModel : TClientModelCreate
+    /// <inheritdoc cref="ICrudManyToOne{TManyModelCreate,TManyModel,TClientId}" />
+    public class ManyToOneMapper<TClientModelCreate, TClientModel, TClientId, TServerModel, TServerId> : CrudMapper<TClientModelCreate, TClientModel, TClientId, TServerModel, TServerId>, ICrudManyToOne<TClientModelCreate, TClientModel, TClientId> where TClientModel : TClientModelCreate
     {
-        private readonly IManyToOne<TServerModel, TServerId> _storage;
+        private readonly ICrudManyToOne<TServerModel, TServerId> _service;
         private readonly ICrudMapper<TClientModelCreate, TClientModel, TServerModel> _mapper;
-
         /// <summary>
         /// Constructor
         /// </summary>
-        public ManyToOneMapper(IManyToOne<TServerModel, TServerId> storage, ICrudMapper<TClientModelCreate, TClientModel, TServerModel> mapper)
+        public ManyToOneMapper(ICrudable service, ICrudMapper<TClientModelCreate, TClientModel, TServerModel> mapper)
+            : base(service, mapper)
         {
-            _storage = storage;
+            _service = new ManyToOnePassThrough<TServerModel, TServerId>(service);
             _mapper = mapper;
         }
 
@@ -44,7 +44,7 @@ namespace Xlent.Lever.Libraries2.Crud.Crud.Mappers
             CancellationToken token = default(CancellationToken))
         {
             var serverId = MapperHelper.MapToType<TServerId, TClientId>(parentId);
-            var storagePage = await _storage.ReadChildrenWithPagingAsync(serverId, offset, limit, token);
+            var storagePage = await _service.ReadChildrenWithPagingAsync(serverId, offset, limit, token);
             FulcrumAssert.IsNotNull(storagePage?.Data);
             var data = storagePage?.Data.Select(_mapper.MapFromServer);
             return new PageEnvelope<TClientModel>(storagePage?.PageInfo, data);
@@ -54,9 +54,16 @@ namespace Xlent.Lever.Libraries2.Crud.Crud.Mappers
         public virtual async Task<IEnumerable<TClientModel>> ReadChildrenAsync(TClientId parentId, int limit = Int32.MaxValue, CancellationToken token = default(CancellationToken))
         {
             var serverId = MapperHelper.MapToType<TServerId, TClientId>(parentId);
-            var items = await  _storage.ReadChildrenAsync(serverId, limit, token);
+            var items = await  _service.ReadChildrenAsync(serverId, limit, token);
             FulcrumAssert.IsNotNull(items);
             return items?.Select(_mapper.MapFromServer);
+        }
+
+        /// <inheritdoc />
+        public virtual Task DeleteChildrenAsync(TClientId parentId, CancellationToken token = default(CancellationToken))
+        {
+            var serverId = MapperHelper.MapToType<TServerId, TClientId>(parentId);
+            return _service.DeleteChildrenAsync(serverId, token);
         }
     }
 }

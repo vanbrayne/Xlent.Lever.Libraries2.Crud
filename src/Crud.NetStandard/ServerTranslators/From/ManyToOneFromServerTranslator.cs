@@ -1,30 +1,46 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Crud.PassThrough;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.ServerTranslators.From
+namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.From
 {
-    /// <summary>
-    /// Decorate values from the server into concept values.
-    /// </summary>
-    public class ManyToOneFromServerTranslator<TModel> : ServerTranslatorBase, IManyToOne<TModel, string>
+    /// <inheritdoc cref="ManyToOneFromServerTranslator{TModelCreate, TModel}" />
+    public class ManyToOneFromServerTranslator<TModel> :
+        ManyToOneFromServerTranslator<TModel, TModel>,
+        ICrudManyToOne<TModel, string>
     {
-        private readonly IManyToOne<TModel, string> _storage;
 
         /// <inheritdoc />
-        public ManyToOneFromServerTranslator(IManyToOne<TModel, string> storage, string idConceptName, System.Func<string> getServerNameMethod)
-        :base(idConceptName, getServerNameMethod)
+        public ManyToOneFromServerTranslator(ICrudable service, string idConceptName,
+            System.Func<string> getServerNameMethod)
+            : base(service, idConceptName, getServerNameMethod)
         {
-            _storage = storage;
+        }
+    }
+
+    /// <inheritdoc cref="CrudFromServerTranslator{TModelCreate, TModel}" />
+    public class ManyToOneFromServerTranslator<TModelCreate, TModel> :
+        CrudFromServerTranslator<TModelCreate, TModel>,
+        ICrudManyToOne<TModelCreate, TModel, string>
+        where TModel : TModelCreate
+    {
+        private readonly ICrudManyToOne<TModelCreate, TModel, string> _service;
+
+        /// <inheritdoc />
+        public ManyToOneFromServerTranslator(ICrudable service, string idConceptName, System.Func<string> getServerNameMethod)
+            : base(service, idConceptName, getServerNameMethod)
+        {
+            _service = new ManyToOnePassThrough<TModelCreate, TModel, string>(service);
         }
 
         /// <inheritdoc />
         public async Task<PageEnvelope<TModel>> ReadChildrenWithPagingAsync(string parentId, int offset, int? limit = null,
-            CancellationToken token = new CancellationToken())
+        CancellationToken token = new CancellationToken())
         {
-            var result = await _storage.ReadChildrenWithPagingAsync(parentId, offset, limit, token);
+            var result = await _service.ReadChildrenWithPagingAsync(parentId, offset, limit, token);
             var translator = CreateTranslator();
             return translator.DecorateItem(result);
         }
@@ -32,9 +48,15 @@ namespace Xlent.Lever.Libraries2.Crud.Crud.ServerTranslators.From
         /// <inheritdoc />
         public async Task<IEnumerable<TModel>> ReadChildrenAsync(string parentId, int limit = int.MaxValue, CancellationToken token = new CancellationToken())
         {
-            var result = await _storage.ReadChildrenAsync(parentId, limit, token);
+            var result = await _service.ReadChildrenAsync(parentId, limit, token);
             var translator = CreateTranslator();
             return translator.DecorateItems(result);
+        }
+
+        /// <inheritdoc />
+        public Task DeleteChildrenAsync(string parentId, CancellationToken token = default(CancellationToken))
+        {
+            return _service.DeleteChildrenAsync(parentId, token);
         }
     }
 }

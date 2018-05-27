@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
-
-namespace Xlent.Lever.Libraries2.Crud.Crud.Interfaces
+﻿namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
-    /// <inheritdoc cref="IManyToOne{TManyModel,TId}" />
-    public interface IManyToOneRead<TManyModel, in TId> :
-        IManyToOne<TManyModel, TId>,
-        IRead<TManyModel, TId>
+    /// <inheritdoc cref="IReadChildren{TModel,TId}" />
+    public interface IManyToOneRead<TModel, in TId> :
+        IReadChildren<TModel, TId>,
+        IRead<TModel, TId>
     {
     }
 }

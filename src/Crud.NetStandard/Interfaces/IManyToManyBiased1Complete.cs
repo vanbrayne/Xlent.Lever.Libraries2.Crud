@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Interfaces
+namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
     /// <summary>
     /// Functionality for persisting many-to-many relations.
     /// </summary>
-    public interface IManyToManyBiased1Complete<TManyToManyModel, TManyModel, TId> : IManyToManyBiased1Complete<TManyToManyModel, TManyToManyModel, TManyModel, TId>
+    public interface IManyToManyBiased1Complete<TManyToManyModel, TModel, TId> : IManyToManyBiased1Complete<TManyToManyModel, TManyToManyModel, TModel, TId>
     {
     }
 
     /// <summary>
     /// Functionality for persisting many-to-many relations.
     /// </summary>
-    public interface IManyToManyBiased1Complete<in TManyToManyModelCreate, TManyToManyModel, TManyModel, TId> : ICrud<TManyToManyModelCreate, TManyToManyModel, TId>, IManyToManyBiased1<TManyModel, TId> where TManyToManyModel : TManyToManyModelCreate
+    public interface IManyToManyBiased1Complete<in TManyToManyModelCreate, TManyToManyModel, TModel, TId> : ICrud<TManyToManyModelCreate, TManyToManyModel, TId>, IManyToManyBiased1<TModel, TId> where TManyToManyModel : TManyToManyModelCreate
     {
         /// <summary>
         /// Find all items with reference 1 set to <paramref name="id"/>.

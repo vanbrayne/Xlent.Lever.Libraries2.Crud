@@ -1,39 +1,40 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
-using Xlent.Lever.Libraries2.Crud.Translation;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
+using Xlent.Lever.Libraries2.Core.Translation;
+using Xlent.Lever.Libraries2.Crud.PassThrough;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.ServerTranslators.To
+namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
 {
-    /// <summary>
-    /// Translate concept values to the server
-    /// </summary>
-    public class ManyToOneCrudToServerTranslator<TModel> : ManyToOneCrudToServerTranslator<TModel, TModel>, IManyToOneCrud<TModel, string>
+    /// <inheritdoc cref="ManyToOneToServerTranslator{TModelCreate, TModel}" />
+    public class ManyToOneToServerTranslator<TModel> : 
+        ManyToOneToServerTranslator<TModel, TModel>, 
+        ICrudManyToOne<TModel, string>
     {
 
         /// <inheritdoc />
-        public ManyToOneCrudToServerTranslator(IManyToOneCrud<TModel, string> storage, string idConceptName,
+        public ManyToOneToServerTranslator(ICrudable service, string idConceptName,
             System.Func<string> getServerNameMethod, ITranslatorService translatorService)
-            : base(storage, idConceptName, getServerNameMethod, translatorService)
+            : base(service, idConceptName, getServerNameMethod, translatorService)
         {
         }
     }
 
-    /// <summary>
-    /// Translate concept values to the server
-    /// </summary>
-    public class ManyToOneCrudToServerTranslator<TModelCreate, TModel> : CrudToServerTranslator<TModelCreate, TModel>, IManyToOneCrud<TModelCreate, TModel, string>
+    /// <inheritdoc cref="CrudToServerTranslator{TModelCreate, TModel}" />
+    public class ManyToOneToServerTranslator<TModelCreate, TModel> :
+        CrudToServerTranslator<TModelCreate, TModel>,
+        ICrudManyToOne<TModelCreate, TModel, string>
         where TModel : TModelCreate
     {
-        private readonly IManyToOneCrud<TModelCreate, TModel, string> _storage;
+        private readonly ICrudManyToOne<TModelCreate, TModel, string> _service;
 
         /// <inheritdoc />
-        public ManyToOneCrudToServerTranslator(IManyToOneCrud<TModelCreate, TModel, string> storage, string idConceptName, System.Func<string> getServerNameMethod, ITranslatorService translatorService)
-            : base(storage, idConceptName, getServerNameMethod, translatorService)
+        public ManyToOneToServerTranslator(ICrudable service, string idConceptName, System.Func<string> getServerNameMethod, ITranslatorService translatorService)
+            : base(service, idConceptName, getServerNameMethod, translatorService)
         {
-            _storage = storage;
+            _service = new ManyToOnePassThrough<TModelCreate, TModel, string>(service);
         }
 
         /// <inheritdoc />
@@ -43,7 +44,7 @@ namespace Xlent.Lever.Libraries2.Crud.Crud.ServerTranslators.To
             var translator = CreateTranslator();
             await translator.Add(parentId).ExecuteAsync();
             parentId = translator.Translate(parentId);
-            return await _storage.ReadChildrenWithPagingAsync(parentId, offset, limit, token);
+            return await _service.ReadChildrenWithPagingAsync(parentId, offset, limit, token);
         }
 
         /// <inheritdoc />
@@ -52,7 +53,7 @@ namespace Xlent.Lever.Libraries2.Crud.Crud.ServerTranslators.To
             var translator = CreateTranslator();
             await translator.Add(parentId).ExecuteAsync();
             parentId = translator.Translate(parentId);
-            return await _storage.ReadChildrenAsync(parentId, limit, token);
+            return await _service.ReadChildrenAsync(parentId, limit, token);
         }
 
         /// <inheritdoc />
@@ -61,7 +62,7 @@ namespace Xlent.Lever.Libraries2.Crud.Crud.ServerTranslators.To
             var translator = CreateTranslator();
             await translator.Add(parentId).ExecuteAsync();
             parentId = translator.Translate(parentId);
-            await _storage.DeleteChildrenAsync(parentId, token);
+            await _service.DeleteChildrenAsync(parentId, token);
         }
     }
 }

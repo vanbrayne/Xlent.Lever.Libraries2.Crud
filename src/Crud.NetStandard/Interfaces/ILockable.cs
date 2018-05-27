@@ -1,15 +1,16 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Error.Logic;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
+using Xlent.Lever.Libraries2.Core.Error.Logic;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
+using Xlent.Lever.Libraries2.Crud.Model;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.Interfaces
+namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
     /// <summary>
     /// Update an item of type <see cref="IUniquelyIdentifiable{TId}"/>.
     /// </summary>
     /// <typeparam name="TId">The type for the id parameter.</typeparam>
-    public interface ILockable<in TId>
+    public interface ILockable<in TId> : ICrudable<TId>
     {
         /// <summary>
         /// Claim a lock for the item with id <paramref name="id"/>

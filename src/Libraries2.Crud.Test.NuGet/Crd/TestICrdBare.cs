@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Xlent.Lever.Libraries2.Crud.Crud.Helpers;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Error.Logic;
+using Xlent.Lever.Libraries2.Crud.Helpers;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Crud.Test.NuGet.Model;
 
 namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.Crd
@@ -47,7 +46,7 @@ namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.Crd
         [TestMethod]
         public async Task Read_NotFound_Async()
         {
-            var item = await CrdStorage.ReadAsync(StorageHelper.CreateNewId<TId>());
+            var item = await CrdStorage.ReadAsync(CrudHelper.CreateNewId<TId>());
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNull(item);
         }
 
@@ -72,7 +71,7 @@ namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.Crd
         [TestMethod]
         public async Task Delete_NotFound()
         {
-            await CrdStorage.DeleteAsync(StorageHelper.CreateNewId<TId>());
+            await CrdStorage.DeleteAsync(CrudHelper.CreateNewId<TId>());
         }
     }
 }

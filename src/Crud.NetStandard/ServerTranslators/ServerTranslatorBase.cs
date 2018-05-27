@@ -1,6 +1,6 @@
-﻿using Xlent.Lever.Libraries2.Crud.Translation;
+﻿using Xlent.Lever.Libraries2.Core.Translation;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.ServerTranslators
+namespace Xlent.Lever.Libraries2.Crud.ServerTranslators
 {
     /// <summary>
     /// Decorate values from server and translate concept values to server.

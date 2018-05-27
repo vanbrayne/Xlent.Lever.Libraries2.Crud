@@ -1,4 +1,4 @@
-﻿using Xlent.Lever.Libraries2.Crud.Storage.Model;
+﻿using Xlent.Lever.Libraries2.Core.Storage.Model;
 
 namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.Model
 {

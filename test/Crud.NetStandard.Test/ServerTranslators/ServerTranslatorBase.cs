@@ -2,11 +2,11 @@
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Crud.ServerTranslators.Support;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.ServerTranslators.Support;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
 
-namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Crud.ServerTranslators
+namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.ServerTranslators
 {
     [TestClass]
     public class ServerTranslatorBase

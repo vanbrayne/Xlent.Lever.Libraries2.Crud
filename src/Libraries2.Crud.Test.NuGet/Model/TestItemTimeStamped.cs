@@ -1,5 +1,5 @@
 ﻿using System;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
 #pragma warning disable 659
 
 namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.Model

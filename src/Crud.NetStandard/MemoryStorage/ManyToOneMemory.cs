@@ -2,26 +2,36 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Assert;
-using Xlent.Lever.Libraries2.Crud.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Crud.Storage.Logic;
-using Xlent.Lever.Libraries2.Crud.Storage.Model;
+using Xlent.Lever.Libraries2.Core.Assert;
+using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Core.Storage.Logic;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
 
-namespace Xlent.Lever.Libraries2.Crud.Crud.MemoryStorage
+namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
 {
+
+    /// <summary>
+    /// A delegate method for getting the parent id from a stored item.
+    /// </summary>
+    /// <param name="item">The item to get the parent for.</param>
+    public delegate object GetParentIdDelegate<in TModel>(TModel item);
+
     /// <summary>
     /// General class for storing a many to one item in memory.
     /// </summary>
-    /// <typeparam name="TManyModel">The model for the children that each points out a parent.</typeparam>
+    /// <typeparam name="TModel">The model for the children that each points out a parent.</typeparam>
     /// <typeparam name="TId">The type for the id field of the models.</typeparam>
-    public class ManyToOneMemory<TManyModel, TId> : ManyToOneMemory<TManyModel, TManyModel, TId>, ICrud<TManyModel, TId>, IManyToOneCrud<TManyModel, TId>
+    public class ManyToOneMemory<TModel, TId> : 
+        ManyToOneMemory<TModel, TModel, TId>, 
+        ICrud<TModel, TId>, 
+        ICrudManyToOne<TModel, TId>
     {
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="getParentIdDelegate">See <see cref="ManyToOneMemory{TManyModelCreate,TManyModel,TId}.GetParentIdDelegate"/>.</param>
-        public ManyToOneMemory(GetParentIdDelegate getParentIdDelegate)
+        /// <param name="getParentIdDelegate">See <see cref="GetParentIdDelegate{TModel}"/>.</param>
+        public ManyToOneMemory(GetParentIdDelegate<TModel> getParentIdDelegate)
         :base(getParentIdDelegate)
         {
         }
@@ -30,32 +40,28 @@ namespace Xlent.Lever.Libraries2.Crud.Crud.MemoryStorage
     /// <summary>
     /// General class for storing a many to one item in memory.
     /// </summary>
-    /// <typeparam name="TManyModel">The model for the children that each points out a parent.</typeparam>
+    /// <typeparam name="TModel">The model for the children that each points out a parent.</typeparam>
     /// <typeparam name="TId">The type for the id field of the models.</typeparam>
-    /// <typeparam name="TManyModelCreate"></typeparam>
-    public class ManyToOneMemory<TManyModelCreate, TManyModel, TId> : CrudMemory<TManyModelCreate, TManyModel, TId>, IManyToOneCrud<TManyModelCreate, TManyModel, TId> 
-        where TManyModel : TManyModelCreate
+    /// <typeparam name="TModelCreate"></typeparam>
+    public class ManyToOneMemory<TModelCreate, TModel, TId> : 
+        CrudMemory<TModelCreate, TModel, TId>, 
+        ICrudManyToOne<TModelCreate, TModel, TId> 
+        where TModel : TModelCreate
     {
-        private readonly GetParentIdDelegate _getParentIdDelegate;
+        private readonly GetParentIdDelegate<TModel> _getParentIdDelegate;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="getParentIdDelegate">See <see cref="GetParentIdDelegate"/>.</param>
-        public ManyToOneMemory(GetParentIdDelegate getParentIdDelegate)
+        /// <param name="getParentIdDelegate">See <see cref="GetParentIdDelegate{TModel}"/>.</param>
+        public ManyToOneMemory(GetParentIdDelegate<TModel> getParentIdDelegate)
         {
             InternalContract.RequireNotNull(getParentIdDelegate, nameof(getParentIdDelegate));
             _getParentIdDelegate = getParentIdDelegate;
         }
 
-        /// <summary>
-        /// A delegate method for getting the parent id from a stored item.
-        /// </summary>
-        /// <param name="item">The item to get the parent for.</param>
-        public delegate object GetParentIdDelegate(TManyModel item);
-
         /// <inheritdoc />
-        public Task<PageEnvelope<TManyModel>> ReadChildrenWithPagingAsync(TId parentId, int offset, int? limit = null, CancellationToken token = default(CancellationToken))
+        public Task<PageEnvelope<TModel>> ReadChildrenWithPagingAsync(TId parentId, int offset, int? limit = null, CancellationToken token = default(CancellationToken))
         {
             limit = limit ?? PageInfo.DefaultLimit;
             InternalContract.RequireNotNull(parentId, nameof(parentId));
@@ -67,19 +73,19 @@ namespace Xlent.Lever.Libraries2.Crud.Crud.MemoryStorage
                     .Where(i => parentId.Equals(_getParentIdDelegate(i)))
                     .Skip(offset)
                     .Take(limit.Value);
-                var page = new PageEnvelope<TManyModel>(offset, limit.Value, MemoryItems.Count, list);
+                var page = new PageEnvelope<TModel>(offset, limit.Value, MemoryItems.Count, list);
                 return Task.FromResult(page);
             }
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<TManyModel>> ReadChildrenAsync(TId parentId, int limit = int.MaxValue, CancellationToken token = default(CancellationToken))
+        public async Task<IEnumerable<TModel>> ReadChildrenAsync(TId parentId, int limit = int.MaxValue, CancellationToken token = default(CancellationToken))
         {
             InternalContract.RequireNotNull(parentId, nameof(parentId));
             InternalContract.RequireGreaterThan(0, limit, nameof(limit));
 
 
-            var result = new List<TManyModel>();
+            var result = new List<TModel>();
             var offset = 0;
             while (true)
             {
@@ -97,9 +103,9 @@ namespace Xlent.Lever.Libraries2.Crud.Crud.MemoryStorage
         {
             InternalContract.RequireNotNull(masterId, nameof(masterId));
             InternalContract.RequireNotDefaultValue(masterId, nameof(masterId));
-            var errorMessage = $"{nameof(TManyModel)} must implement the interface {nameof(IUniquelyIdentifiable<TId>)} for this method to work.";
-            InternalContract.Require(typeof(IUniquelyIdentifiable<TId>).IsAssignableFrom(typeof(TManyModel)), errorMessage);
-            var items = new PageEnvelopeEnumerableAsync<TManyModel>((o, t) => ReadChildrenWithPagingAsync(masterId, o, null, t), token);
+            var errorMessage = $"{nameof(TModel)} must implement the interface {nameof(IUniquelyIdentifiable<TId>)} for this method to work.";
+            InternalContract.Require(typeof(IUniquelyIdentifiable<TId>).IsAssignableFrom(typeof(TModel)), errorMessage);
+            var items = new PageEnvelopeEnumerableAsync<TModel>((o, t) => ReadChildrenWithPagingAsync(masterId, o, null, t), token);
             var enumerator = items.GetEnumerator();
             while (await enumerator.MoveNextAsync())
             {
