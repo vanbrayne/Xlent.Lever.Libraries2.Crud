@@ -14,14 +14,14 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Cache
     [TestClass]
     public class TestAutoCacheManyToOneRecursive : TestAutoCacheBase<ItemWithParentId, ItemWithParentId>
     {
-        private ManyToOneCrudAutoCache<ItemWithParentId, Guid> _autoCache;
+        private ManyToOneAutoCache<ItemWithParentId, Guid> _autoCache;
 
-        private IManyToOneCrud<ItemWithParentId, Guid> _storage;
+        private ICrudManyToOne<ItemWithParentId, Guid> _storage;
         /// <inheritdoc />
         protected override ICrud<ItemWithParentId, ItemWithParentId, Guid> CrudStorage => _storage;
         
         /// <inheritdoc />
-        public override ReadAutoCache<ItemWithParentId, Guid> ReadAutoCache => _autoCache;
+        public override ManyToOneAutoCache<ItemWithParentId, Guid> CrudAutoCache => _autoCache;
 
 
         [TestInitialize]
@@ -38,7 +38,7 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Cache
             {
                 AbsoluteExpirationRelativeToNow = DistributedCacheOptions.AbsoluteExpirationRelativeToNow
             };
-            _autoCache = new ManyToOneCrudAutoCache<ItemWithParentId, Guid>(_storage, Cache, null, AutoCacheOptions);
+            _autoCache = new ManyToOneAutoCache<ItemWithParentId, Guid>(_storage, Cache, null, AutoCacheOptions);
         }
 
         [TestMethod]
@@ -46,7 +46,7 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Cache
         {
             AutoCacheOptions.SaveCollections = true;
             AutoCacheOptions.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10);
-            _autoCache = new ManyToOneCrudAutoCache<ItemWithParentId, Guid>(_storage, Cache, null, AutoCacheOptions);
+            _autoCache = new ManyToOneAutoCache<ItemWithParentId, Guid>(_storage, Cache, null, AutoCacheOptions);
             var parentId = Guid.NewGuid();
             var parent = new ItemWithParentId(parentId, "ParentA");
             await PrepareStorageAndCacheAsync(parentId, parent, null);
@@ -82,7 +82,7 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Cache
         {
             AutoCacheOptions.SaveCollections = true;
             AutoCacheOptions.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10);
-            _autoCache = new ManyToOneCrudAutoCache<ItemWithParentId, Guid>(_storage, Cache, null, AutoCacheOptions);
+            _autoCache = new ManyToOneAutoCache<ItemWithParentId, Guid>(_storage, Cache, null, AutoCacheOptions);
             var parentId = Guid.NewGuid();
             var parent = new ItemWithParentId(parentId, "ParentA");
             await PrepareStorageAndCacheAsync(parentId, parent, null);
@@ -104,7 +104,7 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Cache
         {
             AutoCacheOptions.SaveCollections = true;
             AutoCacheOptions.AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10);
-            _autoCache = new ManyToOneCrudAutoCache<ItemWithParentId, Guid>(_storage, Cache, null, AutoCacheOptions);
+            _autoCache = new ManyToOneAutoCache<ItemWithParentId, Guid>(_storage, Cache, null, AutoCacheOptions);
             var parentId = Guid.NewGuid();
             var parent = new ItemWithParentId(parentId, "ParentA");
             await PrepareStorageAndCacheAsync(parentId, parent, null);

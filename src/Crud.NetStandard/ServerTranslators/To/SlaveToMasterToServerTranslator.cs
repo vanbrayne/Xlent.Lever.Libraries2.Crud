@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Core.Translation;
+using Xlent.Lever.Libraries2.Crud.PassThrough;
 
 namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
 {
@@ -14,9 +14,9 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         ICrudSlaveToMaster<TModel, string>
     {
         /// <inheritdoc />
-        public SlaveToMasterToServerTranslator(ICrudSlaveToMaster<TModel, string> storage,
+        public SlaveToMasterToServerTranslator(ICrudable service,
             System.Func<string> getServerNameMethod, ITranslatorService translatorService)
-            : base(null, getServerNameMethod, translatorService)
+            : base(service, getServerNameMethod, translatorService)
         {
         }
     }
@@ -27,23 +27,23 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         ICrudSlaveToMaster<TModelCreate, TModel, string>
         where TModel : TModelCreate
     {
-        private readonly ICrudSlaveToMaster<TModelCreate, TModel, string> _storage;
+        private readonly ICrudSlaveToMaster<TModelCreate, TModel, string> _service;
 
         /// <inheritdoc />
-        public SlaveToMasterToServerTranslator(ICrudSlaveToMaster<TModelCreate, TModel, string> storage, System.Func<string> getServerNameMethod, ITranslatorService translatorService)
+        public SlaveToMasterToServerTranslator(ICrudable service, System.Func<string> getServerNameMethod, ITranslatorService translatorService)
             : base(null, getServerNameMethod, translatorService)
         {
-            _storage = storage;
+            _service = new SlaveToMasterPassThrough<TModelCreate, TModel, string>(service);
         }
 
         /// <inheritdoc />
-        public async Task<SlaveToMasterId<string>> CreateAsync(string masterId, TModelCreate item, CancellationToken token = default(CancellationToken))
+        public async Task<string> CreateAsync(string masterId, TModelCreate item, CancellationToken token = default(CancellationToken))
         {
             var translator = CreateTranslator();
             await translator.Add(masterId).Add(item).ExecuteAsync();
             masterId = translator.Translate(masterId);
             item = translator.Translate(item);
-            return await _storage.CreateAsync(masterId, item, token);
+            return await _service.CreateAsync(masterId, item, token);
         }
 
         /// <inheritdoc />
@@ -53,7 +53,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
             await translator.Add(masterId).Add(item).ExecuteAsync();
             masterId = translator.Translate(masterId);
             item = translator.Translate(item);
-            return await _storage.CreateAndReturnAsync(masterId, item, token);
+            return await _service.CreateAndReturnAsync(masterId, item, token);
         }
 
         /// <inheritdoc />
@@ -64,7 +64,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
             masterId = translator.Translate(masterId);
             slaveId = translator.Translate(slaveId);
             item = translator.Translate(item);
-            await _storage.CreateWithSpecifiedIdAsync(masterId, slaveId, item, token);
+            await _service.CreateWithSpecifiedIdAsync(masterId, slaveId, item, token);
         }
 
         /// <inheritdoc />
@@ -75,7 +75,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
             masterId = translator.Translate(masterId);
             slaveId = translator.Translate(slaveId);
             item = translator.Translate(item);
-            return await _storage.CreateWithSpecifiedIdAndReturnAsync(masterId, slaveId, item, token);
+            return await _service.CreateWithSpecifiedIdAndReturnAsync(masterId, slaveId, item, token);
         }
 
         /// <inheritdoc />
@@ -85,7 +85,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
             await translator.Add(masterId).Add(slaveId).ExecuteAsync();
             masterId = translator.Translate(masterId);
             slaveId = translator.Translate(slaveId);
-            return await _storage.ReadAsync(masterId, slaveId, token);
+            return await _service.ReadAsync(masterId, slaveId, token);
         }
 
         /// <inheritdoc />
@@ -95,7 +95,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
             var translator = CreateTranslator();
             await translator.Add(parentId).ExecuteAsync();
             parentId = translator.Translate(parentId);
-            return await _storage.ReadChildrenWithPagingAsync(parentId, offset, limit, token);
+            return await _service.ReadChildrenWithPagingAsync(parentId, offset, limit, token);
         }
 
         /// <inheritdoc />
@@ -104,7 +104,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
             var translator = CreateTranslator();
             await translator.Add(parentId).ExecuteAsync();
             parentId = translator.Translate(parentId);
-            return await _storage.ReadChildrenAsync(parentId, limit, token);
+            return await _service.ReadChildrenAsync(parentId, limit, token);
         }
 
         /// <inheritdoc />
@@ -115,7 +115,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
             masterId = translator.Translate(masterId);
             slaveId = translator.Translate(slaveId);
             item = translator.Translate(item);
-            await _storage.UpdateAsync(masterId, slaveId, item, token);
+            await _service.UpdateAsync(masterId, slaveId, item, token);
         }
 
         /// <inheritdoc />
@@ -127,7 +127,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
             masterId = translator.Translate(masterId);
             slaveId = translator.Translate(slaveId);
             item = translator.Translate(item);
-            return await _storage.UpdateAndReturnAsync(masterId, slaveId, item, token);
+            return await _service.UpdateAndReturnAsync(masterId, slaveId, item, token);
         }
 
         /// <inheritdoc />
@@ -136,7 +136,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
             var translator = CreateTranslator();
             await translator.Add(masterId).ExecuteAsync();
             masterId = translator.Translate(masterId);
-            await _storage.DeleteChildrenAsync(masterId, token);
+            await _service.DeleteChildrenAsync(masterId, token);
         }
 
         /// <inheritdoc />
@@ -146,7 +146,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
             await translator.Add(masterId).Add(slaveId).ExecuteAsync();
             masterId = translator.Translate(masterId);
             slaveId = translator.Translate(slaveId);
-            await _storage.DeleteAsync(masterId, slaveId, token);
+            await _service.DeleteAsync(masterId, slaveId, token);
         }
     }
 }

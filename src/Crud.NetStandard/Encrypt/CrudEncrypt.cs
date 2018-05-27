@@ -10,7 +10,7 @@ using Xlent.Lever.Libraries2.Crud.PassThrough;
 
 namespace Xlent.Lever.Libraries2.Crud.Encrypt
 {
-    /// <inheritdoc cref="CrdEncrypt{TModel,TId}" />
+    /// <inheritdoc cref="EncryptBase{TModel,TId}" />
     public class CrudEncrypt <TModel, TId>: 
         EncryptBase<TModel, TId>, 
         ICrud<TModel, TId>

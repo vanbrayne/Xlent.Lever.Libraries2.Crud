@@ -7,9 +7,7 @@ using Xlent.Lever.Libraries2.Crud.PassThrough;
 
 namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.From
 {
-    /// <summary>
-    /// Decorate values from the server into concept values.
-    /// </summary>
+    /// <inheritdoc cref="ManyToOneFromServerTranslator{TModelCreate, TModel}" />
     public class ManyToOneFromServerTranslator<TModel> :
         ManyToOneFromServerTranslator<TModel, TModel>,
         ICrudManyToOne<TModel, string>
@@ -23,9 +21,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.From
         }
     }
 
-    /// <summary>
-    /// Decorate values from the server into concept values.
-    /// </summary>
+    /// <inheritdoc cref="CrudFromServerTranslator{TModelCreate, TModel}" />
     public class ManyToOneFromServerTranslator<TModelCreate, TModel> :
         CrudFromServerTranslator<TModelCreate, TModel>,
         ICrudManyToOne<TModelCreate, TModel, string>

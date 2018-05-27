@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Xlent.Lever.Libraries2.Core.Assert;
-using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Crud.PassThrough;
@@ -26,7 +25,9 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
     }
 
     /// <inheritdoc cref="ICrudSlaveToMaster{TModelCreate,TModel,TId}" />
-    public class SlaveToMasterMapper<TClientModelCreate, TClientModel, TClientId, TServerModel, TServerId> : ICrudSlaveToMaster<TClientModelCreate, TClientModel, TClientId> where TClientModel : TClientModelCreate
+    public class SlaveToMasterMapper<TClientModelCreate, TClientModel, TClientId, TServerModel, TServerId> : 
+        ICrudSlaveToMaster<TClientModelCreate, TClientModel, TClientId> 
+        where TClientModel : TClientModelCreate
     {
         private readonly ICrudSlaveToMaster<TServerModel, TServerId> _service;
         private readonly ICrudMapper<TClientModelCreate, TClientModel, TServerModel> _mapper;
@@ -41,7 +42,7 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         }
 
         /// <inheritdoc />
-        public virtual async Task<SlaveToMasterId<TClientId>> CreateAsync(TClientId masterId, TClientModelCreate item, CancellationToken token = default(CancellationToken))
+        public virtual async Task<TClientId> CreateAsync(TClientId masterId, TClientModelCreate item, CancellationToken token = default(CancellationToken))
         {
             var serverMasterId = MapperHelper.MapToType<TServerId, TClientId>(masterId);
             var record = _mapper.MapToServer(item);

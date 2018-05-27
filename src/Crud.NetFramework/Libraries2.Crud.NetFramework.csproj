@@ -46,6 +46,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Crud\Cache\AutoCacheBase.cs" />
+    <Compile Include="Crud\Cache\AutoCacheOptions.cs" />
+    <Compile Include="Crud\Cache\CachedItemInformation.cs" />
+    <Compile Include="Crud\Cache\CacheEnvelope.cs" />
+    <Compile Include="Crud\Cache\CrudAutoCache.cs" />
+    <Compile Include="Crud\Cache\DistributedCacheFactoryMemory.cs" />
+    <Compile Include="Crud\Cache\DistributedCacheMemory.cs" />
+    <Compile Include="Crud\Cache\IFlushableCache.cs" />
+    <Compile Include="Crud\Cache\ManyToOneAutoCache.cs" />
+    <Compile Include="Crud\Cache\MemoryDistributedCache.cs" />
+    <Compile Include="Crud\Cache\MemoryDistributedCacheFactory.cs" />
+    <Compile Include="Crud\Cache\SerializingSupport.cs" />
+    <Compile Include="Crud\Cache\SlaveToMasterAutoCache.cs" />
     <Compile Include="Crud\ClientTranslators\ClientTranslatorBase.cs" />
     <Compile Include="Crud\ClientTranslators\CrudClientTranslator.cs" />
     <Compile Include="Crud\ClientTranslators\ManyToOneClientTranslator.cs" />
@@ -88,6 +101,11 @@
     <Compile Include="Crud\Interfaces\IUpdate.cs" />
     <Compile Include="Crud\Mappers\ManyToOneMapper.cs" />
     <Compile Include="Crud\Mappers\SlaveToMasterMapper.cs" />
+    <Compile Include="Crud\MemoryStorage\CrudMemory.cs" />
+    <Compile Include="Crud\MemoryStorage\ManyToManyMemory.cs" />
+    <Compile Include="Crud\MemoryStorage\ManyToOneMemory.cs" />
+    <Compile Include="Crud\MemoryStorage\MemoryBase.cs" />
+    <Compile Include="Crud\MemoryStorage\SlaveToMasterMemory.cs" />
     <Compile Include="Crud\Model\Lock.cs" />
     <Compile Include="Crud\Mappers\IReadMapper.cs" />
     <Compile Include="Crud\Mappers\ICrdMapper.cs" />

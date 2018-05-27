@@ -68,10 +68,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Crud\Cache\ItemWithParentId.cs" />
+    <Compile Include="Crud\Cache\TestAutoCacheBase.cs" />
+    <Compile Include="Crud\Cache\TestAutoCacheCrd.cs" />
+    <Compile Include="Crud\Cache\TestAutoCacheCrud.cs" />
+    <Compile Include="Crud\Cache\TestAutoCacheManyToOneRecursive.cs" />
+    <Compile Include="Crud\Cache\TestAutoCacheRead.cs" />
+    <Compile Include="Crud\Cache\TestMemoryDistributedCache.cs" />
     <Compile Include="Crud\ServerTranslators\ServerTranslatorBase.cs" />
     <Compile Include="Crud\ServerTranslators\Support\TestModelCreate.cs" />
     <Compile Include="Crud\ServerTranslators\Support\TestModel.cs" />
     <Compile Include="Crud\ServerTranslators\From\CrdServerTranslatorFromTest.cs" />
+    <Compile Include="Crud\Storage\MemoryCrudTestParameters.cs" />
+    <Compile Include="Crud\Storage\MemoryCrudTestsBare.cs" />
+    <Compile Include="Crud\Storage\MemoryCrudTestsEtag.cs" />
+    <Compile Include="Crud\Storage\MemoryCrudTestsId.cs" />
+    <Compile Include="Crud\Storage\MemoryCrudTestsTimeStamped.cs" />
+    <Compile Include="Crud\Storage\MemoryCrudTestsValidated.cs" />
+    <Compile Include="Crud\Storage\MemoryManyToOne.cs" />
+    <Compile Include="Crud\Storage\MemoryQueueTest.cs" />
+    <Compile Include="Crud\Storage\PageEnvelopeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

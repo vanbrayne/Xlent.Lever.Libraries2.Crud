@@ -23,7 +23,6 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         private readonly ConcurrentDictionary<string, PageEnvelope<TModel>> _activeCachingOfPages = new ConcurrentDictionary<string, PageEnvelope<TModel>>();
         private readonly ConcurrentDictionary<string, bool> _collectionOperations = new ConcurrentDictionary<string, bool>();
         protected const string ReadAllCacheKey = "ReadAllCacheKey";
-        protected readonly ICrudable _storage;
 
 
 

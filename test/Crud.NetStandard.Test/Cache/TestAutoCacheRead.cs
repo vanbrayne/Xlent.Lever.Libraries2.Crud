@@ -14,10 +14,10 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Cache
     [TestClass]
     public class TestAutoCacheRead : TestAutoCacheBase<string, string>
     {
-        private ReadAutoCache<string, Guid> _autoCache;
+        private CrudAutoCache<string, Guid> _autoCache;
 
         /// <inheritdoc />
-        public override ReadAutoCache<string, Guid> ReadAutoCache => _autoCache;
+        public override CrudAutoCache<string, Guid> CrudAutoCache => _autoCache;
 
         private ICrud<string, string, Guid> _storage;
         /// <inheritdoc />
@@ -38,7 +38,7 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Cache
             {
                 AbsoluteExpirationRelativeToNow = DistributedCacheOptions.AbsoluteExpirationRelativeToNow
             };
-            _autoCache = new ReadAutoCache<string, Guid>(_storage, ToGuid, Cache, t => ((IFlushableCache)Cache).FlushAsync(t), AutoCacheOptions);
+            _autoCache = new CrudAutoCache<string, Guid>(_storage, ToGuid, Cache, t => ((IFlushableCache)Cache).FlushAsync(t), AutoCacheOptions);
         }
 
         [TestMethod]

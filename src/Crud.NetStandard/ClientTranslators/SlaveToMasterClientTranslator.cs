@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Core.Translation;
@@ -42,7 +41,7 @@ namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
         }
 
         /// <inheritdoc />
-        public async Task<SlaveToMasterId<string>> CreateAsync(string masterId, TModelCreate item, CancellationToken token = default(CancellationToken))
+        public async Task<string> CreateAsync(string masterId, TModelCreate item, CancellationToken token = default(CancellationToken))
         {
             var translator = CreateTranslator();
             masterId = translator.Decorate(_masterIdConceptName, masterId);

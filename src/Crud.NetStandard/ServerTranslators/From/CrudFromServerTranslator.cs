@@ -8,7 +8,7 @@ using Xlent.Lever.Libraries2.Crud.PassThrough;
 
 namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.From
 {
-    /// <inheritdoc cref="CrdFromServerTranslator{TModelCreate, TModel}" />
+    /// <inheritdoc cref="CrudFromServerTranslator{TModelCreate, TModel}" />
     public class CrudFromServerTranslator<TModel> : CrudFromServerTranslator<TModel, TModel>, ICrud<TModel, string>
     {
         /// <inheritdoc />
@@ -19,7 +19,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.From
         }
     }
 
-    /// <inheritdoc cref="CrdFromServerTranslator{TModelCreate, TModel}" />
+    /// <inheritdoc cref="ServerTranslatorBase" />
     public class CrudFromServerTranslator<TModelCreate, TModel> : ServerTranslatorBase, ICrud<TModelCreate, TModel, string>
         where TModel : TModelCreate
     {

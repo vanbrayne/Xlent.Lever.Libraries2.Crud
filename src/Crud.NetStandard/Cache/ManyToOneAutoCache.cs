@@ -11,20 +11,20 @@ using Xlent.Lever.Libraries2.Crud.Interfaces;
 namespace Xlent.Lever.Libraries2.Crud.Cache
 {
 
-    /// <inheritdoc cref="ManyToOneAutoCacheAutoCache{TManyModelCreate,TManyModel,TId}" />
+    /// <inheritdoc cref="ManyToOneAutoCache{TManyModelCreate,TManyModel,TId}" />
     public class ManyToOneAutoCache<TManyModel, TId> : ManyToOneAutoCache<TManyModel, TManyModel, TId>,
         ICrud<TManyModel, TId>, ICrudManyToOne<TManyModel, TId>
     {
         /// <summary>
         /// Constructor for TOneModel that implements <see cref="IUniquelyIdentifiable{TId}"/>.
         /// </summary>
-        /// <param name="storage"></param>
+        /// <param name="service"></param>
         /// <param name="cache"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public ManyToOneAutoCache(ICrudManyToOne<TManyModel, TId> storage, IDistributedCache cache,
+        public ManyToOneAutoCache(ICrudManyToOne<TManyModel, TId> service, IDistributedCache cache,
             FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
-            : this(storage, item => ((IUniquelyIdentifiable<TId>)item).Id, cache, flushCacheDelegateAsync, options)
+            : this(service, item => ((IUniquelyIdentifiable<TId>)item).Id, cache, flushCacheDelegateAsync, options)
         {
         }
 
@@ -32,15 +32,15 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <summary>
         /// Constructor for TOneModel that does not implement <see cref="IUniquelyIdentifiable{TId}"/>, or when you want to specify your own GetKey() method.
         /// </summary>
-        /// <param name="storage"></param>
+        /// <param name="service"></param>
         /// <param name="cache"></param>
         /// <param name="getIdDelegate"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public ManyToOneAutoCache(ICrudManyToOne<TManyModel, TId> storage,
+        public ManyToOneAutoCache(ICrudManyToOne<TManyModel, TId> service,
             GetIdDelegate<TManyModel, TId> getIdDelegate, IDistributedCache cache,
             FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
-            : base(storage, getIdDelegate, cache, flushCacheDelegateAsync, options)
+            : base(service, getIdDelegate, cache, flushCacheDelegateAsync, options)
         {
         }
     }
@@ -50,19 +50,19 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         CrudAutoCache<TManyModelCreate, TManyModel, TId>,
         ICrudManyToOne<TManyModelCreate, TManyModel, TId> where TManyModel : TManyModelCreate
     {
-        private readonly ICrudManyToOne<TManyModelCreate, TManyModel, TId> _storage;
+        private readonly ICrudManyToOne<TManyModelCreate, TManyModel, TId> _service;
 
         /// <summary>
         /// Constructor for TOneModel that implements <see cref="IUniquelyIdentifiable{TId}"/>.
         /// </summary>
-        /// <param name="storage"></param>
+        /// <param name="service"></param>
         /// <param name="cache"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public ManyToOneAutoCache(ICrudManyToOne<TManyModelCreate, TManyModel, TId> storage,
+        public ManyToOneAutoCache(ICrudManyToOne<TManyModelCreate, TManyModel, TId> service,
             IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null,
             AutoCacheOptions options = null)
-            : this(storage, item => ((IUniquelyIdentifiable<TId>)item).Id, cache, flushCacheDelegateAsync, options)
+            : this(service, item => ((IUniquelyIdentifiable<TId>)item).Id, cache, flushCacheDelegateAsync, options)
         {
         }
 
@@ -70,17 +70,17 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <summary>
         /// Constructor for TOneModel that does not implement <see cref="IUniquelyIdentifiable{TId}"/>, or when you want to specify your own GetKey() method.
         /// </summary>
-        /// <param name="storage"></param>
+        /// <param name="service"></param>
         /// <param name="cache"></param>
         /// <param name="getIdDelegate"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public ManyToOneAutoCache(ICrudManyToOne<TManyModelCreate, TManyModel, TId> storage,
+        public ManyToOneAutoCache(ICrudManyToOne<TManyModelCreate, TManyModel, TId> service,
             GetIdDelegate<TManyModel, TId> getIdDelegate, IDistributedCache cache,
             FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
-            : base(storage, getIdDelegate, cache, flushCacheDelegateAsync, options)
+            : base(service, getIdDelegate, cache, flushCacheDelegateAsync, options)
         {
-            _storage = storage;
+            _service = service;
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <inheritdoc />
         public async Task DeleteChildrenAsync(TId masterId, CancellationToken token = default(CancellationToken))
         {
-            await _storage.DeleteChildrenAsync(masterId, token);
+            await _service.DeleteChildrenAsync(masterId, token);
             await RemoveCachedChildrenInBackgroundAsync(masterId, token);
         }
 
@@ -125,7 +125,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
             var key = CacheKeyForChildrenCollection(parentId);
             var result = await CacheGetAsync(offset, limit.Value, key, token);
             if (result != null) return result;
-            result = await _storage.ReadChildrenWithPagingAsync(parentId, offset, limit, token);
+            result = await _service.ReadChildrenWithPagingAsync(parentId, offset, limit, token);
             if (result?.Data == null) return null;
             CacheItemsInBackground(result, limit.Value, key);
             return result;
@@ -139,7 +139,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
             var key = CacheKeyForChildrenCollection(parentId);
             var itemsArray = await CacheGetAsync(limit, key, token);
             if (itemsArray != null) return itemsArray;
-            var itemsCollection = await _storage.ReadChildrenAsync(parentId, limit, token);
+            var itemsCollection = await _service.ReadChildrenAsync(parentId, limit, token);
             itemsArray = itemsCollection as TManyModel[] ?? itemsCollection.ToArray();
             CacheItemsInBackground(itemsArray, limit, key);
             return itemsArray;

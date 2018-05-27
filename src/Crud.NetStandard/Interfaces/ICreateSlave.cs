@@ -1,6 +1,5 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 
 namespace Xlent.Lever.Libraries2.Crud.Interfaces
@@ -27,7 +26,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
         /// <param name="item">The item to store.</param>
         /// <param name="token">Propagates notification that operations should be canceled</param>
         /// <returns>The new id for the created object.</returns>
-        Task<SlaveToMasterId<TId>> CreateAsync(TId masterId, TModelCreate item, CancellationToken token = default(CancellationToken));
+        Task<TId> CreateAsync(TId masterId, TModelCreate item, CancellationToken token = default(CancellationToken));
 
         /// <summary>
         /// Creates a new item in storage and returns the final result.

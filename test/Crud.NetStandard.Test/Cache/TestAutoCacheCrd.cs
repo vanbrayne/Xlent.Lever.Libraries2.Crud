@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -13,10 +14,10 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Cache
     [TestClass]
     public class TestAutoCacheCrd : TestAutoCacheBase<string, string>
     {
-        private CrdAutoCache<string, string, Guid> _autoCache;
+        private CrudAutoCache<string, string, Guid> _autoCache;
 
         /// <inheritdoc />
-        public override ReadAutoCache<string, Guid> ReadAutoCache => _autoCache;
+        public override CrudAutoCache<string, Guid> CrudAutoCache => _autoCache;
         
         private ICrud<string, string, Guid> _storage;
         /// <inheritdoc />

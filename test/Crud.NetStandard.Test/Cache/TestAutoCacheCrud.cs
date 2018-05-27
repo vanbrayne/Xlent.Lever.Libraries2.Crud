@@ -15,7 +15,7 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Cache
         private CrudAutoCache<string, string, Guid> _autoCache;
 
         /// <inheritdoc />
-        public override ReadAutoCache<string, Guid> ReadAutoCache => _autoCache;
+        public override CrudAutoCache<string, Guid> CrudAutoCache => _autoCache;
 
         private ICrud<string, string, Guid> _storage;
         /// <inheritdoc />

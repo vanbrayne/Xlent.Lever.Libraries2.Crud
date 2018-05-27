@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Crud.Helpers;
@@ -43,7 +42,7 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         }
 
         /// <inheritdoc />
-        public virtual Task<SlaveToMasterId<TId>> CreateAsync(TId masterId, TModelCreate item, CancellationToken token = default(CancellationToken))
+        public virtual Task<TId> CreateAsync(TId masterId, TModelCreate item, CancellationToken token = default(CancellationToken))
         {
             var implementation = CrudHelper.GetImplementationOrThrow<ICreateSlave<TModelCreate, TModel, TId>>(Service);
             return implementation.CreateAsync(masterId, item, token);

@@ -103,29 +103,38 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         }
 
         /// <inheritdoc />
-        public Task<SlaveToMasterId<TId>> CreateAsync(TId masterId, TManyModelCreate item, CancellationToken token = default(CancellationToken))
+        public async Task<TId> CreateAsync(TId masterId, TManyModelCreate item, CancellationToken token = default(CancellationToken))
         {
-            return _service.CreateAsync(masterId, item, token);
+            var slaveId = await _service.CreateAsync(masterId, item, token);
+            var id = new SlaveToMasterId<TId>(masterId, slaveId);
+            await CacheMaybeSetAsync(id, this, token);
+            return slaveId;
         }
 
         /// <inheritdoc />
-        public Task<TManyModel> CreateAndReturnAsync(TId masterId, TManyModelCreate item, CancellationToken token = default(CancellationToken))
+        public async Task<TManyModel> CreateAndReturnAsync(TId masterId, TManyModelCreate item, CancellationToken token = default(CancellationToken))
         {
-            return _service.CreateAndReturnAsync(masterId, item, token);
+            var result = await _service.CreateAndReturnAsync(masterId, item, token);
+            await CacheSetAsync(result, token);
+            return result;
         }
 
         /// <inheritdoc />
-        public Task CreateWithSpecifiedIdAsync(TId masterId, TId slaveId, TManyModelCreate item,
+        public async Task CreateWithSpecifiedIdAsync(TId masterId, TId slaveId, TManyModelCreate item,
             CancellationToken token = default(CancellationToken))
         {
-            return _service.CreateWithSpecifiedIdAsync(masterId, slaveId, item, token);
+            await _service.CreateWithSpecifiedIdAsync(masterId, slaveId, item, token);
+            var id = new SlaveToMasterId<TId>(masterId, slaveId);
+            await CacheMaybeSetAsync(id, this, token);
         }
 
         /// <inheritdoc />
-        public Task<TManyModel> CreateWithSpecifiedIdAndReturnAsync(TId masterId, TId slaveId, TManyModelCreate item,
+        public async Task<TManyModel> CreateWithSpecifiedIdAndReturnAsync(TId masterId, TId slaveId, TManyModelCreate item,
             CancellationToken token = default(CancellationToken))
         {
-            return _service.CreateWithSpecifiedIdAndReturnAsync(masterId, slaveId, item, token);
+            var result = await _service.CreateWithSpecifiedIdAndReturnAsync(masterId, slaveId, item, token);
+            await CacheSetAsync(result, token);
+            return result;
         }
 
         /// <inheritdoc />
@@ -176,7 +185,9 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         public async Task<TManyModel> UpdateAndReturnAsync(TId masterId, TId slaveId, TManyModel item,
             CancellationToken token = default(CancellationToken))
         {
-            throw new System.NotImplementedException();
+            var result = await _service.UpdateAndReturnAsync(masterId, slaveId, item, token);
+            await CacheSetAsync(result, token);
+            return result;
         }
 
         /// <inheritdoc />

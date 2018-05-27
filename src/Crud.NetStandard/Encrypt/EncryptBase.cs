@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Crud.Interfaces;
-using Xlent.Lever.Libraries2.Core.Security;
+﻿using Xlent.Lever.Libraries2.Core.Security;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 
 namespace Xlent.Lever.Libraries2.Crud.Encrypt
@@ -15,7 +11,6 @@ namespace Xlent.Lever.Libraries2.Crud.Encrypt
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="storage"></param>
         /// <param name="symmetricEncryptionKey"></param>
         protected EncryptBase(byte[] symmetricEncryptionKey)
         {

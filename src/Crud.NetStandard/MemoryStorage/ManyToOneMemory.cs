@@ -9,13 +9,20 @@ using Xlent.Lever.Libraries2.Core.Storage.Model;
 
 namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
 {
+
+    /// <summary>
+    /// A delegate method for getting the parent id from a stored item.
+    /// </summary>
+    /// <param name="item">The item to get the parent for.</param>
+    public delegate object GetParentIdDelegate<in TModel>(TModel item);
+
     /// <summary>
     /// General class for storing a many to one item in memory.
     /// </summary>
     /// <typeparam name="TModel">The model for the children that each points out a parent.</typeparam>
     /// <typeparam name="TId">The type for the id field of the models.</typeparam>
-    public class ManyToOneMemory<TModel, TId> : M
-        anyToOneMemory<TModel, TModel, TId>, 
+    public class ManyToOneMemory<TModel, TId> : 
+        ManyToOneMemory<TModel, TModel, TId>, 
         ICrud<TModel, TId>, 
         ICrudManyToOne<TModel, TId>
     {
@@ -24,7 +31,7 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
         /// Constructor
         /// </summary>
         /// <param name="getParentIdDelegate">See <see cref="CrudCrudManyToOneMemory{TModelCreate,TModel,TId}.GetParentIdDelegate"/>.</param>
-        public ManyToOneMemory(GetParentIdDelegate getParentIdDelegate)
+        public ManyToOneMemory(GetParentIdDelegate<TModel> getParentIdDelegate)
         :base(getParentIdDelegate)
         {
         }
@@ -41,23 +48,17 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
         ICrudManyToOne<TModelCreate, TModel, TId> 
         where TModel : TModelCreate
     {
-        private readonly GetParentIdDelegate _getParentIdDelegate;
+        private readonly GetParentIdDelegate<TModel> _getParentIdDelegate;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="getParentIdDelegate">See <see cref="GetParentIdDelegate"/>.</param>
-        public ManyToOneMemory(GetParentIdDelegate getParentIdDelegate)
+        public ManyToOneMemory(GetParentIdDelegate<TModel> getParentIdDelegate)
         {
             InternalContract.RequireNotNull(getParentIdDelegate, nameof(getParentIdDelegate));
             _getParentIdDelegate = getParentIdDelegate;
         }
-
-        /// <summary>
-        /// A delegate method for getting the parent id from a stored item.
-        /// </summary>
-        /// <param name="item">The item to get the parent for.</param>
-        public delegate object GetParentIdDelegate(TModel item);
 
         /// <inheritdoc />
         public Task<PageEnvelope<TModel>> ReadChildrenWithPagingAsync(TId parentId, int offset, int? limit = null, CancellationToken token = default(CancellationToken))

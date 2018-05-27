@@ -16,7 +16,7 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Cache
         protected readonly string BaseGuidString;
         protected AutoCacheOptions AutoCacheOptions;
 
-        public virtual ReadAutoCache<TModel, Guid> ReadAutoCache { get; }
+        public virtual CrudAutoCache<TModel, Guid> CrudAutoCache { get; }
 
         protected TestAutoCacheBase()
         {
@@ -37,7 +37,7 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Cache
             }
             else
             {
-                await Cache.SetAsync(id.ToString(), ReadAutoCache.ToSerializedCacheEnvelope(cacheValue), DistributedCacheOptions);
+                await Cache.SetAsync(id.ToString(), CrudAutoCache.ToSerializedCacheEnvelope(cacheValue), DistributedCacheOptions);
             }
         }
 
@@ -110,8 +110,8 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Cache
 
         protected async Task VerifyRead(Guid id, TModel expectedReadValue)
         {
-            var actualReadValue = await ReadAutoCache.ReadAsync(id);
-            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(expectedReadValue, actualReadValue, "ReadAutoCache Read verification failed.");
+            var actualReadValue = await CrudAutoCache.ReadAsync(id);
+            Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(expectedReadValue, actualReadValue, "CrudAutoCache Read verification failed.");
         }
 
         protected Guid ToGuid(TModel item)
