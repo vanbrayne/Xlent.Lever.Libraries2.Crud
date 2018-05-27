@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Xlent.Lever.Libraries2.Crud.NetFramework</id>
-    <version>1.0.1-rc</version>
+    <version>1.0.2-rc</version>
     <authors>XLENT Fulcrum</authors>
     <projectUrl>https://github.com/xlent-fulcrum/Xlent.Lever.Libraries2.Crud</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -11,7 +11,7 @@
     <summary>Fulcrum crud library based on .NET Framework.</summary>
     <copyright>Copyright ©2018 Xlent Business Integration AB</copyright>
     <releaseNotes>
-      1.0.1-rc Moved Crud to it's own Nuget (from Core.NetFramework)
+      1.0.2-rc Moved Crud to it's own Nuget (from Core.NetFramework)
     </releaseNotes>
     <tags>fulcrum lever</tags>
     <dependencies>
