@@ -37,29 +37,6 @@ namespace Xlent.Lever.Libraries2.Crud.Helpers
         }
 
         /// <summary>
-        /// Helper method to convert from one parameter type to another.
-        /// </summary>
-        /// <param name="source"></param>
-        /// <returns></returns>
-        public static T ConvertToParameterType<T>(object source)
-        {
-            object referenceIdAsObject = source;
-            try
-            {
-                var target = (T)referenceIdAsObject;
-                return target;
-            }
-            catch (Exception e)
-            {
-                InternalContract.Fail(
-                    $"The value \"{source}\" of type {source.GetType().Name} can't be converted into type {typeof(T).Name}:\r" +
-                    $"{e.Message}");
-                // We should not end up at this line, but the compiler think that we can, so we add a throw here.
-                throw;
-            }
-        }
-
-        /// <summary>
         /// If <paramref name="service"/> doesn't implement <typeparamref name="T"/>, an exception is thrown.
         /// </summary>
         /// <param name="service">The service that must implement <typeparamref name="T"/>.</param>
