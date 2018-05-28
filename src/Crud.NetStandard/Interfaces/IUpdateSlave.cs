@@ -6,7 +6,7 @@ using Xlent.Lever.Libraries2.Core.Storage.Model;
 namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
     /// <summary>
-    /// Update an item of type <see cref="IUniquelyIdentifiable{TId}"/>.
+    /// Update an item.
     /// </summary>
     /// <typeparam name="TModel">The type of objects to update in persistant storage.</typeparam>
     /// <typeparam name="TId">The type for the id parameter.</typeparam>

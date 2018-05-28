@@ -129,7 +129,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         }
 
         /// <inheritdoc />
-        public async Task<Lock> ClaimLockAsync(string id, CancellationToken token = default(CancellationToken))
+        public async Task<Lock<string>> ClaimLockAsync(string id, CancellationToken token = default(CancellationToken))
         {
             var translator = CreateTranslator();
             await translator.Add(id).ExecuteAsync();
@@ -138,9 +138,9 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         }
 
         /// <inheritdoc />
-        public Task ReleaseLockAsync(Lock @lock, CancellationToken token = default(CancellationToken))
+        public Task ReleaseLockAsync(string id, string lockId, CancellationToken token = default(CancellationToken))
         {
-            return _service.ReleaseLockAsync(@lock, token);
+            return _service.ReleaseLockAsync(id, lockId, token);
         }
     }
 }

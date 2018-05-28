@@ -180,22 +180,22 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
         }
 
         /// <inheritdoc />
-        public Task<Lock> ClaimLockAsync(TId id, CancellationToken token = default(CancellationToken))
+        public Task<Lock<TId>> ClaimLockAsync(TId id, CancellationToken token = default(CancellationToken))
         {
             InternalContract.RequireNotDefaultValue(id, nameof(id));
 
             var key = MapperHelper.MapToType<string, TId>(id);
-            var newLock = new Lock
+            var newLock = new Lock<TId>
             {
-                ItemId = key,
-                LockId = Guid.NewGuid().ToString(),
+                Id = MapperHelper.MapToType<TId, Guid>(Guid.NewGuid()),
+                ItemId = id,
                 ValidUntil = DateTimeOffset.Now.AddSeconds(30)
             };
             while (true)
             {
                 token.ThrowIfCancellationRequested();
-                if (_locks.TryAdd(key, newLock)) return Task.FromResult(newLock);
-                if (!_locks.TryGetValue(key, out var oldLock)) continue;
+                if (_locks.TryAdd(id, newLock)) return Task.FromResult(newLock);
+                if (!_locks.TryGetValue(id, out var oldLock)) continue;
                 var remainingTime = oldLock.ValidUntil.Subtract(DateTimeOffset.Now);
                 if (remainingTime > TimeSpan.Zero)
                 {
@@ -206,22 +206,28 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
                     };
                     throw exception;
                 }
-                if (_locks.TryUpdate(key, newLock, oldLock)) return Task.FromResult(newLock);
+                if (_locks.TryUpdate(id, newLock, oldLock)) return Task.FromResult(newLock);
             }
         }
 
         /// <inheritdoc />
-        public Task ReleaseLockAsync(Lock @lock, CancellationToken token = default(CancellationToken))
+        public Task ReleaseLockAsync(TId id, TId lockId, CancellationToken token = default(CancellationToken))
         {
-            InternalContract.RequireNotNull(@lock, nameof(@lock));
-            InternalContract.RequireValidated(@lock, nameof(@lock));
-            var key = @lock.ItemId;
+            InternalContract.RequireNotDefaultValue(id, nameof(id));
+            InternalContract.RequireNotDefaultValue(lockId, nameof(lockId));
+            if (!_locks.TryGetValue(lockId, out Lock<TId> @lock)) return Task.CompletedTask;
+            if (!Equals(id, @lock.ItemId)) return Task.CompletedTask;
             // Try to temporarily add additional time to make sure that nobody steals the lock while we are releasing it.
             // The TryUpdate will return false if there is no lock or if the current lock differs from the lock we want to release.
-            @lock.ValidUntil = DateTimeOffset.Now.AddSeconds(30);
-            if (!_locks.TryUpdate(key, @lock, @lock)) return Task.CompletedTask;
+            var newLock = new Lock<TId>
+            {
+                Id = lockId,
+                ItemId = id,
+                ValidUntil = DateTimeOffset.Now.AddSeconds(30)
+            };
+            if (!_locks.TryUpdate(lockId, @lock, newLock)) return Task.CompletedTask;
             // Finally remove the lock
-            _locks.TryRemove(key, out var currentLock);
+            _locks.TryRemove(lockId, out var _);
             return Task.CompletedTask;
         }
 

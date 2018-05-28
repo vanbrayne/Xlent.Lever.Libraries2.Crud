@@ -1,22 +1,21 @@
 ﻿using System;
 using Xlent.Lever.Libraries2.Core.Assert;
+using Xlent.Lever.Libraries2.Core.Storage.Model;
 
 namespace Xlent.Lever.Libraries2.Crud.Model
 {
     /// <summary>
     /// Information about a claimed lock
     /// </summary>
-    public class Lock : IValidatable
+    public class Lock<TId> : IValidatable, IUniquelyIdentifiable<TId>
     {
-        /// <summary>
-        /// The proof that the locks is valid
-        /// </summary>
-        public string LockId { get; set; }
+        /// <inheritdoc />
+        public TId Id { get; set; }
 
         /// <summary>
         /// The id of the object that the lock is for.
         /// </summary>
-        public string ItemId { get; set; }
+        public TId ItemId { get; set; }
 
         /// <summary>
         /// The id of the object that the lock is for.
@@ -26,8 +25,8 @@ namespace Xlent.Lever.Libraries2.Crud.Model
         /// <inheritdoc />
         public void Validate(string errorLocation, string propertyPath = "")
         {
-            FulcrumValidate.IsNotNullOrWhiteSpace(LockId, nameof(LockId), errorLocation);
-            FulcrumValidate.IsNotNullOrWhiteSpace(ItemId, nameof(ItemId), errorLocation);
+            FulcrumValidate.IsNotDefaultValue(Id, nameof(Id), errorLocation);
+            FulcrumValidate.IsNotDefaultValue(ItemId, nameof(ItemId), errorLocation);
             FulcrumValidate.IsNotDefaultValue(ValidUntil, nameof(ValidUntil), errorLocation);
         }
 
@@ -35,7 +34,7 @@ namespace Xlent.Lever.Libraries2.Crud.Model
         public override int GetHashCode()
         {
             // ReSharper disable once NonReadonlyMemberInGetHashCode
-            return LockId.GetHashCode();
+            return Id.GetHashCode();
         }
 
         /// <inheritdoc />
@@ -48,8 +47,8 @@ namespace Xlent.Lever.Libraries2.Crud.Model
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
-            if (!(obj is Lock @lock)) return false;
-            return Equals(LockId, @lock.LockId) && Equals(ItemId, @lock.ItemId);
+            if (!(obj is Lock<TId> @lock)) return false;
+            return Equals(Id, @lock.Id) && Equals(ItemId, @lock.ItemId);
         }
     }
 }

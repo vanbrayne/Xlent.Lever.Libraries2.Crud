@@ -108,15 +108,15 @@ namespace Xlent.Lever.Libraries2.Crud.Encrypt
         }
 
         /// <inheritdoc />
-        public Task<Lock> ClaimLockAsync(TId id, CancellationToken token = default(CancellationToken))
+        public Task<Lock<TId>> ClaimLockAsync(TId id, CancellationToken token = default(CancellationToken))
         {
             return _service.ClaimLockAsync(id, token);
         }
 
         /// <inheritdoc />
-        public Task ReleaseLockAsync(Lock @lock, CancellationToken token = default(CancellationToken))
+        public Task ReleaseLockAsync(TId id, TId lockId, CancellationToken token = default(CancellationToken))
         {
-            return _service.ReleaseLockAsync(@lock, token);
+            return _service.ReleaseLockAsync(id, lockId, token);
         }
     }
 }

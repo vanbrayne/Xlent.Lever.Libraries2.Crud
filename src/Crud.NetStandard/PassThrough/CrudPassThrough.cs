@@ -117,17 +117,17 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         }
 
         /// <inheritdoc />
-        public virtual Task<Lock> ClaimLockAsync(TId id, CancellationToken token = default(CancellationToken))
+        public virtual Task<Lock<TId>> ClaimLockAsync(TId id, CancellationToken token = default(CancellationToken))
         {
             var implementation = CrudHelper.GetImplementationOrThrow<ILockable<TId>>(Service);
             return implementation.ClaimLockAsync(id, token);
         }
 
         /// <inheritdoc />
-        public Task ReleaseLockAsync(Lock @lock, CancellationToken token = default(CancellationToken))
+        public Task ReleaseLockAsync(TId id, TId lockId, CancellationToken token = default(CancellationToken))
         {
             var implementation = CrudHelper.GetImplementationOrThrow<ILockable<TId>>(Service);
-            return implementation.ReleaseLockAsync(@lock, token);
+            return implementation.ReleaseLockAsync(id, lockId, token);
         }
     }
 }

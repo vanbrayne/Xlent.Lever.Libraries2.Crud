@@ -20,7 +20,7 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
         /// <summary>
         /// Needed for providing lock functionality.
         /// </summary>
-        protected readonly ConcurrentDictionary<string, Lock> _locks = new ConcurrentDictionary<string, Lock>();
+        protected readonly ConcurrentDictionary<TId, Lock<TId>> _locks = new ConcurrentDictionary<TId, Lock<TId>>();
 
         /// <summary>
         /// The actual storage of the items.

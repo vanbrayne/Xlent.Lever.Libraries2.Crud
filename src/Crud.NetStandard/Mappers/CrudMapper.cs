@@ -133,16 +133,19 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         }
 
         /// <inheritdoc />
-        public Task<Lock> ClaimLockAsync(TClientId id, CancellationToken token = new CancellationToken())
+        public async Task<Lock<TClientId>> ClaimLockAsync(TClientId id, CancellationToken token = new CancellationToken())
         {
             var serverId = MapperHelper.MapToType<TServerId, TClientId>(id);
-            return _service.ClaimLockAsync(serverId, token);
+            var @lock = await _service.ClaimLockAsync(serverId, token);
+            return MapperHelper.MapToType<TClientId, TServerId>(@lock);
         }
 
         /// <inheritdoc />
-        public Task ReleaseLockAsync(Lock @lock, CancellationToken token = new CancellationToken())
+        public Task ReleaseLockAsync(TClientId id, TClientId lockId, CancellationToken token = new CancellationToken())
         {
-            return _service.ReleaseLockAsync(@lock, token);
+            var serverId = MapperHelper.MapToType<TServerId, TClientId>(id);
+            var serverLockId = MapperHelper.MapToType<TServerId, TClientId>(lockId);
+            return _service.ReleaseLockAsync(serverId, serverLockId, token);
         }
     }
 }
