@@ -13,7 +13,7 @@ namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.Crud
     [TestClass]
     public abstract class TestICrudValidated<TId> : TestICrdValidated<TId>
     {
-        protected override ICrd<TestItemBare, TestItemValidated<TId>, TId> CrdStorage => CrudStorage;
+        protected override ICrud<TestItemBare, TestItemValidated<TId>, TId> CrdStorage => CrudStorage;
 
         /// <summary>
         /// Try to create an item that is not valid.

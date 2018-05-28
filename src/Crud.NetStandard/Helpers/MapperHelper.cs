@@ -3,7 +3,7 @@ using Xlent.Lever.Libraries2.Core.Assert;
 using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Core.Error.Logic;
 
-namespace Xlent.Lever.Libraries2.Crud.Mappers
+namespace Xlent.Lever.Libraries2.Crud.Helpers
 {
     /// <summary>
     /// Help methods for mapping

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Xlent.Lever.Libraries2.Core.Storage.Logic;
 using Xlent.Lever.Libraries2.Crud.Helpers;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Crud.Test.NuGet.Model;
@@ -23,17 +24,17 @@ namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.ManyToOne
         /// <summary>
         /// The storage that should be tested
         /// </summary>
-        protected abstract ICrd<TestItemId<TId>, TId> OneStorage { get; }
+        protected abstract ICrud<TestItemId<TId>, TId> OneStorage { get; }
 
         protected async Task<TestItemManyToOne<TId, TReferenceId>> CreateItemAsync(
-            ICrd<TestItemManyToOneCreate<TReferenceId>, TestItemManyToOne<TId, TReferenceId>, TId> storage, TypeOfTestDataEnum type, TId parentId)
+            ICrud<TestItemManyToOneCreate<TReferenceId>, TestItemManyToOne<TId, TReferenceId>, TId> storage, TypeOfTestDataEnum type, TId parentId)
         {
             return await CreateItemAsync(storage, type,
-                CrudHelper.ConvertToParameterType<TReferenceId>(parentId));
+                StorageHelper.ConvertToParameterType<TReferenceId>(parentId));
         }
 
         protected async Task<TestItemManyToOne<TId, TReferenceId>> CreateItemAsync(
-                ICrd<TestItemManyToOneCreate<TReferenceId>, TestItemManyToOne<TId, TReferenceId>, TId> storage, TypeOfTestDataEnum type, TReferenceId parentId)
+                ICrud<TestItemManyToOneCreate<TReferenceId>, TestItemManyToOne<TId, TReferenceId>, TId> storage, TypeOfTestDataEnum type, TReferenceId parentId)
             {
                 var item = new TestItemManyToOneCreate<TReferenceId>();
             item.InitializeWithDataForTesting(type);

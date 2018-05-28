@@ -11,7 +11,7 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.ServerTranslators
     [TestClass]
     public class ServerTranslatorBase
     {
-        protected Mock<ICrd<TestModelCreate, TestModel, string>> StorageMock;
+        protected Mock<ICrud<TestModelCreate, TestModel, string>> StorageMock;
         protected const string ClientName = "client-name";
         protected const string ServerName = "server-name";
         protected const string TestModelServerId = "server-1";

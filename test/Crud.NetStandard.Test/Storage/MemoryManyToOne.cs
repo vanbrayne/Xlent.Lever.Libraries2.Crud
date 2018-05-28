@@ -29,6 +29,6 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.Storage
             CrudManyStorageNonRecursive => _crudManyStorage;
 
         /// <inheritdoc />
-        protected override ICrd<TestItemId<Guid>, Guid> OneStorage => _oneStorage;
+        protected override ICrud<TestItemId<Guid>, Guid> OneStorage => _oneStorage;
     }
 }

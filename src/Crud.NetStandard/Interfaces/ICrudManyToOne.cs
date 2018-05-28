@@ -3,16 +3,20 @@
     /// <inheritdoc cref="ICrudManyToOne{TModelCreate,TModel,TId}" />
     public interface ICrudManyToOne<TModel, TId> : 
         ICrudManyToOne<TModel, TModel, TId>,
-        IManyToOneCrd<TModel, TId>,
         ICrud<TModel, TId>
     {
     }
 
-    /// <inheritdoc cref="IManyToOneCrd{TModelCreate, TModel,TId}" />
+    /// <summary>
+    /// Crud operations for objects that have a parent. This means that apart from the CRUD operations,
+    /// there are operations for reading and deleting the children of a parent.
+    /// </summary>
+    /// <typeparam name="TModelCreate"></typeparam>
+    /// <typeparam name="TModel"></typeparam>
+    /// <typeparam name="TId"></typeparam>
     public interface ICrudManyToOne<in TModelCreate, TModel, TId> :
-        IManyToOneCrd<TModelCreate, TModel, TId>,
-        IManyToOneRud<TModel, TId>,
-        ICrud<TModelCreate, TModel, TId>
+        ICrud<TModelCreate, TModel, TId>,
+        ISlaveToMaster<TModel, TId> 
         where TModel : TModelCreate
     {
     }

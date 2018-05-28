@@ -12,7 +12,7 @@ namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.Crd
         /// <summary>
         /// The storage that should be tested
         /// </summary>
-        protected abstract ICrd<TModelCreate, TModel, TId> CrdStorage { get; }
+        protected abstract ICrud<TModelCreate, TModel, TId> CrdStorage { get; }
 
         /// <summary>
         /// The storage that should be tested

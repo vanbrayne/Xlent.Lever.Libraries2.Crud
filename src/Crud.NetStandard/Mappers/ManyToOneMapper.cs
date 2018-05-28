@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Xlent.Lever.Libraries2.Core.Assert;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
+using Xlent.Lever.Libraries2.Crud.Helpers;
 using Xlent.Lever.Libraries2.Crud.PassThrough;
 
 namespace Xlent.Lever.Libraries2.Crud.Mappers

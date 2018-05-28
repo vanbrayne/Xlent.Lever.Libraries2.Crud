@@ -12,12 +12,12 @@ namespace Xlent.Lever.Libraries2.Crud.NetFramework.Test.Crud.ServerTranslators.F
     [TestClass]
     public class CrdFromServerTranslatorTest : ServerTranslatorBase
     {
-        private ICrd<TestModelCreate, TestModel, string> _serviceToTest;
+        private ICrud<TestModelCreate, TestModel, string> _serviceToTest;
 
         [TestInitialize]
         public void Initialize()
         {
-            StorageMock = new Mock<ICrd<TestModelCreate, TestModel, string>>();
+            StorageMock = new Mock<ICrud<TestModelCreate, TestModel, string>>();
             var serverTranslator = new CrudFromServerTranslator<TestModelCreate, TestModel>(StorageMock.Object, TestModel.IdConceptName,
                 () => ServerName);
             _serviceToTest = serverTranslator;

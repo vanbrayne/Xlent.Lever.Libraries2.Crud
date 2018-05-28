@@ -9,14 +9,14 @@ using A = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.Crd
 {
     /// <summary>
-    /// Tests for testing any storage that implements <see cref="ICrd{TModelCreate,TModel,TId}"/>
+    /// Tests for testing any storage that implements <see cref="ICrud{TModelCreate,TModel,TId}"/>
     /// </summary>
     [TestClass]
     public abstract class TestParameters
     {
-        private readonly ICrd<TestItemBare, Guid> _implementation;
+        private readonly ICrud<TestItemBare, Guid> _implementation;
 
-        protected TestParameters(ICrd<TestItemBare, Guid> implementation)
+        protected TestParameters(ICrud<TestItemBare, Guid> implementation)
         {
             _implementation = implementation;
         }

@@ -12,7 +12,7 @@ namespace Xlent.Lever.Libraries2.Crud.Test.NuGet.Crud
     [TestClass]
     public abstract class TestICrudId<TId> : TestICrdId<TId>
     {
-        protected override ICrd<TestItemBare, TestItemId<TId>, TId> CrdStorage => CrudStorage;
+        protected override ICrud<TestItemBare, TestItemId<TId>, TId> CrdStorage => CrudStorage;
 
         /// <summary>
         /// Create an item with an id.

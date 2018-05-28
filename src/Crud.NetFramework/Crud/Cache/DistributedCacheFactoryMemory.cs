@@ -10,13 +10,13 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
     /// </summary>
     public class DistributedCacheFactoryMemory : IDistributedCacheFactory
     {
-        private readonly ICrd<DistributedCacheMemory, DistributedCacheMemory, string> _storage;
+        private readonly ICrud<DistributedCacheMemory, DistributedCacheMemory, string> _storage;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="storage"></param>
-        public DistributedCacheFactoryMemory(ICrd<DistributedCacheMemory, DistributedCacheMemory, string> storage)
+        public DistributedCacheFactoryMemory(ICrud<DistributedCacheMemory, DistributedCacheMemory, string> storage)
         {
             _storage = storage;
         }
