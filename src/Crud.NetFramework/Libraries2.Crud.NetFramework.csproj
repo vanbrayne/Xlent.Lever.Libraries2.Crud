@@ -66,6 +66,7 @@
     <Compile Include="Crud\Encrypt\CrudEncrypt.cs" />
     <Compile Include="Crud\Encrypt\EncryptBase.cs" />
     <Compile Include="Crud\Helpers\CrudHelper.cs" />
+    <Compile Include="Crud\Interfaces\ICrudBasic.cs" />
     <Compile Include="Crud\Interfaces\ICrudable.cs" />
     <Compile Include="Crud\Interfaces\ICreate.cs" />
     <Compile Include="Crud\Interfaces\ICreateSlave.cs" />

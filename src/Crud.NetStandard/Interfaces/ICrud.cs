@@ -1,10 +1,12 @@
-﻿namespace Xlent.Lever.Libraries2.Crud.Interfaces
+﻿// ReSharper disable RedundantExtendsListEntry
+namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
     /// <inheritdoc cref="ICrud{TModelCreate, TModel,TId}" />
     public interface ICrud<TModel, TId> : 
         ICrud<TModel, TModel, TId>,
         ICreate<TModel, TId>,
-        ICreateWithSpecifiedId<TModel, TId>
+        ICreateWithSpecifiedId<TModel, TId>,
+        ICrudBasic<TModel, TId>
     {
     }
 
@@ -19,7 +21,8 @@
         IUpdate<TModel, TId>,
         IDelete<TId>,
         IDeleteAll,
-        ILockable<TId> 
+        ILockable<TId>,
+        ICrudBasic<TModelCreate, TModel, TId> 
         where TModel : TModelCreate
     {
     }
