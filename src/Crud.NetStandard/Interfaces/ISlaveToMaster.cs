@@ -4,7 +4,7 @@
     /// Operations for reading and deleting the children of a parent.
     /// </summary>
     public interface ISlaveToMaster<TModel, in TId> :
-        IReadChildren<TModel, TId>,
+        IReadChildrenWithPaging<TModel, TId>,
         IDeleteChildren<TId>
     {
     }

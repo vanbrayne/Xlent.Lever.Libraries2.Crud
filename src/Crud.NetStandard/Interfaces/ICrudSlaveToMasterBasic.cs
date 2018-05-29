@@ -19,7 +19,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     public interface ICrudSlaveToMasterBasic<in TModelCreate, TModel, TId> :
         ICreateSlave<TModelCreate, TModel, TId>,
         IReadSlave<TModel, TId>,
-        IReadChildren<TModel, TId>,
+        IReadChildrenWithPaging<TModel, TId>,
         IUpdateSlave<TModel, TId>,
         IDeleteSlave<TId>,
         IDeleteChildren<TId>

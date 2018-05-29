@@ -33,7 +33,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
         Task CreateWithSpecifiedIdAsync(TId id, TModelCreate item, CancellationToken token = default(CancellationToken));
 
         /// <summary>
-        /// Same as <see cref="ICreate{TModelCreate,TModel,TId}.CreateAndReturnAsync"/>, but you can specify the new id.
+        /// Same as <see cref="ICreateAndReturn{TModelCreate,TModel,TId}.CreateAndReturnAsync"/>, but you can specify the new id.
         /// </summary>
         /// <param name="id">The id to use for the new item.</param>
         /// <param name="item">The item to store.</param>

@@ -52,7 +52,7 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         /// <inheritdoc />
         public virtual Task<TModel> CreateAndReturnAsync(TId masterId, TModelCreate item, CancellationToken token = default(CancellationToken))
         {
-            var implementation = CrudHelper.GetImplementationOrThrow<ICreateSlave<TModelCreate, TModel, TId>>(Service);
+            var implementation = CrudHelper.GetImplementationOrThrow<ICreateSlaveAndReturn<TModelCreate, TModel, TId>>(Service);
             return implementation.CreateAndReturnAsync(masterId, item, token);
         }
 
@@ -89,7 +89,7 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         public virtual Task<PageEnvelope<TModel>> ReadChildrenWithPagingAsync(TId parentId, int offset, int? limit = null,
             CancellationToken token = default(CancellationToken))
         {
-            var implementation = CrudHelper.GetImplementationOrThrow<IReadChildren<TModel, TId>>(Service);
+            var implementation = CrudHelper.GetImplementationOrThrow<IReadChildrenWithPaging<TModel, TId>>(Service);
             return implementation.ReadChildrenWithPagingAsync(parentId, offset, limit, token);
         }
 
@@ -110,7 +110,7 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         /// <inheritdoc />
         public virtual Task<TModel> UpdateAndReturnAsync(TId masterId, TId slaveId, TModel item, CancellationToken token = default(CancellationToken))
         {
-            var implementation = CrudHelper.GetImplementationOrThrow<IUpdateSlave<TModel, TId>>(Service);
+            var implementation = CrudHelper.GetImplementationOrThrow<IUpdateSlaveAndReturn<TModel, TId>>(Service);
             return implementation.UpdateAndReturnAsync(masterId, slaveId, item, token);
         }
 

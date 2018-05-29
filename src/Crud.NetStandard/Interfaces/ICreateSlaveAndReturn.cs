@@ -8,7 +8,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     /// Functionality for persisting objects that has no life of their own, but are only relevant with their master.
     /// Examples: A list of rows on an invoice, a list of attributes of an object, the contact details of a person.
     /// </summary>
-    public interface ICreateSlaveWithSpecifiedId<TModel, in TId> : ICreateSlaveWithSpecifiedId<TModel, TModel, TId>
+    public interface ICreateSlaveAndReturn<TModel, TId> : ICreateSlaveAndReturn<TModel, TModel, TId>
     {
     }
 
@@ -16,24 +16,13 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     /// Functionality for persisting objects that has no life of their own, but are only relevant with their master.
     /// Examples: A list of rows on an invoice, a list of attributes of an object, the contact details of a person.
     /// </summary>
-    public interface ICreateSlaveWithSpecifiedId<in TModelCreate, TModel, in TId> : ICrudable<TModelCreate, TModel, TId>
+    public interface ICreateSlaveAndReturn<in TModelCreate, TModel, TId> : ICrudable<TModelCreate, TModel, TId>
         where TModel : TModelCreate
     {
         /// <summary>
-        /// Same as <see cref="ICreateSlave{TModelCreate,TModel,TId}.CreateAsync"/>, but you can specify the new id.
+        /// Creates a new item in storage and returns the final result.
         /// </summary>
-        /// <param name="masterId">The id of the master for this slave.</param>
-        /// <param name="slaveId">The proposed id for this slave.</param>
-        /// <param name="item">The item to create in storage.</param>
-        /// <param name="token">Propagates notification that operations should be canceled</param>
-        /// <returns>The newly created item.</returns>
-        Task CreateWithSpecifiedIdAsync(TId masterId, TId slaveId, TModelCreate item, CancellationToken token = default(CancellationToken));
-
-        /// <summary>
-        /// Same as <see cref="ICreateSlaveAndReturn{TModelCreate,TModel,TId}.CreateAndReturnAsync"/>, but you can specify the new id.
-        /// </summary>
-        /// <param name="masterId">The id of the master for this slave.</param>
-        /// <param name="slaveId">The proposed id for this slave.</param>
+        /// <param name="masterId">The master that the slave belongs to.</param>
         /// <param name="item">The item to store.</param>
         /// <param name="token">Propagates notification that operations should be canceled</param>
         /// <returns>The new item as it was saved, see remarks below.</returns>
@@ -43,6 +32,6 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
         /// </remarks>
         /// <seealso cref="IOptimisticConcurrencyControlByETag"/>
         /// <seealso cref="IUniquelyIdentifiable{TId}"/>
-        Task<TModel> CreateWithSpecifiedIdAndReturnAsync(TId masterId, TId slaveId, TModelCreate item, CancellationToken token = default(CancellationToken));
+        Task<TModel> CreateAndReturnAsync(TId masterId, TModelCreate item, CancellationToken token = default(CancellationToken));
     }
 }

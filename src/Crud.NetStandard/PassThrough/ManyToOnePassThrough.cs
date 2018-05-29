@@ -39,7 +39,7 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         public virtual Task<PageEnvelope<TModel>> ReadChildrenWithPagingAsync(TId parentId, int offset, int? limit = null,
             CancellationToken token = default(CancellationToken))
         {
-            var implementation = CrudHelper.GetImplementationOrThrow<IReadChildren<TModel, TId>>(Service);
+            var implementation = CrudHelper.GetImplementationOrThrow<IReadChildrenWithPaging<TModel, TId>>(Service);
             return implementation.ReadChildrenWithPagingAsync(parentId, offset, limit, token);
         }
 

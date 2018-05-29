@@ -66,6 +66,8 @@
     <Compile Include="Crud\Encrypt\CrudEncrypt.cs" />
     <Compile Include="Crud\Encrypt\EncryptBase.cs" />
     <Compile Include="Crud\Helpers\CrudHelper.cs" />
+    <Compile Include="Crud\Interfaces\ICreateAndReturn.cs" />
+    <Compile Include="Crud\Interfaces\ICreateSlaveAndReturn.cs" />
     <Compile Include="Crud\Interfaces\ICrudBasic.cs" />
     <Compile Include="Crud\Interfaces\ICrudable.cs" />
     <Compile Include="Crud\Interfaces\ICreate.cs" />
@@ -74,6 +76,8 @@
     <Compile Include="Crud\Interfaces\ICreateWithSpecifiedId.cs" />
     <Compile Include="Crud\Interfaces\ICrudManyToOneBasic.cs" />
     <Compile Include="Crud\Interfaces\ICrudSlaveToMasterBasic.cs" />
+    <Compile Include="Crud\Interfaces\IReadAllWithPaging.cs" />
+    <Compile Include="Crud\Interfaces\IReadChildrenWithPaging.cs" />
     <Compile Include="Crud\Interfaces\ISlaveToMaster.cs" />
     <Compile Include="Crud\Interfaces\IManyToMany.cs" />
     <Compile Include="Crud\Interfaces\IDeleteSlave.cs" />
@@ -89,6 +93,8 @@
     <Compile Include="Crud\Interfaces\ILockable.cs" />
     <Compile Include="Crud\Interfaces\IDeleteChildren.cs" />
     <Compile Include="Crud\Interfaces\ICrudSlaveToMaster.cs" />
+    <Compile Include="Crud\Interfaces\IUpdateAndReturn.cs" />
+    <Compile Include="Crud\Interfaces\IUpdateSlaveAndReturn.cs" />
     <Compile Include="Crud\Interfaces\IUpdateSlave.cs" />
     <Compile Include="Crud\Interfaces\IUpdate.cs" />
     <Compile Include="Crud\Mappers\ManyToOneMapper.cs" />

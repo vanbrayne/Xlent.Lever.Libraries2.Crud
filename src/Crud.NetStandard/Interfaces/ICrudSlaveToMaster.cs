@@ -8,6 +8,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     public interface ICrudSlaveToMaster<TModel, TId> :
         ICrudSlaveToMaster<TModel, TModel, TId>,
         ICreateSlave<TModel, TId>,
+        ICreateSlaveAndReturn<TModel, TId>,
         ICreateSlaveWithSpecifiedId<TModel, TId>,
         ICrudSlaveToMasterBasic<TModel, TId>
     {
@@ -20,11 +21,14 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     /// </summary>
     public interface ICrudSlaveToMaster<in TModelCreate, TModel, TId> :
         ICreateSlave<TModelCreate, TModel, TId>,
+        ICreateSlaveAndReturn<TModelCreate, TModel, TId>,
         ICreateSlaveWithSpecifiedId<TModelCreate, TModel, TId>,
         IReadSlave<TModel, TId>,
         IRead<TModel, SlaveToMasterId<TId>>,
+        IReadChildrenWithPaging<TModel, TId>,
         IReadChildren<TModel, TId>,
         IUpdateSlave<TModel, TId>,
+        IUpdateSlaveAndReturn<TModel, TId>,
         IDeleteSlave<TId>,
         IDeleteChildren<TId>,
         ICrudSlaveToMasterBasic<TModelCreate, TModel, TId>

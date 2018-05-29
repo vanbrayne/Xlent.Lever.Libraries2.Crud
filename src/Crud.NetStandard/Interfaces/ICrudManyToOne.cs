@@ -19,6 +19,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     public interface ICrudManyToOne<in TModelCreate, TModel, TId> :
         ICrud<TModelCreate, TModel, TId>,
         ISlaveToMaster<TModel, TId>,
+        IReadChildren<TModel, TId>,
         ICrudManyToOneBasic<TModelCreate, TModel, TId>
         where TModel : TModelCreate
     {
