@@ -47,10 +47,10 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
     /// <typeparam name="TReferenceModel1Create"></typeparam>
     /// <typeparam name="TManyToManyModelCreate"></typeparam>
     public class ManyToManyMemory<TManyToManyModelCreate, TManyToManyModel, TReferenceModel1Create, TReferenceModel1, TReferenceModel2Create, TReferenceModel2, TId> :
-        CrudMemory<TManyToManyModelCreate, TManyToManyModel, TId>, 
+        CrudMemory<TManyToManyModelCreate, TManyToManyModel, TId>,
         ICrudManyToMany<TManyToManyModelCreate, TManyToManyModel, TReferenceModel1, TReferenceModel2, TId>
-        where TManyToManyModel : TManyToManyModelCreate 
-        where TReferenceModel1 : TReferenceModel1Create 
+        where TManyToManyModel : TManyToManyModelCreate
+        where TReferenceModel1 : TReferenceModel1Create
         where TReferenceModel2 : TReferenceModel2Create
     {
         private readonly GetForeignKeyDelegate _getForeignKey1Delegate;
@@ -255,6 +255,71 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
             }
 
             await Task.WhenAll(tasks);
+        }
+
+        /// <inheritdoc />
+        public Task<TManyToManyModel> ReadAsync(TId masterId, TId slaveId, CancellationToken token = default(CancellationToken))
+        {
+            TManyToManyModel item;
+            lock (MemoryItems)
+            {
+                item = MemoryItems.Values
+                    .FirstOrDefault(i =>
+                        Equals(_getForeignKey1Delegate(i), masterId) && Equals(_getForeignKey2Delegate(i), slaveId));
+            }
+
+            return Task.FromResult(item);
+        }
+
+        /// <inheritdoc />
+        public async Task UpdateAsync(TId masterId, TId slaveId, TManyToManyModel item,
+            CancellationToken token = default(CancellationToken))
+        {
+            var id = await GetItemId(masterId, slaveId, token);
+            if (Equals(id, default(TId))) throw new FulcrumNotFoundException($"No item was found with reference id 1 = {masterId} and reference id 2 = {slaveId}.");
+            await UpdateAsync(id, item, token);
+        }
+
+        /// <inheritdoc />
+        public async Task DeleteAsync(TId masterId, TId slaveId, CancellationToken token = default(CancellationToken))
+        {
+            var id = await GetItemId(masterId, slaveId, token);
+            if (Equals(id, default(TId))) return;
+            await DeleteAsync(id, token);
+        }
+
+        /// <inheritdoc />
+        public Task CreateWithSpecifiedIdAsync(TId masterId, TId slaveId, TManyToManyModelCreate item,
+            CancellationToken token = default(CancellationToken))
+        {
+            return CreateAsync(item, token);
+        }
+
+        /// <inheritdoc />
+        public Task<TManyToManyModel> CreateWithSpecifiedIdAndReturnAsync(TId masterId, TId slaveId, TManyToManyModelCreate item,
+            CancellationToken token = default(CancellationToken))
+        {
+            return CreateAndReturnAsync(item, token);
+        }
+
+        /// <inheritdoc />
+        public async Task<TManyToManyModel> UpdateAndReturnAsync(TId masterId, TId slaveId, TManyToManyModel item,
+            CancellationToken token = default(CancellationToken))
+        {
+            var id = await GetItemId(masterId, slaveId, token);
+            if (Equals(id, default(TId))) return default(TManyToManyModel);
+            return await UpdateAndReturnAsync(id, item, token);
+        }
+
+        private async Task<TId> GetItemId(TId masterId, TId slaveId, CancellationToken token)
+        {
+            var item = await ReadAsync(masterId, slaveId, token);
+            if (item == null) return default(TId);
+            var itemWithId = item as IUniquelyIdentifiable<TId>;
+            InternalContract.Require(itemWithId != null,
+                $"The type {typeof(TManyToManyModel).FullName} must implement {typeof(IUniquelyIdentifiable<TId>).Name} for this method to work.");
+            if (itemWithId == null) return default(TId);
+            return itemWithId.Id;
         }
     }
 }

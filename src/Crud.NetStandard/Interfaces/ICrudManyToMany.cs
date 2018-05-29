@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Xlent.Lever.Libraries2.Core.Storage.Model;
+﻿
+// ReSharper disable RedundantExtendsListEntry
 
 namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
@@ -15,7 +13,9 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     public interface ICrudManyToMany<TManyToManyModel, TReferenceModel1, TReferenceModel2, TId> :
         ICrudManyToMany<TManyToManyModel, TManyToManyModel, TReferenceModel1, TReferenceModel2, TId>,
         ICrud<TManyToManyModel, TId>,
-        IManyToMany<TManyToManyModel, TReferenceModel1, TReferenceModel2, TId>
+        ICreateSlaveWithSpecifiedId<TManyToManyModel, TId>,
+        IManyToMany<TManyToManyModel, TReferenceModel1, TReferenceModel2, TId>,
+        ICrudManyToManyBasic<TManyToManyModel, TReferenceModel1, TReferenceModel2, TId>
     {
     }
 
@@ -23,7 +23,13 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     /// Functionality for persisting many-to-many relations.
     /// </summary>
     public interface ICrudManyToMany<in TManyToManyModelCreate, TManyToManyModel, TReferenceModel1, TReferenceModel2, TId> :
+        ICrudManyToManyBasic<TManyToManyModelCreate, TManyToManyModel, TReferenceModel1, TReferenceModel2, TId>,
         ICrud<TManyToManyModelCreate, TManyToManyModel, TId>,
+        ICreateSlaveWithSpecifiedId<TManyToManyModelCreate, TManyToManyModel, TId>,
+        IReadSlave<TManyToManyModel, TId>,
+        IUpdateSlave<TManyToManyModel, TId>,
+        IUpdateSlaveAndReturn<TManyToManyModel, TId>,
+        IDeleteSlave<TId>,
         IManyToMany<TManyToManyModelCreate, TManyToManyModel, TReferenceModel1, TReferenceModel2, TId>
         where TManyToManyModel : TManyToManyModelCreate
     {

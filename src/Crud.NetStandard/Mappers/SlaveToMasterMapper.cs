@@ -46,6 +46,9 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         /// <inheritdoc />
         public virtual async Task<TClientId> CreateAsync(TClientId masterId, TClientModelCreate item, CancellationToken token = default(CancellationToken))
         {
+            InternalContract.RequireNotDefaultValue(masterId, nameof(masterId));
+            InternalContract.RequireNotNull(item, nameof(item));
+            InternalContract.RequireValidated(item, nameof(item));
             var serverMasterId = MapperHelper.MapToType<TServerId, TClientId>(masterId);
             var record = _mapper.MapToServer(item);
             var serverId = await _service.CreateAsync(serverMasterId, record, token);
@@ -56,6 +59,9 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         /// <inheritdoc />
         public virtual async Task<TClientModel> CreateAndReturnAsync(TClientId masterId, TClientModelCreate item, CancellationToken token = default(CancellationToken))
         {
+            InternalContract.RequireNotDefaultValue(masterId, nameof(masterId));
+            InternalContract.RequireNotNull(item, nameof(item));
+            InternalContract.RequireValidated(item, nameof(item));
             var serverMasterId = MapperHelper.MapToType<TServerId, TClientId>(masterId);
             var record = _mapper.MapToServer(item);
             record = await _service.CreateAndReturnAsync(serverMasterId, record, token);
@@ -67,6 +73,10 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         public virtual async Task CreateWithSpecifiedIdAsync(TClientId masterId, TClientId slaveId, TClientModelCreate item,
             CancellationToken token = default(CancellationToken))
         {
+            InternalContract.RequireNotDefaultValue(masterId, nameof(masterId));
+            InternalContract.RequireNotDefaultValue(slaveId, nameof(slaveId));
+            InternalContract.RequireNotNull(item, nameof(item));
+            InternalContract.RequireValidated(item, nameof(item));
             var serverMasterId = MapperHelper.MapToType<TServerId, TClientId>(masterId);
             var serverSlaveId = MapperHelper.MapToType<TServerId, TClientId>(slaveId);
             var record = _mapper.MapToServer(item);
@@ -77,6 +87,10 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         public virtual async Task<TClientModel> CreateWithSpecifiedIdAndReturnAsync(TClientId masterId, TClientId slaveId, TClientModelCreate item,
             CancellationToken token = default(CancellationToken))
         {
+            InternalContract.RequireNotDefaultValue(masterId, nameof(masterId));
+            InternalContract.RequireNotDefaultValue(slaveId, nameof(slaveId));
+            InternalContract.RequireNotNull(item, nameof(item));
+            InternalContract.RequireValidated(item, nameof(item));
             var serverMasterId = MapperHelper.MapToType<TServerId, TClientId>(masterId);
             var serverSlaveId = MapperHelper.MapToType<TServerId, TClientId>(slaveId);
             var record = _mapper.MapToServer(item);
@@ -87,6 +101,8 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         /// <inheritdoc />
         public virtual async Task<TClientModel> ReadAsync(TClientId masterId, TClientId slaveId, CancellationToken token = default(CancellationToken))
         {
+            InternalContract.RequireNotDefaultValue(masterId, nameof(masterId));
+            InternalContract.RequireNotDefaultValue(slaveId, nameof(slaveId));
             var serverMasterId = MapperHelper.MapToType<TServerId, TClientId>(masterId);
             var serverSlaveId = MapperHelper.MapToType<TServerId, TClientId>(slaveId);
             var record = await _service.ReadAsync(serverMasterId, serverSlaveId, token);
@@ -96,6 +112,8 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         /// <inheritdoc />
         public Task<TClientModel> ReadAsync(SlaveToMasterId<TClientId> id, CancellationToken token = default(CancellationToken))
         {
+            InternalContract.RequireNotNull(id, nameof(id));
+            InternalContract.RequireValidated(id, nameof(id));
             return ReadAsync(id.MasterId, id.SlaveId, token);
         }
 
@@ -103,6 +121,7 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         public virtual async Task<PageEnvelope<TClientModel>> ReadChildrenWithPagingAsync(TClientId parentId, int offset, int? limit = null,
             CancellationToken token = default(CancellationToken))
         {
+            InternalContract.RequireNotDefaultValue(parentId, nameof(parentId));
             var serverId = MapperHelper.MapToType<TServerId, TClientId>(parentId);
             var storagePage = await _service.ReadChildrenWithPagingAsync(serverId, offset, limit, token);
             FulcrumAssert.IsNotNull(storagePage?.Data);
@@ -113,6 +132,7 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         /// <inheritdoc />
         public virtual async Task<IEnumerable<TClientModel>> ReadChildrenAsync(TClientId parentId, int limit = int.MaxValue, CancellationToken token = default(CancellationToken))
         {
+            InternalContract.RequireNotDefaultValue(parentId, nameof(parentId));
             var serverId = MapperHelper.MapToType<TServerId, TClientId>(parentId);
             var items = await _service.ReadChildrenAsync(serverId, limit, token);
             FulcrumAssert.IsNotNull(items);
@@ -123,6 +143,10 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         public virtual Task UpdateAsync(TClientId masterId, TClientId slaveId, TClientModel item,
             CancellationToken token = default(CancellationToken))
         {
+            InternalContract.RequireNotDefaultValue(masterId, nameof(masterId));
+            InternalContract.RequireNotDefaultValue(slaveId, nameof(slaveId));
+            InternalContract.RequireNotNull(item, nameof(item));
+            InternalContract.RequireValidated(item, nameof(item));
             var serverMasterId = MapperHelper.MapToType<TServerId, TClientId>(masterId);
             var serverSlaveId = MapperHelper.MapToType<TServerId, TClientId>(slaveId);
             var record = _mapper.MapToServer(item);
@@ -133,6 +157,10 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         public virtual async Task<TClientModel> UpdateAndReturnAsync(TClientId masterId, TClientId slaveId, TClientModel item,
             CancellationToken token = default(CancellationToken))
         {
+            InternalContract.RequireNotDefaultValue(masterId, nameof(masterId));
+            InternalContract.RequireNotDefaultValue(slaveId, nameof(slaveId));
+            InternalContract.RequireNotNull(item, nameof(item));
+            InternalContract.RequireValidated(item, nameof(item));
             var serverMasterId = MapperHelper.MapToType<TServerId, TClientId>(masterId);
             var serverSlaveId = MapperHelper.MapToType<TServerId, TClientId>(slaveId);
             var record = _mapper.MapToServer(item);
@@ -143,6 +171,7 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         /// <inheritdoc />
         public virtual Task DeleteChildrenAsync(TClientId parentId, CancellationToken token = default(CancellationToken))
         {
+            InternalContract.RequireNotDefaultValue(parentId, nameof(parentId));
             var serverId = MapperHelper.MapToType<TServerId, TClientId>(parentId);
             return _service.DeleteChildrenAsync(serverId, token);
         }
@@ -150,6 +179,8 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         /// <inheritdoc />
         public virtual Task DeleteAsync(TClientId masterId, TClientId slaveId, CancellationToken token = default(CancellationToken))
         {
+            InternalContract.RequireNotDefaultValue(masterId, nameof(masterId));
+            InternalContract.RequireNotDefaultValue(slaveId, nameof(slaveId));
             var serverMasterId = MapperHelper.MapToType<TServerId, TClientId>(masterId);
             var serverSlaveId = MapperHelper.MapToType<TServerId, TClientId>(slaveId);
             return _service.DeleteAsync(serverMasterId, serverSlaveId, token);

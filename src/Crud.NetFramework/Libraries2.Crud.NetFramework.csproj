@@ -74,6 +74,7 @@
     <Compile Include="Crud\Interfaces\ICreateSlave.cs" />
     <Compile Include="Crud\Interfaces\ICreateSlaveWithSpecifiedId.cs" />
     <Compile Include="Crud\Interfaces\ICreateWithSpecifiedId.cs" />
+    <Compile Include="Crud\Interfaces\ICrudManyToManyBasic.cs" />
     <Compile Include="Crud\Interfaces\ICrudManyToOneBasic.cs" />
     <Compile Include="Crud\Interfaces\ICrudSlaveToMasterBasic.cs" />
     <Compile Include="Crud\Interfaces\IReadAllWithPaging.cs" />
