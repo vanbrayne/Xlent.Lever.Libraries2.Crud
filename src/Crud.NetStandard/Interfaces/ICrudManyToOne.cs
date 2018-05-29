@@ -1,9 +1,11 @@
-﻿namespace Xlent.Lever.Libraries2.Crud.Interfaces
+﻿// ReSharper disable RedundantExtendsListEntry
+namespace Xlent.Lever.Libraries2.Crud.Interfaces
 {
     /// <inheritdoc cref="ICrudManyToOne{TModelCreate,TModel,TId}" />
     public interface ICrudManyToOne<TModel, TId> : 
         ICrudManyToOne<TModel, TModel, TId>,
-        ICrud<TModel, TId>
+        ICrud<TModel, TId>,
+        ICrudManyToOneBasic<TModel, TId>
     {
     }
 
@@ -16,7 +18,8 @@
     /// <typeparam name="TId"></typeparam>
     public interface ICrudManyToOne<in TModelCreate, TModel, TId> :
         ICrud<TModelCreate, TModel, TId>,
-        ISlaveToMaster<TModel, TId> 
+        ISlaveToMaster<TModel, TId>,
+        ICrudManyToOneBasic<TModelCreate, TModel, TId>
         where TModel : TModelCreate
     {
     }

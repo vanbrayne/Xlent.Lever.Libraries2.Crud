@@ -72,6 +72,8 @@
     <Compile Include="Crud\Interfaces\ICreateSlave.cs" />
     <Compile Include="Crud\Interfaces\ICreateSlaveWithSpecifiedId.cs" />
     <Compile Include="Crud\Interfaces\ICreateWithSpecifiedId.cs" />
+    <Compile Include="Crud\Interfaces\ICrudManyToOneBasic.cs" />
+    <Compile Include="Crud\Interfaces\ICrudSlaveToMasterBasic.cs" />
     <Compile Include="Crud\Interfaces\ISlaveToMaster.cs" />
     <Compile Include="Crud\Interfaces\IManyToMany.cs" />
     <Compile Include="Crud\Interfaces\IDeleteSlave.cs" />
