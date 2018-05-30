@@ -18,8 +18,7 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         /// <summary>
         /// Constructor
         /// </summary>
-        public CrudMapper(ICrudable service,
-            ICrudMapper<TClientModel, TServerModel> mapper)
+        public CrudMapper(ICrudable service,IMappable mapper)
         :base(service, mapper)
         {
         }
@@ -30,15 +29,15 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         where TClientModel : TClientModelCreate
     {
         private readonly ICrud<TServerModel, TServerId> _service;
-        private readonly ICrudMapper<TClientModelCreate, TClientModel, TServerModel> _mapper;
+        private readonly IMapper<TClientModelCreate, TClientModel, TServerModel> _mapper;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        public CrudMapper(ICrudable service, ICrudMapper<TClientModelCreate, TClientModel, TServerModel> mapper)
+        public CrudMapper(ICrudable service, IMappable mapper)
         {
             _service = new CrudPassThrough<TServerModel, TServerId>(service);
-            _mapper = mapper;
+            _mapper = new MapperPassThrough<TClientModelCreate, TClientModel, TServerModel>(mapper);
         }
 
         /// <inheritdoc />

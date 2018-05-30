@@ -1,11 +1,10 @@
 ﻿namespace Xlent.Lever.Libraries2.Crud.Mappers
 {
+
     /// <summary>
     /// Methods for mapping data between the client and server models.
     /// </summary>
-    /// <typeparam name="TClientModel">The model the client uses when updating items.</typeparam>
-    /// <typeparam name="TServerModel">The model that the server uses. </typeparam>
-    public interface IReadMapper<out TClientModel, in TServerModel>
+    public interface IReadMapper<out TClientModel, in TServerModel> : IMappable
     {
         /// <summary>
         /// Map fields from the server

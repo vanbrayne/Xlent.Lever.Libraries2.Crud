@@ -98,6 +98,10 @@
     <Compile Include="Crud\Interfaces\IUpdateSlaveAndReturn.cs" />
     <Compile Include="Crud\Interfaces\IUpdateSlave.cs" />
     <Compile Include="Crud\Interfaces\IUpdate.cs" />
+    <Compile Include="Crud\Mappers\ICrudable.cs" />
+    <Compile Include="Crud\Mappers\IReadMapper.cs" />
+    <Compile Include="Crud\Mappers\ICreateMapper.cs" />
+    <Compile Include="Crud\Mappers\IUpdateMapper.cs" />
     <Compile Include="Crud\Mappers\ManyToOneMapper.cs" />
     <Compile Include="Crud\Mappers\SlaveToMasterMapper.cs" />
     <Compile Include="Crud\MemoryStorage\CrudMemory.cs" />
@@ -106,13 +110,11 @@
     <Compile Include="Crud\MemoryStorage\MemoryBase.cs" />
     <Compile Include="Crud\MemoryStorage\SlaveToMasterMemory.cs" />
     <Compile Include="Crud\Model\Lock.cs" />
-    <Compile Include="Crud\Mappers\IReadMapper.cs" />
-    <Compile Include="Crud\Mappers\ICrdMapper.cs" />
-    <Compile Include="Crud\Mappers\IRudMapper.cs" />
     <Compile Include="Crud\Mappers\CrudMapper.cs" />
-    <Compile Include="Crud\Mappers\ICrudMapper.cs" />
+    <Compile Include="Crud\Mappers\IMapper.cs" />
     <Compile Include="Crud\Helpers\MapperHelper.cs" />
     <Compile Include="Crud\PassThrough\CrudPassThrough.cs" />
+    <Compile Include="Crud\PassThrough\MapperPassThrough.cs" />
     <Compile Include="Crud\PassThrough\SlaveToMasterPassThrough.cs" />
     <Compile Include="Crud\PassThrough\ManyToOnePassThrough.cs" />
     <Compile Include="Crud\ServerTranslators\From\CrudFromServerTranslator.cs" />

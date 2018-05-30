@@ -2,6 +2,7 @@
 using Xlent.Lever.Libraries2.Core.Assert;
 using Xlent.Lever.Libraries2.Core.Error.Logic;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Crud.Mappers;
 
 namespace Xlent.Lever.Libraries2.Crud.Helpers
 {
@@ -44,6 +45,19 @@ namespace Xlent.Lever.Libraries2.Crud.Helpers
         /// <returns></returns>
         /// <exception cref="FulcrumNotImplementedException">Thrown if <paramref name="service"/> doesn't implement <typeparamref name="T"/>.</exception>
         public static T GetImplementationOrThrow<T>(ICrudable service) where T : ICrudable
+        {
+            if (service is T implemented) return implemented;
+            throw new FulcrumNotImplementedException($"The service {service.GetType()} does not implement {typeof(T).Name}");
+        }
+
+        /// <summary>
+        /// If <paramref name="service"/> doesn't implement <typeparamref name="T"/>, an exception is thrown.
+        /// </summary>
+        /// <param name="service">The service that must implement <typeparamref name="T"/>.</param>
+        /// <typeparam name="T">The type that <paramref name="service"/> must implement.</typeparam>
+        /// <returns></returns>
+        /// <exception cref="FulcrumNotImplementedException">Thrown if <paramref name="service"/> doesn't implement <typeparamref name="T"/>.</exception>
+        public static T GetImplementationOrThrow<T>(IMappable service) where T : IMappable
         {
             if (service is T implemented) return implemented;
             throw new FulcrumNotImplementedException($"The service {service.GetType()} does not implement {typeof(T).Name}");
