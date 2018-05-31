@@ -15,7 +15,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
     {
 
         /// <inheritdoc />
-        public ManyToOneToServerTranslator(ICrudable service, string idConceptName,
+        public ManyToOneToServerTranslator(ICrudable<TModel, string> service, string idConceptName,
             System.Func<string> getServerNameMethod, ITranslatorService translatorService)
             : base(service, idConceptName, getServerNameMethod, translatorService)
         {
@@ -31,7 +31,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         private readonly ICrudManyToOne<TModelCreate, TModel, string> _service;
 
         /// <inheritdoc />
-        public ManyToOneToServerTranslator(ICrudable service, string idConceptName, System.Func<string> getServerNameMethod, ITranslatorService translatorService)
+        public ManyToOneToServerTranslator(ICrudable<TModel, string> service, string idConceptName, System.Func<string> getServerNameMethod, ITranslatorService translatorService)
             : base(service, idConceptName, getServerNameMethod, translatorService)
         {
             _service = new ManyToOnePassThrough<TModelCreate, TModel, string>(service);

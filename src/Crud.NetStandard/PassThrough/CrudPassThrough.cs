@@ -15,7 +15,7 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         /// Constructor
         /// </summary>
         /// <param name="service">The crud class to pass things down to.</param>
-        public CrudPassThrough(ICrudable service)
+        public CrudPassThrough(ICrudable<TModel, TId> service)
         :base(service)
         {
         }
@@ -27,13 +27,13 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         /// <summary>
         /// The service to pass the calls to.
         /// </summary>
-        protected readonly ICrudable Service;
+        protected readonly ICrudable<TModel, TId> Service;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="service">The crud class to pass things down to.</param>
-        public CrudPassThrough(ICrudable service)
+        public CrudPassThrough(ICrudable<TModel, TId> service)
         {
             Service = service;
         }

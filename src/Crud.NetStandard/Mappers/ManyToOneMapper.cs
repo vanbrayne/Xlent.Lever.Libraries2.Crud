@@ -19,7 +19,7 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         /// <summary>
         /// Constructor
         /// </summary>
-        public ManyToOneMapper(ICrudable service, IMappable mapper)
+        public ManyToOneMapper(ICrudable<TServerModel, TServerId> service, IMappable<TClientModel, TServerModel> mapper)
             : base(service, mapper)
         {
         }
@@ -33,7 +33,7 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         /// <summary>
         /// Constructor
         /// </summary>
-        public ManyToOneMapper(ICrudable service, IMappable mapper)
+        public ManyToOneMapper(ICrudable<TServerModel, TServerId> service, IMappable<TClientModel, TServerModel> mapper)
             : base(service, mapper)
         {
             _service = new ManyToOnePassThrough<TServerModel, TServerId>(service);

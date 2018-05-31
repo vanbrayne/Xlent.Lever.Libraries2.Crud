@@ -98,7 +98,7 @@
     <Compile Include="Crud\Interfaces\IUpdateSlaveAndReturn.cs" />
     <Compile Include="Crud\Interfaces\IUpdateSlave.cs" />
     <Compile Include="Crud\Interfaces\IUpdate.cs" />
-    <Compile Include="Crud\Mappers\ICrudable.cs" />
+    <Compile Include="Crud\Mappers\IMappable.cs" />
     <Compile Include="Crud\Mappers\IReadMapper.cs" />
     <Compile Include="Crud\Mappers\ICreateMapper.cs" />
     <Compile Include="Crud\Mappers\IUpdateMapper.cs" />

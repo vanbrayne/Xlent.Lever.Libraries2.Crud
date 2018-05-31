@@ -17,7 +17,7 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         /// Constructor
         /// </summary>
         /// <param name="service">The crud class to pass things down to.</param>
-        public MapperPassThrough(IMappable service)
+        public MapperPassThrough(IMappable<TModel, TServerModel> service)
             : base(service)
         {
         }
@@ -32,13 +32,13 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         /// <summary>
         /// The service that should do the actual mapping
         /// </summary>
-        protected IMappable Service { get; }
+        protected IMappable<TModel, TServerModel> Service { get; }
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="service">The crud class to pass things down to.</param>
-        public MapperPassThrough(IMappable service)
+        public MapperPassThrough(IMappable<TModel, TServerModel> service)
         {
             Service = service;
         }
@@ -46,7 +46,7 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         /// <inheritdoc />
         public virtual TServerModel MapToServer(TModelCreate source)
         {
-            var implementation = CrudHelper.GetImplementationOrThrow<ICreateMapper<TModelCreate, TServerModel>>(Service);
+            var implementation = CrudHelper.GetImplementationOrThrow<ICreateMapper<TModelCreate, TModel, TServerModel>>(Service);
             return implementation.MapToServer(source);
         }
 

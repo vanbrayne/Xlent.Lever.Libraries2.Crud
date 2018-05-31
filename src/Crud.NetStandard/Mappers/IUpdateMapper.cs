@@ -4,7 +4,7 @@
     /// <summary>
     /// Methods for mapping data between the client and server models.
     /// </summary>
-    public interface IUpdateMapper<in TClientModel, out TServerModel> : IMappable
+    public interface IUpdateMapper<TClientModel, TServerModel> : IMappable<TClientModel, TServerModel>
     {
         /// <summary>
         /// Map fields to the server

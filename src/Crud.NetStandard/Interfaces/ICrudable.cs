@@ -16,9 +16,4 @@
     public interface ICrudable<in TModel, in TId> : ICrudable<TId>
     {
     }
-
-    /// <inheritdoc />
-    public interface ICrudable<in TModelCreate, in TModel, in TId> : ICrudable<TModel, TId>
-    {
-    }
 }

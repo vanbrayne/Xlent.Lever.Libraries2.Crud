@@ -10,11 +10,12 @@ using Xlent.Lever.Libraries2.Crud.PassThrough;
 namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
 {
     /// <inheritdoc cref="CrudClientTranslator{TModel}" />
-    public class ManyToOneClientTranslator<TModel> : ManyToOneClientTranslator<TModel, TModel>,
+    public class ManyToOneClientTranslator<TModel> : 
+        ManyToOneClientTranslator<TModel, TModel>,
         ICrudManyToOne<TModel, string>
     {
         /// <inheritdoc />
-        public ManyToOneClientTranslator(ICrudable service,
+        public ManyToOneClientTranslator(ICrudable<TModel, string> service,
             string parentIdConceptName, string idConceptName, System.Func<string> getClientNameMethod, ITranslatorService translatorService)
             : base(service, parentIdConceptName, idConceptName, getClientNameMethod, translatorService)
         {
@@ -22,13 +23,15 @@ namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
     }
 
     /// <inheritdoc cref="CrudClientTranslator{TModel}" />
-    public class ManyToOneClientTranslator<TModelCreate, TModel> : CrudClientTranslator<TModelCreate, TModel>, ICrudManyToOne<TModelCreate, TModel, string>
+    public class ManyToOneClientTranslator<TModelCreate, TModel> :
+        CrudClientTranslator<TModelCreate, TModel>, 
+        ICrudManyToOne<TModelCreate, TModel, string>
         where TModel : TModelCreate
     {
         private readonly ICrudManyToOne<TModelCreate, TModel, string> _service;
         private readonly string _parentIdConceptName;
         /// <inheritdoc />
-        public ManyToOneClientTranslator(ICrudable service, string parentIdConceptName, string idConceptName, System.Func<string> getClientNameMethod, ITranslatorService translatorService)
+        public ManyToOneClientTranslator(ICrudable<TModel, string> service, string parentIdConceptName, string idConceptName, System.Func<string> getClientNameMethod, ITranslatorService translatorService)
             : base(service, idConceptName, getClientNameMethod, translatorService)
         {
             _service = new ManyToOnePassThrough<TModelCreate, TModel, string>(service);

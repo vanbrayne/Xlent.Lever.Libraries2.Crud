@@ -15,7 +15,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         ICrudSlaveToMaster<TModel, string>
     {
         /// <inheritdoc />
-        public SlaveToMasterToServerTranslator(ICrudable service,
+        public SlaveToMasterToServerTranslator(ICrudable<TModel, string> service,
             System.Func<string> getServerNameMethod, ITranslatorService translatorService)
             : base(service, getServerNameMethod, translatorService)
         {
@@ -31,7 +31,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         private readonly ICrudSlaveToMaster<TModelCreate, TModel, string> _service;
 
         /// <inheritdoc />
-        public SlaveToMasterToServerTranslator(ICrudable service, System.Func<string> getServerNameMethod, ITranslatorService translatorService)
+        public SlaveToMasterToServerTranslator(ICrudable<TModel, string> service, System.Func<string> getServerNameMethod, ITranslatorService translatorService)
             : base(null, getServerNameMethod, translatorService)
         {
             _service = new SlaveToMasterPassThrough<TModelCreate, TModel, string>(service);

@@ -17,7 +17,7 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         /// Constructor
         /// </summary>
         /// <param name="service">The crud class to pass things down to.</param>
-        public ManyToOnePassThrough(ICrudable service)
+        public ManyToOnePassThrough(ICrudable<TModel, TId> service)
             : base(service)
         {
         }
@@ -30,7 +30,7 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         /// Constructor
         /// </summary>
         /// <param name="service">The crud class to pass things down to.</param>
-        public ManyToOnePassThrough(ICrudable service)
+        public ManyToOnePassThrough(ICrudable<TModel, TId> service)
             : base(service)
         {
         }

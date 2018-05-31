@@ -23,7 +23,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <param name="cache"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public CrudAutoCache(ICrudable service, IDistributedCache cache,
+        public CrudAutoCache(ICrudable<TModel, TId> service, IDistributedCache cache,
             FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
             : this(service, item => ((IUniquelyIdentifiable<TId>)item).Id, cache, flushCacheDelegateAsync, options)
         {
@@ -38,7 +38,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <param name="getIdDelegate"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public CrudAutoCache(ICrudable service, GetIdDelegate<TModel, TId> getIdDelegate,
+        public CrudAutoCache(ICrudable<TModel, TId> service, GetIdDelegate<TModel, TId> getIdDelegate,
             IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null,
             AutoCacheOptions options = null)
             : base(service, getIdDelegate, cache, flushCacheDelegateAsync, options)
@@ -61,7 +61,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <param name="cache"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public CrudAutoCache(ICrudable service, IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
+        public CrudAutoCache(ICrudable<TModel, TId> service, IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
         : this(service, item => ((IUniquelyIdentifiable<TId>)item).Id, cache, flushCacheDelegateAsync, options)
         {
         }
@@ -75,7 +75,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <param name="getIdDelegate"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public CrudAutoCache(ICrudable service, GetIdDelegate<TModel, TId> getIdDelegate, IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
+        public CrudAutoCache(ICrudable<TModel, TId> service, GetIdDelegate<TModel, TId> getIdDelegate, IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
             : base(getIdDelegate, cache, flushCacheDelegateAsync, options)
         {
             _service = new CrudPassThrough<TModelCreate, TModel, TId>(service);

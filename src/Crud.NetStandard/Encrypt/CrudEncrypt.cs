@@ -11,19 +11,19 @@ using Xlent.Lever.Libraries2.Crud.PassThrough;
 namespace Xlent.Lever.Libraries2.Crud.Encrypt
 {
     /// <inheritdoc cref="EncryptBase{TModel,TId}" />
-    public class CrudEncrypt <TModel, TId>: 
-        EncryptBase<TModel, TId>, 
+    public class CrudEncrypt<TModel, TId> :
+        EncryptBase<TModel, TId>,
         ICrud<TModel, TId>
     {
-        private readonly ICrud<Core.Storage.Logic.StorableAsByteArray<TModel, TId>, TId> _service;
+        private readonly ICrud<StorableAsByteArray<TModel, TId>, TId> _service;
 
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="service"></param>
         /// <param name="symmetricEncryptionKey"></param>
-        public CrudEncrypt(ICrudable service, byte[] symmetricEncryptionKey)
-        :base(symmetricEncryptionKey)
+        public CrudEncrypt(ICrudable<StorableAsByteArray<TModel, TId>, TId> service, byte[] symmetricEncryptionKey)
+            : base(symmetricEncryptionKey)
         {
             _service = new CrudPassThrough<StorableAsByteArray<TModel, TId>, TId>(service);
         }

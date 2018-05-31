@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Xlent.Lever.Libraries2.Crud.NetFramework</id>
-    <version>1.1.15</version>
+    <version>1.2.0</version>
     <authors>XLENT Fulcrum</authors>
     <projectUrl>https://github.com/xlent-fulcrum/Xlent.Lever.Libraries2.Crud</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -11,6 +11,7 @@
     <summary>Fulcrum crud library based on .NET Framework.</summary>
     <copyright>Copyright ©2018 Xlent Business Integration AB</copyright>
     <releaseNotes>
+      1.2.0 Better definition of ICrudable and IMappable.
       1.1.15 Refactored Mappers.
       1.1.14 Refactored ManyToMany.
       1.1.13 Introduced ICrudBasic

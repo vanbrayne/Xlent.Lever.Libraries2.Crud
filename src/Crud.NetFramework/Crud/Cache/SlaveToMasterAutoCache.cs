@@ -23,7 +23,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <param name="cache"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public SlaveToMasterAutoCache(ICrudable service,
+        public SlaveToMasterAutoCache(ICrudable<TManyModel, TId> service,
             IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null,
             AutoCacheOptions options = null)
             : this(service, item => ((IUniquelyIdentifiable<SlaveToMasterId<TId>>)item).Id, cache,
@@ -40,7 +40,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <param name="getIdDelegate"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public SlaveToMasterAutoCache(ICrudable service,
+        public SlaveToMasterAutoCache(ICrudable<TManyModel, TId> service,
             GetIdDelegate<TManyModel, SlaveToMasterId<TId>> getIdDelegate, IDistributedCache cache,
             FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
             : base(service, getIdDelegate, cache, flushCacheDelegateAsync, options)
@@ -68,7 +68,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <param name="cache"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public SlaveToMasterAutoCache(ICrudable service, IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
+        public SlaveToMasterAutoCache(ICrudable<TManyModel, TId> service, IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
         : this(service, item => ((IUniquelyIdentifiable<SlaveToMasterId<TId>>)item).Id, cache, flushCacheDelegateAsync, options)
         {
         }
@@ -82,7 +82,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <param name="getIdDelegate"></param>
         /// <param name="flushCacheDelegateAsync"></param>
         /// <param name="options"></param>
-        public SlaveToMasterAutoCache(ICrudable service, GetIdDelegate<TManyModel, SlaveToMasterId<TId>> getIdDelegate, IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
+        public SlaveToMasterAutoCache(ICrudable<TManyModel, TId> service, GetIdDelegate<TManyModel, SlaveToMasterId<TId>> getIdDelegate, IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
             : base(getIdDelegate, cache, flushCacheDelegateAsync, options)
         {
             _service = new SlaveToMasterPassThrough<TManyModelCreate, TManyModel, TId>(service);

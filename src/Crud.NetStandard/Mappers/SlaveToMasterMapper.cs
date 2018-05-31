@@ -19,7 +19,7 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         /// <summary>
         /// Constructor
         /// </summary>
-        public SlaveToMasterMapper(ICrudable service, IMappable mapper)
+        public SlaveToMasterMapper(ICrudable<TServerModel, TServerId> service, IMappable<TClientModel, TServerModel> mapper)
             : base(service, mapper)
         {
         }
@@ -36,7 +36,7 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         /// <summary>
         /// Constructor
         /// </summary>
-        public SlaveToMasterMapper(ICrudable service, IMappable mapper)
+        public SlaveToMasterMapper(ICrudable<TServerModel, TServerId> service, IMappable<TClientModel, TServerModel> mapper)
         {
             _service = new SlaveToMasterPassThrough<TServerModel, TServerId>(service);
             _mapper = new MapperPassThrough<TClientModelCreate, TClientModel, TServerModel>(mapper);

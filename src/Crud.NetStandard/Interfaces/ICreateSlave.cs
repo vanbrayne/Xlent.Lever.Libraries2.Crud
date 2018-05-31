@@ -15,7 +15,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     /// Functionality for persisting objects that has no life of their own, but are only relevant with their master.
     /// Examples: A list of rows on an invoice, a list of attributes of an object, the contact details of a person.
     /// </summary>
-    public interface ICreateSlave<in TModelCreate, TModel, TId> : ICrudable<TModelCreate, TModel, TId>
+    public interface ICreateSlave<in TModelCreate, TModel, TId> : ICrudable<TModel, TId>
         where TModel : TModelCreate
     {
         /// <summary>

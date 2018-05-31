@@ -13,7 +13,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
     public class CrudToServerTranslator<TModel> : CrudToServerTranslator<TModel, TModel>, ICrud<TModel, string>
     {
         /// <inheritdoc />
-        public CrudToServerTranslator(ICrudable service, string idConceptName,
+        public CrudToServerTranslator(ICrudable<TModel, string> service, string idConceptName,
             System.Func<string> getServerNameMethod, ITranslatorService translatorService)
             : base(service, idConceptName, getServerNameMethod, translatorService)
         {
@@ -27,7 +27,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         private readonly ICrud<TModelCreate, TModel, string> _service;
 
         /// <inheritdoc />
-        public CrudToServerTranslator(ICrudable service, string idConceptName, System.Func<string> getServerNameMethod, ITranslatorService translatorService)
+        public CrudToServerTranslator(ICrudable<TModel, string> service, string idConceptName, System.Func<string> getServerNameMethod, ITranslatorService translatorService)
             : base(idConceptName, getServerNameMethod, translatorService)
         {
             _service = new CrudPassThrough<TModelCreate, TModel, string>(service);
