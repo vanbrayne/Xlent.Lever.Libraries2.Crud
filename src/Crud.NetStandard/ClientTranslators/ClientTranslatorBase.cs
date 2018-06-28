@@ -1,4 +1,5 @@
-﻿using Xlent.Lever.Libraries2.Core.Translation;
+﻿using Xlent.Lever.Libraries2.Core.Assert;
+using Xlent.Lever.Libraries2.Core.Translation;
 
 namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
 {
@@ -32,6 +33,9 @@ namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
         /// <param name="translatorService">The <see cref="TranslatorService"/>.</param>
         protected ClientTranslatorBase(string idConceptName, System.Func<string> getClientNameMethod, ITranslatorService translatorService)
         {
+            InternalContract.RequireNotNullOrWhitespace(idConceptName, nameof(idConceptName));
+            InternalContract.RequireNotNull(getClientNameMethod, nameof(getClientNameMethod));
+            InternalContract.RequireNotNull(translatorService, nameof(translatorService));
             IdConceptName = idConceptName;
             GetClientNameMethod = getClientNameMethod;
             TranslatorService = translatorService;

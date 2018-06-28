@@ -67,6 +67,11 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
         /// <param name="foreignHandler2">Functionality to read a specified parent.</param>
         public ManyToManyMemory(GetForeignKeyDelegate getForeignKey1Delegate, GetForeignKeyDelegate getForeignKey2Delegate, ICrud<TReferenceModel1Create, TReferenceModel1, TId> foreignHandler1, ICrud<TReferenceModel2Create, TReferenceModel2, TId> foreignHandler2)
         {
+            InternalContract.RequireNotNull(getForeignKey2Delegate, nameof(getForeignKey1Delegate));
+            InternalContract.RequireNotNull(getForeignKey1Delegate, nameof(getForeignKey2Delegate));
+            InternalContract.RequireNotNull(foreignHandler1, nameof(foreignHandler1));
+            InternalContract.RequireNotNull(foreignHandler2, nameof(foreignHandler2));
+
             _getForeignKey1Delegate = getForeignKey1Delegate;
             _getForeignKey2Delegate = getForeignKey2Delegate;
             _foreignHandler1 = foreignHandler1;

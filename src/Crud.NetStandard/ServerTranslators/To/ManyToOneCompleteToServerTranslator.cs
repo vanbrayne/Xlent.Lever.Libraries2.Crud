@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Xlent.Lever.Libraries2.Core.Assert;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Core.Translation;
@@ -34,12 +35,16 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         public ManyToOneToServerTranslator(ICrudable<TModel, string> service, string idConceptName, System.Func<string> getServerNameMethod, ITranslatorService translatorService)
             : base(service, idConceptName, getServerNameMethod, translatorService)
         {
+            InternalContract.RequireNotNull(service, nameof(service));
+            InternalContract.RequireNotNullOrWhitespace(idConceptName, nameof(idConceptName));
+            InternalContract.RequireNotNull(getServerNameMethod, nameof(getServerNameMethod));
+            InternalContract.RequireNotNull(translatorService, nameof(translatorService));
             _service = new ManyToOnePassThrough<TModelCreate, TModel, string>(service);
         }
 
         /// <inheritdoc />
         public async Task<PageEnvelope<TModel>> ReadChildrenWithPagingAsync(string parentId, int offset, int? limit = null,
-        CancellationToken token = new CancellationToken())
+        CancellationToken token = default(CancellationToken))
         {
             var translator = CreateTranslator();
             await translator.Add(parentId).ExecuteAsync();
@@ -48,7 +53,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<TModel>> ReadChildrenAsync(string parentId, int limit = int.MaxValue, CancellationToken token = new CancellationToken())
+        public async Task<IEnumerable<TModel>> ReadChildrenAsync(string parentId, int limit = int.MaxValue, CancellationToken token = default(CancellationToken))
         {
             var translator = CreateTranslator();
             await translator.Add(parentId).ExecuteAsync();

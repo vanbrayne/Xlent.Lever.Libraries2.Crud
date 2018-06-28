@@ -78,6 +78,9 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         public CrudAutoCache(ICrudable<TModel, TId> service, GetIdDelegate<TModel, TId> getIdDelegate, IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
             : base(getIdDelegate, cache, flushCacheDelegateAsync, options)
         {
+            InternalContract.RequireNotNull(service, nameof(service));
+            InternalContract.RequireNotNull(getIdDelegate, nameof(getIdDelegate));
+            InternalContract.RequireNotNull(cache, nameof(cache));
             _service = new CrudPassThrough<TModelCreate, TModel, TId>(service);
         }
 

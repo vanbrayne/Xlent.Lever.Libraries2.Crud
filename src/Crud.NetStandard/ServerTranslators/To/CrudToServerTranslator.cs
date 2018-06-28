@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Xlent.Lever.Libraries2.Core.Assert;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Translation;
@@ -30,11 +31,15 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         public CrudToServerTranslator(ICrudable<TModel, string> service, string idConceptName, System.Func<string> getServerNameMethod, ITranslatorService translatorService)
             : base(idConceptName, getServerNameMethod, translatorService)
         {
+            InternalContract.RequireNotNull(service, nameof(service));
+            InternalContract.RequireNotNullOrWhitespace(idConceptName, nameof(idConceptName));
+            InternalContract.RequireNotNull(getServerNameMethod, nameof(getServerNameMethod));
+            InternalContract.RequireNotNull(translatorService, nameof(translatorService));
             _service = new CrudPassThrough<TModelCreate, TModel, string>(service);
         }
 
         /// <inheritdoc />
-        public async Task<string> CreateAsync(TModelCreate item, CancellationToken token = new CancellationToken())
+        public async Task<string> CreateAsync(TModelCreate item, CancellationToken token = default(CancellationToken))
         {
             var translator = CreateTranslator();
             await translator.Add(item).ExecuteAsync();
@@ -43,7 +48,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         }
 
         /// <inheritdoc />
-        public async Task<TModel> CreateAndReturnAsync(TModelCreate item, CancellationToken token = new CancellationToken())
+        public async Task<TModel> CreateAndReturnAsync(TModelCreate item, CancellationToken token = default(CancellationToken))
         {
             var translator = CreateTranslator();
             await translator.Add(item).ExecuteAsync();
@@ -94,7 +99,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         }
 
         /// <inheritdoc />
-        public async Task UpdateAsync(string id, TModel item, CancellationToken token = new CancellationToken())
+        public async Task UpdateAsync(string id, TModel item, CancellationToken token = default(CancellationToken))
         {
             var translator = CreateTranslator();
             await translator.Add(id).Add(item).ExecuteAsync();
@@ -104,7 +109,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         }
 
         /// <inheritdoc />
-        public async Task<TModel> UpdateAndReturnAsync(string id, TModel item, CancellationToken token = new CancellationToken())
+        public async Task<TModel> UpdateAndReturnAsync(string id, TModel item, CancellationToken token = default(CancellationToken))
         {
             var translator = CreateTranslator();
             await translator.Add(id).Add(item).ExecuteAsync();
@@ -114,7 +119,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         }
 
         /// <inheritdoc />
-        public async Task DeleteAsync(string id, CancellationToken token = new CancellationToken())
+        public async Task DeleteAsync(string id, CancellationToken token = default(CancellationToken))
         {
             var translator = CreateTranslator();
             await translator.Add(id).ExecuteAsync();
@@ -123,7 +128,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         }
 
         /// <inheritdoc />
-        public Task DeleteAllAsync(CancellationToken token = new CancellationToken())
+        public Task DeleteAllAsync(CancellationToken token = default(CancellationToken))
         {
             return _service.DeleteAllAsync(token);
         }

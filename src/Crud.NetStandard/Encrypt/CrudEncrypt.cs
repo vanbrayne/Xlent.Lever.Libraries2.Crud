@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Xlent.Lever.Libraries2.Core.Assert;
 using Xlent.Lever.Libraries2.Core.Storage.Logic;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
@@ -25,18 +26,20 @@ namespace Xlent.Lever.Libraries2.Crud.Encrypt
         public CrudEncrypt(ICrudable<StorableAsByteArray<TModel, TId>, TId> service, byte[] symmetricEncryptionKey)
             : base(symmetricEncryptionKey)
         {
+            InternalContract.RequireNotNull(service, nameof(service));
+            InternalContract.RequireNotNull(symmetricEncryptionKey, nameof(symmetricEncryptionKey));
             _service = new CrudPassThrough<StorableAsByteArray<TModel, TId>, TId>(service);
         }
 
         /// <inheritdoc />
-        public async Task<TId> CreateAsync(TModel item, CancellationToken token = new CancellationToken())
+        public async Task<TId> CreateAsync(TModel item, CancellationToken token = default(CancellationToken))
         {
             var storedItem = Encrypt(item);
             return await _service.CreateAsync(storedItem, token);
         }
 
         /// <inheritdoc />
-        public async Task<TModel> CreateAndReturnAsync(TModel item, CancellationToken token = new CancellationToken())
+        public async Task<TModel> CreateAndReturnAsync(TModel item, CancellationToken token = default(CancellationToken))
         {
             var storedItem = Encrypt(item);
             storedItem = await _service.CreateAndReturnAsync(storedItem, token);
@@ -59,14 +62,14 @@ namespace Xlent.Lever.Libraries2.Crud.Encrypt
         }
 
         /// <inheritdoc />
-        public async Task<TModel> ReadAsync(TId id, CancellationToken token = new CancellationToken())
+        public async Task<TModel> ReadAsync(TId id, CancellationToken token = default(CancellationToken))
         {
             var storedItem = await _service.ReadAsync(id, token);
             return Decrypt(storedItem);
         }
 
         /// <inheritdoc />
-        public async Task<PageEnvelope<TModel>> ReadAllWithPagingAsync(int offset, int? limit = null, CancellationToken token = new CancellationToken())
+        public async Task<PageEnvelope<TModel>> ReadAllWithPagingAsync(int offset, int? limit = null, CancellationToken token = default(CancellationToken))
         {
             var page = await _service.ReadAllWithPagingAsync(offset, limit, token);
             return new PageEnvelope<TModel>(page.PageInfo, page.Data.Select(Decrypt));
@@ -74,21 +77,21 @@ namespace Xlent.Lever.Libraries2.Crud.Encrypt
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<TModel>> ReadAllAsync(int limit = int.MaxValue, CancellationToken token = new CancellationToken())
+        public async Task<IEnumerable<TModel>> ReadAllAsync(int limit = int.MaxValue, CancellationToken token = default(CancellationToken))
         {
             var storedItems = await _service.ReadAllAsync(limit, token);
             return storedItems.Select(Decrypt);
         }
 
         /// <inheritdoc />
-        public async Task UpdateAsync(TId id, TModel item, CancellationToken token = new CancellationToken())
+        public async Task UpdateAsync(TId id, TModel item, CancellationToken token = default(CancellationToken))
         {
             var storedItem = Encrypt(item);
             await _service.UpdateAsync(id, storedItem, token);
         }
 
         /// <inheritdoc />
-        public async Task<TModel> UpdateAndReturnAsync(TId id, TModel item, CancellationToken token = new CancellationToken())
+        public async Task<TModel> UpdateAndReturnAsync(TId id, TModel item, CancellationToken token = default(CancellationToken))
         {
             var storedItem = Encrypt(item);
             storedItem = await _service.UpdateAndReturnAsync(id, storedItem, token);
@@ -96,13 +99,13 @@ namespace Xlent.Lever.Libraries2.Crud.Encrypt
         }
 
         /// <inheritdoc />
-        public Task DeleteAsync(TId id, CancellationToken token = new CancellationToken())
+        public Task DeleteAsync(TId id, CancellationToken token = default(CancellationToken))
         {
             return _service.DeleteAsync(id, token);
         }
 
         /// <inheritdoc />
-        public Task DeleteAllAsync(CancellationToken token = new CancellationToken())
+        public Task DeleteAllAsync(CancellationToken token = default(CancellationToken))
         {
             return _service.DeleteAllAsync(token);
         }

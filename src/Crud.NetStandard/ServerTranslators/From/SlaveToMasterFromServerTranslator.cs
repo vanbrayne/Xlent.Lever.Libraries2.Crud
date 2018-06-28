@@ -35,6 +35,10 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.From
         public SlaveToMasterFromServerTranslator(ICrudable<TModel, string> service, string masterIdConceptName, string slaveIdConceptName, System.Func<string> getServerNameMethod)
             : base(slaveIdConceptName, getServerNameMethod)
         {
+            InternalContract.RequireNotNull(service, nameof(service));
+            InternalContract.RequireNotNullOrWhitespace(masterIdConceptName, nameof(masterIdConceptName));
+            InternalContract.RequireNotNullOrWhitespace(slaveIdConceptName, nameof(slaveIdConceptName));
+            InternalContract.RequireNotNull(getServerNameMethod, nameof(getServerNameMethod));
             _service = new SlaveToMasterPassThrough<TModelCreate, TModel, string>(service);
             _masterIdConceptName = masterIdConceptName;
         }
@@ -90,7 +94,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.From
 
         /// <inheritdoc />
         public async Task<PageEnvelope<TModel>> ReadChildrenWithPagingAsync(string parentId, int offset, int? limit = null,
-            CancellationToken token = new CancellationToken())
+            CancellationToken token = default(CancellationToken))
         {
             var result = await _service.ReadChildrenWithPagingAsync(parentId, offset, limit, token);
             var translator = CreateTranslator();
@@ -98,7 +102,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.From
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<TModel>> ReadChildrenAsync(string parentId, int limit = int.MaxValue, CancellationToken token = new CancellationToken())
+        public async Task<IEnumerable<TModel>> ReadChildrenAsync(string parentId, int limit = int.MaxValue, CancellationToken token = default(CancellationToken))
         {
             var result = await _service.ReadChildrenAsync(parentId, limit, token);
             var translator = CreateTranslator();

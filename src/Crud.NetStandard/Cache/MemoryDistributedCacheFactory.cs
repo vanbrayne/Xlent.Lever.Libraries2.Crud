@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Caching.Distributed;
+using Xlent.Lever.Libraries2.Core.Assert;
 using Xlent.Lever.Libraries2.Core.Cache;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 
@@ -18,6 +19,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         /// <param name="storage"></param>
         public MemoryDistributedCacheFactory(ICrud<MemoryDistributedCache, MemoryDistributedCache, string> storage)
         {
+            InternalContract.RequireNotNull(storage, nameof(storage));
             _storage = storage;
         }
 

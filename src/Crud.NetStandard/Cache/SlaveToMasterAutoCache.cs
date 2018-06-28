@@ -85,6 +85,9 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         public SlaveToMasterAutoCache(ICrudable<TManyModel, TId> service, GetIdDelegate<TManyModel, SlaveToMasterId<TId>> getIdDelegate, IDistributedCache cache, FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
             : base(getIdDelegate, cache, flushCacheDelegateAsync, options)
         {
+            InternalContract.RequireNotNull(service, nameof(service));
+            InternalContract.RequireNotNull(getIdDelegate, nameof(getIdDelegate));
+            InternalContract.RequireNotNull(cache, nameof(cache));
             _service = new SlaveToMasterPassThrough<TManyModelCreate, TManyModel, TId>(service);
         }
 

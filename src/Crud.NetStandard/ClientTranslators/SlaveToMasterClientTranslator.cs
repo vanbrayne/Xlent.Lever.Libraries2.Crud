@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Xlent.Lever.Libraries2.Core.Assert;
 using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
@@ -37,6 +38,11 @@ namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
         public SlaveToMasterClientTranslator(ICrudable<TModel, string> service, string masterIdConceptName, string slaveIdConceptName, System.Func<string> getClientNameMethod, ITranslatorService translatorService)
             : base(slaveIdConceptName, getClientNameMethod, translatorService)
         {
+            InternalContract.RequireNotNull(service, nameof(service));
+            InternalContract.RequireNotNullOrWhitespace(masterIdConceptName, nameof(masterIdConceptName));
+            InternalContract.RequireNotNullOrWhitespace(slaveIdConceptName, nameof(slaveIdConceptName));
+            InternalContract.RequireNotNull(getClientNameMethod, nameof(getClientNameMethod));
+            InternalContract.RequireNotNull(translatorService, nameof(translatorService));
             _masterIdConceptName = masterIdConceptName;
             _service = new SlaveToMasterPassThrough<TModelCreate, TModel, string>(service);
         }
@@ -106,7 +112,7 @@ namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
 
         /// <inheritdoc />
         public async Task<PageEnvelope<TModel>> ReadChildrenWithPagingAsync(string parentId, int offset, int? limit = null,
-        CancellationToken token = new CancellationToken())
+        CancellationToken token = default(CancellationToken))
         {
             var translator = CreateTranslator();
             parentId = translator.Decorate(_masterIdConceptName, parentId);
@@ -116,7 +122,7 @@ namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<TModel>> ReadChildrenAsync(string parentId, int limit = int.MaxValue, CancellationToken token = new CancellationToken())
+        public async Task<IEnumerable<TModel>> ReadChildrenAsync(string parentId, int limit = int.MaxValue, CancellationToken token = default(CancellationToken))
         {
             var translator = CreateTranslator();
             parentId = translator.Decorate(_masterIdConceptName, parentId);

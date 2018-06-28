@@ -46,6 +46,7 @@ namespace Xlent.Lever.Libraries2.Crud.Helpers
         /// <exception cref="FulcrumNotImplementedException">Thrown if <paramref name="service"/> doesn't implement <typeparamref name="T"/>.</exception>
         public static T GetImplementationOrThrow<T>(ICrudable service) where T : ICrudable
         {
+            InternalContract.RequireNotNull(service, nameof(service));
             if (service is T implemented) return implemented;
             throw new FulcrumNotImplementedException($"The service {service.GetType()} does not implement {typeof(T).Name}");
         }

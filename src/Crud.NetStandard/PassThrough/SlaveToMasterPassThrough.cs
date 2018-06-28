@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Xlent.Lever.Libraries2.Core.Assert;
 using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
@@ -39,6 +40,7 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         /// <param name="service">The crud class to pass things down to.</param>
         public SlaveToMasterPassThrough(ICrudable<TModel, TId> service)
         {
+            InternalContract.RequireNotNull(service, nameof(service));
             Service = service;
         }
 

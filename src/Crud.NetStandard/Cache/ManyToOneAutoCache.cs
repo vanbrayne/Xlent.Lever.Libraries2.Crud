@@ -81,6 +81,9 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
             FlushCacheDelegateAsync flushCacheDelegateAsync = null, AutoCacheOptions options = null)
             : base(service, getIdDelegate, cache, flushCacheDelegateAsync, options)
         {
+            InternalContract.RequireNotNull(service, nameof(service));
+            InternalContract.RequireNotNull(getIdDelegate, nameof(getIdDelegate));
+            InternalContract.RequireNotNull(cache, nameof(cache));
             _service = service;
         }
 

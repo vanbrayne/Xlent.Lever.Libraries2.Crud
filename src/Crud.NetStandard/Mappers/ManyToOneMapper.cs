@@ -36,6 +36,8 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         public ManyToOneMapper(ICrudable<TServerModel, TServerId> service, IMappable<TClientModel, TServerModel> mapper)
             : base(service, mapper)
         {
+            InternalContract.RequireNotNull(service, nameof(service));
+            InternalContract.RequireNotNull(mapper, nameof(mapper));
             _service = new ManyToOnePassThrough<TServerModel, TServerId>(service);
             _mapper = new MapperPassThrough<TClientModelCreate, TClientModel, TServerModel>(mapper);
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Xlent.Lever.Libraries2.Core.Assert;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Crud.PassThrough;
@@ -33,12 +34,15 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.From
         public ManyToOneFromServerTranslator(ICrudable<TModel, string> service, string idConceptName, System.Func<string> getServerNameMethod)
             : base(service, idConceptName, getServerNameMethod)
         {
+            InternalContract.RequireNotNull(service, nameof(service));
+            InternalContract.RequireNotNullOrWhitespace(idConceptName, nameof(idConceptName));
+            InternalContract.RequireNotNull(getServerNameMethod, nameof(getServerNameMethod));
             _service = new ManyToOnePassThrough<TModelCreate, TModel, string>(service);
         }
 
         /// <inheritdoc />
         public async Task<PageEnvelope<TModel>> ReadChildrenWithPagingAsync(string parentId, int offset, int? limit = null,
-        CancellationToken token = new CancellationToken())
+        CancellationToken token = default(CancellationToken))
         {
             var result = await _service.ReadChildrenWithPagingAsync(parentId, offset, limit, token);
             var translator = CreateTranslator();
@@ -46,7 +50,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.From
         }
 
         /// <inheritdoc />
-        public async Task<IEnumerable<TModel>> ReadChildrenAsync(string parentId, int limit = int.MaxValue, CancellationToken token = new CancellationToken())
+        public async Task<IEnumerable<TModel>> ReadChildrenAsync(string parentId, int limit = int.MaxValue, CancellationToken token = default(CancellationToken))
         {
             var result = await _service.ReadChildrenAsync(parentId, limit, token);
             var translator = CreateTranslator();

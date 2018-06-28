@@ -38,6 +38,8 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         /// </summary>
         public SlaveToMasterMapper(ICrudable<TServerModel, TServerId> service, IMappable<TClientModel, TServerModel> mapper)
         {
+            InternalContract.RequireNotNull(service, nameof(service));
+            InternalContract.RequireNotNull(mapper, nameof(mapper));
             _service = new SlaveToMasterPassThrough<TServerModel, TServerId>(service);
             _mapper = new MapperPassThrough<TClientModelCreate, TClientModel, TServerModel>(mapper);
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Xlent.Lever.Libraries2.Core.Assert;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Crud.Helpers;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
@@ -35,18 +36,19 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         /// <param name="service">The crud class to pass things down to.</param>
         public CrudPassThrough(ICrudable<TModel, TId> service)
         {
+            InternalContract.RequireNotNull(service, nameof(service));
             Service = service;
         }
 
         /// <inheritdoc />
-        public virtual Task<TId> CreateAsync(TModelCreate item, CancellationToken token = new CancellationToken())
+        public virtual Task<TId> CreateAsync(TModelCreate item, CancellationToken token = default(CancellationToken))
         {
             var implementation = CrudHelper.GetImplementationOrThrow<ICreate<TModelCreate, TModel, TId>>(Service);
             return implementation.CreateAsync(item, token);
         }
 
         /// <inheritdoc />
-        public virtual Task<TModel> CreateAndReturnAsync(TModelCreate item, CancellationToken token = new CancellationToken())
+        public virtual Task<TModel> CreateAndReturnAsync(TModelCreate item, CancellationToken token = default(CancellationToken))
         {
             var implementation = CrudHelper.GetImplementationOrThrow<ICreateAndReturn<TModelCreate, TModel, TId>>(Service);
             return implementation.CreateAndReturnAsync(item, token);
@@ -89,28 +91,28 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         }
 
         /// <inheritdoc />
-        public virtual Task UpdateAsync(TId id, TModel item, CancellationToken token = new CancellationToken())
+        public virtual Task UpdateAsync(TId id, TModel item, CancellationToken token = default(CancellationToken))
         {
             var implementation = CrudHelper.GetImplementationOrThrow<IUpdate<TModel, TId>>(Service);
             return implementation.UpdateAsync(id, item, token);
         }
 
         /// <inheritdoc />
-        public virtual Task<TModel> UpdateAndReturnAsync(TId id, TModel item, CancellationToken token = new CancellationToken())
+        public virtual Task<TModel> UpdateAndReturnAsync(TId id, TModel item, CancellationToken token = default(CancellationToken))
         {
             var implementation = CrudHelper.GetImplementationOrThrow<IUpdateAndReturn<TModel, TId>>(Service);
             return implementation.UpdateAndReturnAsync(id, item, token);
         }
 
         /// <inheritdoc />
-        public virtual Task DeleteAsync(TId id, CancellationToken token = new CancellationToken())
+        public virtual Task DeleteAsync(TId id, CancellationToken token = default(CancellationToken))
         {
             var implementation = CrudHelper.GetImplementationOrThrow<IDelete<TId>>(Service);
             return implementation.DeleteAsync(id, token);
         }
 
         /// <inheritdoc />
-        public virtual Task DeleteAllAsync(CancellationToken token = new CancellationToken())
+        public virtual Task DeleteAllAsync(CancellationToken token = default(CancellationToken))
         {
             var implementation = CrudHelper.GetImplementationOrThrow<IDeleteAll>(Service);
             return implementation.DeleteAllAsync(token);
