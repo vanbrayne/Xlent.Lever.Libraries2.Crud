@@ -3,7 +3,7 @@
 
     /// <inheritdoc cref="ICrudSlaveToMasterBasic{TModelCreate,TModel,TId}" />
     public interface ICrudSlaveToMasterBasic<TModel, TId> :
-        ICrudSlaveToMaster<TModel, TModel, TId>,
+        ICrudSlaveToMasterBasic<TModel, TModel, TId>,
         ICreateSlave<TModel, TId>,
         ICreateSlaveWithSpecifiedId<TModel, TId>
     {
