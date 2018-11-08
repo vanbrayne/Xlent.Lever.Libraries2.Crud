@@ -5,7 +5,7 @@ using Xlent.Lever.Libraries2.Core.Storage.Model;
 namespace Xlent.Lever.Libraries2.Crud.Model
 {
     /// <inheritdoc />
-    public class LockSlave<TId> : BaseLock<TId>
+    public class SlaveLock<TId> : BaseLock<TId>
     {
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Xlent.Lever.Libraries2.Crud.Model
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
-            if (!(obj is LockSlave<TId> @lock)) return false;
+            if (!(obj is SlaveLock<TId> @lock)) return false;
             return Equals(Id, @lock.Id) && Equals(MasterId, @lock.MasterId) && Equals(SlaveId, @lock.SlaveId);
         }
     }

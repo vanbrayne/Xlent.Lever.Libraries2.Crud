@@ -162,7 +162,7 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
         }
 
         /// <inheritdoc />
-        public async Task<LockSlave<string>> ClaimLockAsync(string masterId, string slaveId, CancellationToken token = default(CancellationToken))
+        public async Task<SlaveLock<string>> ClaimLockAsync(string masterId, string slaveId, CancellationToken token = default(CancellationToken))
         {
             var translator = CreateTranslator();
             await translator.Add(masterId).Add(slaveId).ExecuteAsync();

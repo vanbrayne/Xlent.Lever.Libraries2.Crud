@@ -231,7 +231,7 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         }
 
         /// <inheritdoc />
-        public Task<LockSlave<TId>> ClaimLockAsync(TId masterId, TId slaveId, CancellationToken token = default(CancellationToken))
+        public Task<SlaveLock<TId>> ClaimLockAsync(TId masterId, TId slaveId, CancellationToken token = default(CancellationToken))
         {
             return _service.ClaimLockAsync(masterId, slaveId, token);
         }

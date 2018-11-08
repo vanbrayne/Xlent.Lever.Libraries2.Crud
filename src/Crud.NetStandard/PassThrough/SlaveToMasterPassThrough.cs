@@ -132,7 +132,7 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         }
 
         /// <inheritdoc />
-        public virtual Task<LockSlave<TId>> ClaimLockAsync(TId masterId, TId slaveId, CancellationToken token = default(CancellationToken))
+        public virtual Task<SlaveLock<TId>> ClaimLockAsync(TId masterId, TId slaveId, CancellationToken token = default(CancellationToken))
         {
             var implementation = CrudHelper.GetImplementationOrThrow<ILockableSlave<TId>>(Service);
             return implementation.ClaimLockAsync(masterId, slaveId, token);

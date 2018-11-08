@@ -167,13 +167,13 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
         #endregion
 
         /// <inheritdoc />
-        public async Task<LockSlave<TId>> ClaimLockAsync(TId masterId, TId slaveId, CancellationToken token = default(CancellationToken))
+        public async Task<SlaveLock<TId>> ClaimLockAsync(TId masterId, TId slaveId, CancellationToken token = default(CancellationToken))
         {
             InternalContract.RequireNotDefaultValue(masterId, nameof(masterId));
             InternalContract.RequireNotDefaultValue(slaveId, nameof(slaveId));
             var groupPersistence = GetStorage(masterId);
             var groupLock = await groupPersistence.ClaimLockAsync(slaveId, token);
-            return new LockSlave<TId>
+            return new SlaveLock<TId>
             {
                 Id = groupLock.Id,
                 MasterId = masterId,

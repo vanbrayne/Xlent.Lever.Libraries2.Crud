@@ -24,7 +24,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
         /// <remarks>
         /// The lock will be automatically released after 30 seconds, but please use <see cref="ReleaseLockAsync"/> to release the lock as soon as you don't need the lock anymore.
         /// </remarks>
-        Task<LockSlave<TId>> ClaimLockAsync(TId masterId, TId slaveId, CancellationToken token = default(CancellationToken));
+        Task<SlaveLock<TId>> ClaimLockAsync(TId masterId, TId slaveId, CancellationToken token = default(CancellationToken));
 
         /// <summary>
         /// Releases the lock for an item.

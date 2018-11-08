@@ -189,14 +189,14 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
         }
 
         /// <inheritdoc />
-        public virtual async Task<LockSlave<TClientId>> ClaimLockAsync(TClientId masterId, TClientId slaveId, CancellationToken token = default(CancellationToken))
+        public virtual async Task<SlaveLock<TClientId>> ClaimLockAsync(TClientId masterId, TClientId slaveId, CancellationToken token = default(CancellationToken))
         {
             InternalContract.RequireNotDefaultValue(masterId, nameof(masterId));
             InternalContract.RequireNotDefaultValue(slaveId, nameof(slaveId));
             var serverMasterId = MapperHelper.MapToType<TServerId, TClientId>(masterId);
             var serverSlaveId = MapperHelper.MapToType<TServerId, TClientId>(slaveId);
             var serverLock = await _service.ClaimLockAsync(serverMasterId, serverSlaveId, token);
-            var clientLock = new LockSlave<TClientId>
+            var clientLock = new SlaveLock<TClientId>
             {
                 Id = MapperHelper.MapToType<TClientId, TServerId>(serverLock.Id),
                 MasterId = MapperHelper.MapToType<TClientId, TServerId>(serverLock.MasterId),
