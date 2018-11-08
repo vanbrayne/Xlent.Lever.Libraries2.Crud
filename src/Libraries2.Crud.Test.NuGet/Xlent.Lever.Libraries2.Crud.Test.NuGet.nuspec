@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Xlent.Lever.Libraries2.Crud.Test</id>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <authors>XLENT Fulcrum</authors>
     <projectUrl>https://github.com/xlent-fulcrum/Xlent.Lever.Libraries2.Crud</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -11,6 +11,7 @@
     <summary>Library for testing implementation of Core interfaces.</summary>
     <copyright>Copyright ©2017 Xlent Business Integration AB</copyright>
     <releaseNotes>
+      1.1.1 Added tests for ILockable.
       1.1.0 Synchronized NuGet release.
       1.0.3 Consolidated interfaces.
       1.0.0 First release
