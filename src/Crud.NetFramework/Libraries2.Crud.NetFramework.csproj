@@ -77,6 +77,7 @@
     <Compile Include="Crud\Interfaces\ICrudManyToManyBasic.cs" />
     <Compile Include="Crud\Interfaces\ICrudManyToOneBasic.cs" />
     <Compile Include="Crud\Interfaces\ICrudSlaveToMasterBasic.cs" />
+    <Compile Include="Crud\Interfaces\ILockableSlave.cs" />
     <Compile Include="Crud\Interfaces\IReadAllWithPaging.cs" />
     <Compile Include="Crud\Interfaces\IReadChildrenWithPaging.cs" />
     <Compile Include="Crud\Interfaces\ISlaveToMaster.cs" />
@@ -109,6 +110,8 @@
     <Compile Include="Crud\MemoryStorage\ManyToOneMemory.cs" />
     <Compile Include="Crud\MemoryStorage\MemoryBase.cs" />
     <Compile Include="Crud\MemoryStorage\SlaveToMasterMemory.cs" />
+    <Compile Include="Crud\Model\BaseLock.cs" />
+    <Compile Include="Crud\Model\LockSlave.cs" />
     <Compile Include="Crud\Model\Lock.cs" />
     <Compile Include="Crud\Mappers\CrudMapper.cs" />
     <Compile Include="Crud\Mappers\IMapper.cs" />

@@ -7,6 +7,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
+using Xlent.Lever.Libraries2.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.PassThrough;
 
 namespace Xlent.Lever.Libraries2.Crud.Cache
@@ -227,6 +228,18 @@ namespace Xlent.Lever.Libraries2.Crud.Cache
         public Task<TManyModel> ReadAsync(SlaveToMasterId<TId> id, CancellationToken token = default(CancellationToken))
         {
             return ReadAsync(id.MasterId, id.SlaveId, token);
+        }
+
+        /// <inheritdoc />
+        public Task<LockSlave<TId>> ClaimLockAsync(TId masterId, TId slaveId, CancellationToken token = default(CancellationToken))
+        {
+            return _service.ClaimLockAsync(masterId, slaveId, token);
+        }
+
+        /// <inheritdoc />
+        public Task ReleaseLockAsync(TId masterId, TId slaveId, TId lockId, CancellationToken token = default(CancellationToken))
+        {
+            return _service.ReleaseLockAsync(masterId, slaveId, lockId, token);
         }
     }
 }

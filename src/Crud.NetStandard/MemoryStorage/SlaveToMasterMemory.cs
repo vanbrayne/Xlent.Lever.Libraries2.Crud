@@ -6,6 +6,7 @@ using Xlent.Lever.Libraries2.Core.Assert;
 using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
+using Xlent.Lever.Libraries2.Crud.Model;
 
 namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
 {
@@ -164,5 +165,30 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
             return Storages[masterId];
         }
         #endregion
+
+        /// <inheritdoc />
+        public async Task<LockSlave<TId>> ClaimLockAsync(TId masterId, TId slaveId, CancellationToken token = default(CancellationToken))
+        {
+            InternalContract.RequireNotDefaultValue(masterId, nameof(masterId));
+            InternalContract.RequireNotDefaultValue(slaveId, nameof(slaveId));
+            var groupPersistence = GetStorage(masterId);
+            var groupLock = await groupPersistence.ClaimLockAsync(slaveId, token);
+            return new LockSlave<TId>
+            {
+                Id = groupLock.Id,
+                MasterId = masterId,
+                SlaveId = groupLock.ItemId,
+                ValidUntil = groupLock.ValidUntil
+            };
+        }
+
+        /// <inheritdoc />
+        public Task ReleaseLockAsync(TId masterId, TId slaveId, TId lockId, CancellationToken token = default(CancellationToken))
+        {
+            InternalContract.RequireNotDefaultValue(masterId, nameof(masterId));
+            InternalContract.RequireNotDefaultValue(slaveId, nameof(slaveId));
+            var groupPersistence = GetStorage(masterId);
+            return groupPersistence.ReleaseLockAsync(slaveId, lockId, token);
+        }
     }
 }

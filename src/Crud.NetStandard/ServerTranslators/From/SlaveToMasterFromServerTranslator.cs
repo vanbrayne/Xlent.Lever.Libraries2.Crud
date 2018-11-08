@@ -5,6 +5,7 @@ using Xlent.Lever.Libraries2.Core.Assert;
 using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
+using Xlent.Lever.Libraries2.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.PassThrough;
 
 namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.From
@@ -135,6 +136,24 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.From
         public Task DeleteAsync(string masterId, string slaveId, CancellationToken token = default(CancellationToken))
         {
             return _service.DeleteAsync(masterId, slaveId, token);
+        }
+
+        /// <inheritdoc />
+        public async Task<LockSlave<string>> ClaimLockAsync(string masterId, string slaveId, CancellationToken token = default(CancellationToken))
+        {
+            var result = await _service.ClaimLockAsync(masterId, slaveId, token);
+            var translator = CreateTranslator();
+            FulcrumAssert.IsNotNull(result);
+            result.MasterId = translator.Decorate(_masterIdConceptName, result.MasterId);
+            result.SlaveId = translator.Decorate(IdConceptName, result.SlaveId);
+            return result;
+        }
+
+        /// <inheritdoc />
+        public Task ReleaseLockAsync(string masterId, string slaveId, string lockId,
+            CancellationToken token = default(CancellationToken))
+        {
+            return _service.ReleaseLockAsync(masterId, slaveId, lockId, token);
         }
     }
 }

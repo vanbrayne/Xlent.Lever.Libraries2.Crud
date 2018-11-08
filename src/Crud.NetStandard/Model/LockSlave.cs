@@ -5,25 +5,31 @@ using Xlent.Lever.Libraries2.Core.Storage.Model;
 namespace Xlent.Lever.Libraries2.Crud.Model
 {
     /// <inheritdoc />
-    public class Lock<TId> : BaseLock<TId>
+    public class LockSlave<TId> : BaseLock<TId>
     {
 
         /// <summary>
-        /// The id of the object that the lock is for.
+        /// The master id of the object that the lock is for.
         /// </summary>
-        public TId ItemId { get; set; }
+        public TId MasterId { get; set; }
+
+        /// <summary>
+        /// The slave id of the object that the lock is for.
+        /// </summary>
+        public TId SlaveId { get; set; }
 
         /// <inheritdoc />
         public override void Validate(string errorLocation, string propertyPath = "")
         {
             base.Validate(errorLocation, propertyPath);
-            FulcrumValidate.IsNotDefaultValue(ItemId, nameof(ItemId), errorLocation);
+            FulcrumValidate.IsNotDefaultValue(MasterId, nameof(MasterId), errorLocation);
+            FulcrumValidate.IsNotDefaultValue(SlaveId, nameof(SlaveId), errorLocation);
         }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            return $"{ItemId} ({ValidUntil})";
+            return $"{MasterId}/{SlaveId} ({ValidUntil})";
         }
 
         /// <inheritdoc />
@@ -37,8 +43,8 @@ namespace Xlent.Lever.Libraries2.Crud.Model
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
-            if (!(obj is Lock<TId> @lock)) return false;
-            return Equals(Id, @lock.Id) && Equals(ItemId, @lock.ItemId);
+            if (!(obj is LockSlave<TId> @lock)) return false;
+            return Equals(Id, @lock.Id) && Equals(MasterId, @lock.MasterId) && Equals(SlaveId, @lock.SlaveId);
         }
     }
 }
