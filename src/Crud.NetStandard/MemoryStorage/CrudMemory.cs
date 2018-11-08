@@ -215,8 +215,8 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
         {
             InternalContract.RequireNotDefaultValue(id, nameof(id));
             InternalContract.RequireNotDefaultValue(lockId, nameof(lockId));
-            if (!_locks.TryGetValue(lockId, out Lock<TId> @lock)) return Task.CompletedTask;
-            if (!Equals(id, @lock.ItemId)) return Task.CompletedTask;
+            if (!_locks.TryGetValue(id, out Lock<TId> @lock)) return Task.CompletedTask;
+            if (!Equals(lockId, @lock.Id)) return Task.CompletedTask;
             // Try to temporarily add additional time to make sure that nobody steals the lock while we are releasing it.
             // The TryUpdate will return false if there is no lock or if the current lock differs from the lock we want to release.
             var newLock = new Lock<TId>
@@ -225,9 +225,9 @@ namespace Xlent.Lever.Libraries2.Crud.MemoryStorage
                 ItemId = id,
                 ValidUntil = DateTimeOffset.Now.AddSeconds(30)
             };
-            if (!_locks.TryUpdate(lockId, @lock, newLock)) return Task.CompletedTask;
+            if (!_locks.TryUpdate(id, @lock, newLock)) return Task.CompletedTask;
             // Finally remove the lock
-            _locks.TryRemove(lockId, out var _);
+            _locks.TryRemove(id, out var _);
             return Task.CompletedTask;
         }
 
