@@ -111,7 +111,7 @@
     <Compile Include="Crud\MemoryStorage\MemoryBase.cs" />
     <Compile Include="Crud\MemoryStorage\SlaveToMasterMemory.cs" />
     <Compile Include="Crud\Model\BaseLock.cs" />
-    <Compile Include="Crud\Model\LockSlave.cs" />
+    <Compile Include="Crud\Model\SlaveLock.cs" />
     <Compile Include="Crud\Model\Lock.cs" />
     <Compile Include="Crud\Mappers\CrudMapper.cs" />
     <Compile Include="Crud\Mappers\IMapper.cs" />
