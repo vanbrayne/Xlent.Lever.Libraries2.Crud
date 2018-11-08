@@ -7,6 +7,7 @@ using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Crud.Helpers;
+using Xlent.Lever.Libraries2.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.PassThrough;
 
 namespace Xlent.Lever.Libraries2.Crud.Mappers
@@ -185,6 +186,35 @@ namespace Xlent.Lever.Libraries2.Crud.Mappers
             var serverMasterId = MapperHelper.MapToType<TServerId, TClientId>(masterId);
             var serverSlaveId = MapperHelper.MapToType<TServerId, TClientId>(slaveId);
             return _service.DeleteAsync(serverMasterId, serverSlaveId, token);
+        }
+
+        /// <inheritdoc />
+        public virtual async Task<SlaveLock<TClientId>> ClaimLockAsync(TClientId masterId, TClientId slaveId, CancellationToken token = default(CancellationToken))
+        {
+            InternalContract.RequireNotDefaultValue(masterId, nameof(masterId));
+            InternalContract.RequireNotDefaultValue(slaveId, nameof(slaveId));
+            var serverMasterId = MapperHelper.MapToType<TServerId, TClientId>(masterId);
+            var serverSlaveId = MapperHelper.MapToType<TServerId, TClientId>(slaveId);
+            var serverLock = await _service.ClaimLockAsync(serverMasterId, serverSlaveId, token);
+            var clientLock = new SlaveLock<TClientId>
+            {
+                Id = MapperHelper.MapToType<TClientId, TServerId>(serverLock.Id),
+                MasterId = MapperHelper.MapToType<TClientId, TServerId>(serverLock.MasterId),
+                SlaveId = MapperHelper.MapToType<TClientId, TServerId>(serverLock.SlaveId)
+            };
+            return clientLock;
+        }
+
+        /// <inheritdoc />
+        public virtual Task ReleaseLockAsync(TClientId masterId, TClientId slaveId, TClientId lockId,
+            CancellationToken token = default(CancellationToken))
+        {
+            InternalContract.RequireNotDefaultValue(masterId, nameof(masterId));
+            InternalContract.RequireNotDefaultValue(slaveId, nameof(slaveId));
+            var serverMasterId = MapperHelper.MapToType<TServerId, TClientId>(masterId);
+            var serverSlaveId = MapperHelper.MapToType<TServerId, TClientId>(slaveId);
+            var serverLockId = MapperHelper.MapToType<TServerId, TClientId>(lockId);
+            return _service.ReleaseLockAsync(serverMasterId, serverSlaveId, serverLockId, token);
         }
     }
 }

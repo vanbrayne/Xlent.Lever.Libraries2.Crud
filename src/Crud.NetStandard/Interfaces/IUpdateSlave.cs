@@ -13,7 +13,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
     public interface IUpdateSlave<in TModel, in TId> : ICrudable<TModel, TId>
     {
         /// <summary>
-        /// Updates the item uniquely identified by <paramref name="item.Id"/> in storage.
+        /// Updates the item uniquely identified by <paramref name="masterId"/> and <paramref name="slaveId"/> in storage.
         /// </summary>
         /// <param name="masterId">The id for the master object.</param>
         /// <param name="slaveId">The id for the slave object.</param>

@@ -6,6 +6,7 @@ using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Crud.Helpers;
+using Xlent.Lever.Libraries2.Crud.Model;
 
 namespace Xlent.Lever.Libraries2.Crud.PassThrough
 {
@@ -128,6 +129,20 @@ namespace Xlent.Lever.Libraries2.Crud.PassThrough
         {
             var implementation = CrudHelper.GetImplementationOrThrow<IDeleteChildren<TId>>(Service);
             return implementation.DeleteChildrenAsync(parentId, token);
+        }
+
+        /// <inheritdoc />
+        public virtual Task<SlaveLock<TId>> ClaimLockAsync(TId masterId, TId slaveId, CancellationToken token = default(CancellationToken))
+        {
+            var implementation = CrudHelper.GetImplementationOrThrow<ILockableSlave<TId>>(Service);
+            return implementation.ClaimLockAsync(masterId, slaveId, token);
+        }
+
+        /// <inheritdoc />
+        public virtual Task ReleaseLockAsync(TId masterId, TId slaveId, TId lockId, CancellationToken token = default(CancellationToken))
+        {
+            var implementation = CrudHelper.GetImplementationOrThrow<ILockableSlave<TId>>(Service);
+            return implementation.ReleaseLockAsync(masterId, slaveId, lockId, token);
         }
     }
 }

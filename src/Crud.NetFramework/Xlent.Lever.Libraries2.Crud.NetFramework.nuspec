@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Xlent.Lever.Libraries2.Crud.NetFramework</id>
-    <version>1.3.4</version>
+    <version>1.4.1</version>
     <authors>XLENT Fulcrum</authors>
     <projectUrl>https://github.com/xlent-fulcrum/Xlent.Lever.Libraries2.Crud</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -11,6 +11,7 @@
     <summary>Fulcrum crud library based on .NET Framework.</summary>
     <copyright>Copyright ©2018 Xlent Business Integration AB</copyright>
     <releaseNotes>
+      1.4.1 Introduced ILockableSlave.
       1.3.4 CrudMemory.ReleaseLockAsync was using the wrong identifier to look up a lock.
       1.3.3 ICrudSlaveToMasterBasic`2 now inherits from the correct interface.
       1.3.2 Test the parameters of the constructors.
@@ -27,7 +28,7 @@
     <tags>fulcrum lever</tags>
     <dependencies>
       <group targetFramework="net46">
-        <dependency id="Xlent.Lever.Libraries2.Core.NetFramework" version="2.2.0" />
+        <dependency id="Xlent.Lever.Libraries2.Core.NetFramework" version="2.5.5" />
       </group>
     </dependencies>
   </metadata>

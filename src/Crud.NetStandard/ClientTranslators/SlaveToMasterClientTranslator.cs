@@ -7,6 +7,7 @@ using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Core.Translation;
+using Xlent.Lever.Libraries2.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.PassThrough;
 
 namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
@@ -170,6 +171,26 @@ namespace Xlent.Lever.Libraries2.Crud.ClientTranslators
             var translator = CreateTranslator();
             masterId = translator.Decorate(_masterIdConceptName, masterId);
             return _service.DeleteChildrenAsync(masterId, token);
+        }
+
+        /// <inheritdoc />
+        public async Task<SlaveLock<string>> ClaimLockAsync(string masterId, string slaveId, CancellationToken token = default(CancellationToken))
+        {
+            var translator = CreateTranslator();
+            masterId = translator.Decorate(_masterIdConceptName, masterId);
+            slaveId = translator.Decorate(IdConceptName, slaveId);
+            var decoratedResult = await _service.ClaimLockAsync(masterId, slaveId, token);
+            await translator.Add(decoratedResult).ExecuteAsync();
+            return translator.Translate(decoratedResult);
+        }
+
+        /// <inheritdoc />
+        public Task ReleaseLockAsync(string masterId, string slaveId, string lockId, CancellationToken token = default(CancellationToken))
+        {
+            var translator = CreateTranslator();
+            masterId = translator.Decorate(_masterIdConceptName, masterId);
+            slaveId = translator.Decorate(IdConceptName, slaveId);
+            return _service.ReleaseLockAsync(masterId, slaveId, lockId, token);
         }
     }
 }

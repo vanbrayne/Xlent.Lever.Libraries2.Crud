@@ -6,6 +6,7 @@ using Xlent.Lever.Libraries2.Core.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.Interfaces;
 using Xlent.Lever.Libraries2.Core.Storage.Model;
 using Xlent.Lever.Libraries2.Core.Translation;
+using Xlent.Lever.Libraries2.Crud.Model;
 using Xlent.Lever.Libraries2.Crud.PassThrough;
 
 namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
@@ -158,6 +159,27 @@ namespace Xlent.Lever.Libraries2.Crud.ServerTranslators.To
             masterId = translator.Translate(masterId);
             slaveId = translator.Translate(slaveId);
             await _service.DeleteAsync(masterId, slaveId, token);
+        }
+
+        /// <inheritdoc />
+        public async Task<SlaveLock<string>> ClaimLockAsync(string masterId, string slaveId, CancellationToken token = default(CancellationToken))
+        {
+            var translator = CreateTranslator();
+            await translator.Add(masterId).Add(slaveId).ExecuteAsync();
+            masterId = translator.Translate(masterId);
+            slaveId = translator.Translate(slaveId);
+            return await _service.ClaimLockAsync(masterId, slaveId, token);
+        }
+
+        /// <inheritdoc />
+        public async Task ReleaseLockAsync(string masterId, string slaveId, string lockId,
+            CancellationToken token = default(CancellationToken))
+        {
+            var translator = CreateTranslator();
+            await translator.Add(masterId).Add(slaveId).ExecuteAsync();
+            masterId = translator.Translate(masterId);
+            slaveId = translator.Translate(slaveId);
+            await _service.ReleaseLockAsync(masterId, slaveId, lockId, token);
         }
     }
 }

@@ -31,6 +31,7 @@ namespace Xlent.Lever.Libraries2.Crud.Interfaces
         IUpdateSlaveAndReturn<TModel, TId>,
         IDeleteSlave<TId>,
         IDeleteChildren<TId>,
+        ILockableSlave<TId>,
         ICrudSlaveToMasterBasic<TModelCreate, TModel, TId>
         where TModel : TModelCreate
     {
